@@ -1,0 +1,9 @@
+{
+    "extends": "airbnb",
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "indent": [1, 4, { "SwitchCase": 1, "VariableDeclarator": 1 }]
+    }
+}
