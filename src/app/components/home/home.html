@@ -1,0 +1,21 @@
+<!-- menu -->
+<div class="menu">
+    <button type="button" class="btn btn3d btn-info" data-ui-sref="root.home">Home</button>
+    <button type="button" class="btn btn3d btn-success" data-ng-click="$ctrl.newGame('EASY')">Easy</button>
+    <button type="button" class="btn btn3d btn-warning" data-ng-click="$ctrl.newGame('MEDIUM')">Medium</button>
+    <button type="button" class="btn btn3d btn-danger" data-ng-click="$ctrl.newGame('HARD')">Hard</button>
+</div>
+
+<!-- games active -->
+<div class="list-group" data-ng-show="$ctrl.games">
+    <a data-ui-sref="root.game({ id: game.id })"
+        data-ng-repeat="game in $ctrl.games"
+        class="list-group-item">
+        {{ game.difficulty }} {{ game.width }} x {{ game.height }}
+    </a>
+</div>
+
+<!-- the game board -->
+<div data-ui-view></div>
+
+<!-- footer -->
