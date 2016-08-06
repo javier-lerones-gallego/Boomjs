@@ -24,6 +24,12 @@ import { GameComponent } from './components/game/game.component';
 import GameService from './services/game.service';
 import StatsService from './services/stats.service';
 
+// Import Model Factories
+import Guid from './models/guid.model';
+import Game from './models/game.model';
+import Board from './models/board.model';
+import Tile from './models/tile.model';
+
 // Declare the angular app name
 const appName = 'com.javierlerones.minesweeper';
 
@@ -48,6 +54,12 @@ app.component(GameComponent.name, GameComponent);
 // Services
 app.service(GameService.name, GameService);
 app.service(StatsService.name, StatsService);
+
+// Models
+app.factory('Game', Game);
+app.factory('Guid', Guid);
+app.factory('Tile', Tile);
+app.factory('Board', Board);
 
 // Bootstrap the Angular app when the document is ready
 angular.element(document).ready(() => {

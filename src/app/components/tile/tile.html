@@ -1,4 +1,5 @@
-<button class="btn btn3d btn-primary cell"
+<button class="btn btn3d cell"
+    data-ng-class="{'btn-primary': !$ctrl.tile.isMine, 'btn-danger': $ctrl.tile.isMine}"
     data-ng-click=""
     data-ng-mousedown=""
     data-ng-mouseup=""></button>

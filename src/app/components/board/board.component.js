@@ -4,17 +4,10 @@ import template from './board.html';
 class BoardController {
     constructor($element) {
         this.$element = $element;
-        this._tiles = [];
     }
 
-    $onInit() {
-        // Create the tile collection
-        for (let i = 0, l = this.game.width * this.game.height; i < l; i++) {
-            this._tiles.push(i);
-        }
-    }
-
-    get tiles() { return this._tiles; }
+    get board() { return this.game.board; }
+    get tiles() { return this.game.board.tiles; }
 }
 
 export const BoardComponent = {

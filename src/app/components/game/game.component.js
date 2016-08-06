@@ -8,6 +8,7 @@ class GameController {
     }
 
     get game() { return this._game; }
+    get board() { return this._game.board; }
 }
 
 export const GameComponent = {

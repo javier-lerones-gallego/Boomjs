@@ -10,6 +10,11 @@ class TileController {
 
 export const TileComponent = {
     name: 'tile',
+    bindings: {
+        board: '<',
+        tile: '<',
+        game: '<',
+    },
     controller: TileController,
     template,
 };

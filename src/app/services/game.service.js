@@ -1,10 +1,10 @@
-import Game from '../models/game.model';
 
 /* ngInject */
 export default class GameService {
-    constructor($state, $q) {
+    constructor($state, $q, Game) {
         this.$q = $q;
         this.$state = $state;
+        this.Game = Game;
 
         // The collection of games, not an array bc they suck.
         this._games = {};
@@ -44,33 +44,19 @@ export default class GameService {
     }
 
     create(difficulty) {
+        const newGame = new this.Game();
         if (difficulty === 'EASY') {
-            return this.newEasyGame();
+            newGame.easy();
         } else if (difficulty === 'MEDIUM') {
-            return this.newMediumGame();
+            newGame.medium();
         } else if (difficulty === 'HARD') {
-            return this.newHardGame();
+            newGame.hard();
+        } else {
+            // TODO: Custom difficulty
+            newGame.custom(9, 9, 10);
         }
-        // TODO: Custom difficulty
-        return this.newEasyGame();
-    }
-
-    newGame(options) {
-        const newGame = Game.newGame(options);
         this._games[newGame.id] = newGame;
         return this.$q.when(newGame.generate());
-    }
-
-    newEasyGame() {
-        return this.newGame({ width: 9, height: 9, mineCount: 10, difficulty: 'EASY' });
-    }
-
-    newMediumGame() {
-        return this.newGame({ width: 16, height: 16, mineCount: 40, difficulty: 'MEDIUM' });
-    }
-
-    newHardGame() {
-        return this.newGame({ width: 30, height: 16, mineCount: 99, difficulty: 'HARD' });
     }
 
     activate(id) {

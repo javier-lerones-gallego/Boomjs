@@ -1,128 +1,143 @@
-import Guid from './guid.model';
-import Mine from './mine.model';
+/* ngInject */
+export default function Game(Guid, Board) {
+    class GameModel {
+        constructor() {
+            this._id = new Guid();
+            this._width = null;
+            this._height = null;
+            this._mineCount = null;
+            this._difficulty = 'EASY';
 
-// GAMESTATE = ('NEW', 'RANDOMIZING', 'READY', 'STARTED', 'PAUSED', 'FINISHED');
+            // Assign the New state
+            this._state = 'NEW';
 
-export default class Game {
-    constructor() {
-        this._id = Guid.newGuid().value;
-        this._width = 9;
-        this._height = 9;
-        this._mineCount = 10;
-        this._state = 'NEW';
-        this._difficulty = 'EASY';
+            // Timestamps
+            this._start = null;
+            this._ellapsed = null;
 
-        this._start = null;
-        this._ellapsed = null;
+            // The Board model is instantiated in the create methods
+            this._board = null;
+        }
 
-        // The collection of Mine objects
-        this._mines = [];
-    }
+        get id() { return this._id.value; }
+        set id(value) {
+            const guid = new this.Guid();
+            guid.value = value;
+            this._id = guid;
+        }
 
-    static newGame(options) {
-        const newGame = new Game();
+        get width() { return this._width; }
+        get height() { return this._height; }
+        get mineCount() { return this._mineCount; }
+        get difficulty() { return this._difficulty; }
 
-        newGame.id = Guid.newGuid().value;
-        newGame.width = options.width || 9;
-        newGame.height = options.height || 9;
-        newGame.mineCount = options.mineCount || 10;
-        newGame.difficulty = options.difficulty || 'EASY';
-        newGame.state = 'NEW';
+        get state() { return this._state; }
+        set state(value) { this._state = value; }
 
-        return newGame;
-    }
+        get board() { return this._board; } // Readonly, generated
 
-    get id() { return this._id.value; }
-    set id(value) {
-        const guid = new Guid();
-        guid.value = value;
-        this._id = guid;
-    }
+        get isReady() { return this._state === 'READY'; }
+        get isCreating() { return this._state === 'RANDOMIZING'; }
+        get isStarted() { return this._state === 'STARTED'; }
+        get isPaused() { return this._state === 'PAUSED'; }
+        get isFinished() { return this._state === 'FINISHED'; }
 
-    get width() { return this._width; }
-    set width(value) { this._width = value; }
+        get css() { return this._difficulty.toLowerCase(); }
 
-    get height() { return this._height; }
-    set height(value) { this._height = value; }
+        easy() {
+            this._width = 9;
+            this._height = 9;
+            this._mineCount = 10;
+            this._difficulty = 'EASY';
+            // Instantiate the Board
+            this._board = new Board(9, 9, 10);
+        }
 
-    get mineCount() { return this._mineCount; }
-    set mineCount(value) { this._mineCount = value; }
+        medium() {
+            this._width = 16;
+            this._height = 16;
+            this._mineCount = 40;
+            this._difficulty = 'MEDIUM';
+            // Instantiate the Board
+            this._board = new Board(16, 16, 40);
+        }
 
-    get state() { return this._state; }
-    set state(value) { this._state = value; }
+        hard() {
+            this._width = 30;
+            this._height = 16;
+            this._mineCount = 99;
+            this._difficulty = 'HARD';
+            // Instantiate the Board
+            this._board = new Board(30, 16, 99);
+        }
 
-    get difficulty() { return this._difficulty; }
-    set difficulty(value) { this._difficulty = value; }
+        custom(/* width, height, mineCount*/) {
+            // TODO
+        }
 
-    get isReady() { return this._state === 'READY'; }
-    get isCreating() { return this._state === 'RANDOMIZING'; }
-    get isStarted() { return this._state === 'STARTED'; }
-    get isPaused() { return this._state === 'PAUSED'; }
-    get isFinished() { return this._state === 'FINISHED'; }
+        randomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
 
-    get css() { return this._difficulty.toLowerCase(); }
+        randomX() {
+            return this.randomNumber(0, this._width - 1);
+        }
 
-    randomNumber(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
+        randomY() {
+            return this.randomNumber(0, this._height - 1);
+        }
 
-    randomX() {
-        return this.randomNumber(0, this._width - 1);
-    }
+        hasMine(x, y) {
+            return this._mines.some(mine => mine.x === x && mine.y === y);
+        }
 
-    randomY() {
-        return this.randomNumber(0, this._height - 1);
-    }
+        generate() {
+            // Set the state
+            this._state = 'RANDOMIZING';
 
-    hasMine(x, y) {
-        return this._mines.some(mine => mine.x === x && mine.y === y);
-    }
+            // First populate the board with all its tiles
+            this._board.populate();
 
-    generate() {
-        // Set the state
-        this._state = 'RANDOMIZING';
+            // Randomize the mine locations
+            for (let mines = 0; mines <= this._mineCount; mines++) {
+                let foundEmptySpot = false;
+                while (!foundEmptySpot) {
+                    const x = this.randomX();
+                    const y = this.randomY();
 
-        // TODO: Randomize the mine locations
-        for (let mines = 0; mines <= this._mineCount; mines++) {
-            const mine = new Mine();
-
-            let foundEmptySpot = false;
-            while (!foundEmptySpot) {
-                const x = this.randomX();
-                const y = this.randomY();
-
-                if (!this.hasMine(x, y)) {
-                    mine.x = x;
-                    mine.y = y;
-                    foundEmptySpot = true;
+                    if (!this._board.hasMine(x, y)) {
+                        // Add the mine to the board
+                        this._board.addMine(x, y);
+                        foundEmptySpot = true;
+                    }
                 }
             }
 
-            this._mines.push(mine);
+            // Set the state to ready after creating the game.
+            this._state = 'READY';
+
+            // Return the game itself for the methods that invoke generate()
+            return this;
         }
 
-        // Set the state to ready after creating the game.
-        this._state = 'READY';
+        reset() {
+            // Set the state
+            this._state = 'NEW';
 
-        // REturn the game itself for the methods that invoke generate()
-        return this;
+            // Regenerate
+            this.generate();
+        }
+
+        start() {
+            // Set the state
+            this._state = 'STARTED';
+        }
+
+        pause() {
+            // Set the state
+            this._state = 'PAUSED';
+        }
     }
 
-    reset() {
-        // Set the state
-        this._state = 'NEW';
-
-        // Regenerate
-        this.generate();
-    }
-
-    start() {
-        // Set the state
-        this._state = 'STARTED';
-    }
-
-    pause() {
-        // Set the state
-        this._state = 'PAUSED';
-    }
+    return GameModel;
 }
