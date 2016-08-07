@@ -6,6 +6,8 @@ export default function Tile() {
             this._y = -1;
             this._isMine = false;
             this._count = 0;
+
+            this._highlight = false;
         }
 
         get x() { return this._x; }
@@ -19,6 +21,9 @@ export default function Tile() {
 
         get count() { return this._count; }
         set count(value) { this._count = value; }
+
+        get highlight() { return this._highlight; }
+        set highlight(value) { this._highlight = value; }
     }
 
     return TileModel;

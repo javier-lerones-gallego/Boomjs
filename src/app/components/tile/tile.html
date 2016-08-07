@@ -1,5 +1,10 @@
 <button class="btn btn3d cell"
-    data-ng-class="{'btn-primary': !$ctrl.tile.isMine, 'btn-danger': $ctrl.tile.isMine}"
-    data-ng-click=""
+    data-ng-class="$ctrl.css"
+    data-ng-click="$ctrl.highlightNeighbours()"
     data-ng-mousedown=""
-    data-ng-mouseup=""></button>
+    data-ng-mouseup="">
+
+    <span data-ng-if="$ctrl.game.debug" class="tile-coordinates">({{ $ctrl.tile.x }},{{ $ctrl.tile.y}})</span>
+    <span data-ng-if="$ctrl.game.debug" class="tile-count">{{ $ctrl.tile.count }}</span>
+
+    </button>

@@ -3,8 +3,8 @@ export default function Game(Guid, Board) {
     class GameModel {
         constructor() {
             this._id = new Guid();
-            this._width = null;
-            this._height = null;
+            this._rows = null;
+            this._columns = null;
             this._mineCount = null;
             this._difficulty = 'EASY';
 
@@ -17,6 +17,9 @@ export default function Game(Guid, Board) {
 
             // The Board model is instantiated in the create methods
             this._board = null;
+
+            // Debug flag
+            this._debug = false;
         }
 
         get id() { return this._id.value; }
@@ -26,8 +29,8 @@ export default function Game(Guid, Board) {
             this._id = guid;
         }
 
-        get width() { return this._width; }
-        get height() { return this._height; }
+        get rows() { return this._rows; }
+        get columns() { return this._columns; }
         get mineCount() { return this._mineCount; }
         get difficulty() { return this._difficulty; }
 
@@ -42,11 +45,14 @@ export default function Game(Guid, Board) {
         get isPaused() { return this._state === 'PAUSED'; }
         get isFinished() { return this._state === 'FINISHED'; }
 
+        get debug() { return this._debug; }
+        set debug(value) { this._debug = value; }
+
         get css() { return this._difficulty.toLowerCase(); }
 
         easy() {
-            this._width = 9;
-            this._height = 9;
+            this._rows = 9;
+            this._columns = 9;
             this._mineCount = 10;
             this._difficulty = 'EASY';
             // Instantiate the Board
@@ -54,8 +60,8 @@ export default function Game(Guid, Board) {
         }
 
         medium() {
-            this._width = 16;
-            this._height = 16;
+            this._rows = 16;
+            this._columns = 16;
             this._mineCount = 40;
             this._difficulty = 'MEDIUM';
             // Instantiate the Board
@@ -63,12 +69,12 @@ export default function Game(Guid, Board) {
         }
 
         hard() {
-            this._width = 30;
-            this._height = 16;
+            this._rows = 16;
+            this._columns = 30;
             this._mineCount = 99;
             this._difficulty = 'HARD';
             // Instantiate the Board
-            this._board = new Board(30, 16, 99);
+            this._board = new Board(16, 30, 99);
         }
 
         custom(/* width, height, mineCount*/) {
@@ -80,11 +86,11 @@ export default function Game(Guid, Board) {
         }
 
         randomX() {
-            return this.randomNumber(0, this._width - 1);
+            return this.randomNumber(0, this._rows - 1);
         }
 
         randomY() {
-            return this.randomNumber(0, this._height - 1);
+            return this.randomNumber(0, this._columns - 1);
         }
 
         hasMine(x, y) {
@@ -99,7 +105,7 @@ export default function Game(Guid, Board) {
             this._board.populate();
 
             // Randomize the mine locations
-            for (let mines = 0; mines <= this._mineCount; mines++) {
+            for (let mines = 0; mines < this._mineCount; mines++) {
                 let foundEmptySpot = false;
                 while (!foundEmptySpot) {
                     const x = this.randomX();
