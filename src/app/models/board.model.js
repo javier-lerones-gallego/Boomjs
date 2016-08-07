@@ -19,6 +19,8 @@ export default function Board(Tile) {
         get mineCount() { return this._mineCount; }
         set mineCount(value) { this._mineCount = value; }
 
+        get flagCount() { return this._tiles.filter(t => t.flagged).length; }
+
         get tiles() { return this._tiles; } // Read only, add and remove using the methods
 
         populate() {

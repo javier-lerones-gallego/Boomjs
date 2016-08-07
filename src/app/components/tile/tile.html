@@ -1,10 +1,17 @@
 <button class="btn btn3d cell"
     data-ng-class="$ctrl.css"
-    data-ng-click="$ctrl.highlightNeighbours()"
-    data-ng-mousedown=""
-    data-ng-mouseup="">
+    data-ng-dblclick="$ctrl.onDblClick($event)"
+    data-ng-mousedown="$ctrl.onMouseDown($event)"
+    data-ng-mouseup="$ctrl.onMouseUp($event)">
+
+    <i data-ng-if="$ctrl.tile.flagged && !$ctrl.game.debug" class="tile-icon fa fa-flag"></i>
+    <i data-ng-if="$ctrl.tile.question && !$ctrl.game.debug" class="tile-icon fa fa-question-circle"></i>
+    <i data-ng-if="$ctrl.tile.detonated && !$ctrl.game.debug" class="tile-icon fa fa-bomb"></i>
+
+    <span data-ng-if="$ctrl.tile.revealed && !$ctrl.game.debug"
+        data-ng-bind="$ctrl.tile.count"
+        data-ng-class="'_' + $ctrl.tile.count"></span>
 
     <span data-ng-if="$ctrl.game.debug" class="tile-coordinates">({{ $ctrl.tile.x }},{{ $ctrl.tile.y}})</span>
     <span data-ng-if="$ctrl.game.debug" class="tile-count">{{ $ctrl.tile.count }}</span>
-
-    </button>
+</button>
