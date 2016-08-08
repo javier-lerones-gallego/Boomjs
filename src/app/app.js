@@ -16,6 +16,7 @@ import { AppComponent } from './components/app/app.component';
 
 // Import Components
 import { HomeComponent } from './components/home/home.component';
+import { HeaderComponent } from './components/header/header.component';
 import { BoardComponent } from './components/board/board.component';
 import { TileComponent } from './components/tile/tile.component';
 import { GameComponent } from './components/game/game.component';
@@ -47,6 +48,7 @@ app.component(AppComponent.name, AppComponent);
 
 // Components
 app.component(HomeComponent.name, HomeComponent);
+app.component(HeaderComponent.name, HeaderComponent);
 app.component(BoardComponent.name, BoardComponent);
 app.component(TileComponent.name, TileComponent);
 app.component(GameComponent.name, GameComponent);

@@ -1,6 +1,9 @@
 .btn:focus, .btn.active:focus {
     outline: none !important;
 }
+.btn {
+    font-weight: bold !important;
+}
 .btn3d {
     font-weight: bold !important;
     transition: all .08s linear;
@@ -10,40 +13,70 @@
     margin-top: 8px;
     top: 0;
 }
-.btn3d:focus {
+.btn3d:focus{
     outline: medium none;
 }
 .btn3d:active,
 .btn3d.active {
-    top: 5px;
+    top: 4px;
+}
+.btn3d.btn-default,
+.btn.btn-default {
+    text-shadow: 0px 1px 0px #999999;
+}
+.btn3d.btn-primary,
+.btn.btn-primary {
+    text-shadow: 0px 1px 0px #3071A9;
+}
+.btn3d.btn-success,
+.btn.btn-success {
+    text-shadow: 0px 1px 0px #449D44;
+}
+.btn3d.btn-info,
+.btn.btn-info {
+    text-shadow: 0px 1px 0px #31B0D5;
+}
+.btn3d.btn-warning,
+.btn.btn-warning {
+    text-shadow: 0px 1px 0px #EC971F;
+}
+.btn3d.btn-danger,
+.btn.btn-danger {
+    text-shadow: 0px 1px 0px #C9302C;
 }
 .btn3d.btn-default {
-    text-shadow: 0px 1px 0px #999999;
     box-shadow: 0 0 0 1px #EBEBEB inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 4px 0 0 #ADADAD, 0 4px 0 1px rgba(0, 0, 0, 0.4), 0 4px 4px 1px rgba(0, 0, 0, 0.5);
 }
 .btn3d.btn-primary {
-    text-shadow: 0px 1px 0px #3071A9;
     box-shadow: 0 0 0 1px #428BCA inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 4px 0 0 #357EBD, 0 4px 0 1px rgba(0, 0, 0, 0.4), 0 4px 4px 1px rgba(0, 0, 0, 0.5);
 }
 .btn3d.btn-success {
-    text-shadow: 0px 1px 0px #449D44;
     box-shadow: 0 0 0 1px #5CB85C inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 4px 0 0 #4CAC4C, 0 4px 0 1px rgba(0, 0, 0, 0.4), 0 4px 4px 1px rgba(0, 0, 0, 0.5);
 }
 .btn3d.btn-info {
-    text-shadow: 0px 1px 0px #31B0D5;
     box-shadow: 0 0 0 1px #5BC0DE inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 4px 0 0 #46B8DA, 0 4px 0 1px rgba(0, 0, 0, 0.4), 0 4px 4px 1px rgba(0, 0, 0, 0.5);
+    background: #AEECFF; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover, #AEECFF 0%, #52DBFF 100%); /* FF3.6-15 */
+    background: -webkit-radial-gradient(center, ellipse cover, #AEECFF 0%,#52DBFF 100%); /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(ellipse at center, #AEECFF 0%,#52DBFF 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#AEECFF', endColorstr='#52DBFF',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
 }
 .btn3d.btn-warning {
-    text-shadow: 0px 1px 0px #EC971F;
     box-shadow: 0 0 0 1px #F0AD4E inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 4px 0 0 #EEA236, 0 4px 0 1px rgba(0, 0, 0, 0.4), 0 4px 4px 1px rgba(0, 0, 0, 0.5);
+    background: #FFE03D; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover, #FFE03D 0%, #FFAA35 100%); /* FF3.6-15 */
+    background: -webkit-radial-gradient(center, ellipse cover, #FFE03D 0%,#FFAA35 100%); /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(ellipse at center, #FFE03D 0%,#FFAA35 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFE03D', endColorstr='#FFAA35',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 .btn3d.btn-danger {
-    text-shadow: 0px 1px 0px #C9302C;
     box-shadow: 0 0 0 1px #C63702 inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 4px 0 0 #C24032, 0 4px 0 1px rgba(0, 0, 0, 0.4), 0 4px 4px 1px rgba(0, 0, 0, 0.5);
 }
+
 .btn3d:active.btn-default,
 .btn3d.active.btn-default {
-    box-shadow: none;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 0 0 1px rgba(0, 0, 0, 0.4);
 }
 .btn3d:active.btn-primary,
 .btn3d.active.btn-primary {
@@ -66,32 +99,79 @@
     box-shadow: none;
 }
 .btn3d.active {
-    font-size: 1.2em;
-    font-weight: bold;
-    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+    font-size: 1.3em;
+    font-weight: 700;
 }
 
+.btn3d.active span._0 {
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    margin-top: -2px;
+    display: block;
+}
 .btn3d.active span._1 {
-    color: #FF0000;
+    color: #26BCDA;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    margin-top: -2px;
+    display: block;
 }
 .btn3d.active span._2 {
-    color: #FF6000;
+    color: #73912E;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    margin-top: -2px;
+    display: block;
 }
 .btn3d.active span._3 {
-    color: #FFC000;
+    color: #F02A74;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    margin-top: -2px;
+    display: block;
 }
 .btn3d.active span._4 {
-    color: #FFF000;
+    color: #2B7EC8;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    margin-top: -2px;
+    display: block;
 }
 .btn3d.active span._5 {
-    color: #FFF600;
+    color: #CA2121;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    margin-top: -2px;
+    display: block;
 }
 .btn3d.active span._6 {
-    color: #FFFC00;
+    color: #FFDC00;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    margin-top: -2px;
+    display: block;
 }
 .btn3d.active span._7 {
-    color: #FFFF00;
+    color: #005403;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    margin-top: -2px;
+    display: block;
 }
 .btn3d.active span._8 {
-    color: #FFFF60;
+    color: #763F05;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    margin-top: -2px;
+    display: block;
 }
+
+.btn-default.active:focus {
+    background-color: #E6E6E6;
+
+.btn-primary.active:focus {
+    background-color: #286090;
+}
+.btn-success.active:focus {
+    background-color: #449D44;
+}
+.btn-info.active:focus {
+    background-color: #31B0D5;
+}
+.btn-warning.active:focus {
+    background-color: #EC971F;
+}
+.btn-danger.active:focus {
+    background-color: #C9302C;
+}}

@@ -1,15 +1,23 @@
 board {
-    display: inline-block;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border-radius: 3px;
+    padding-top: 10px;
+    padding-right: 10px;
 }
 board.easy {
-    width: 390px;
+    width: 420px;
 }
 board.medium {
-    width: 695px;
+    width: 720px;
 }
-
 board.hard {
-    width: 1300px
+    width: 1320px
 }
 
 

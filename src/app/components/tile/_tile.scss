@@ -1,11 +1,17 @@
+tile {
+    display: inline-block;
+    width: 43px;
+    height: 37px;
+}
+
 .btn-debug {
     padding: 0;
     line-height: 10px;
 }
 
 .tile-coordinates {
-    font-size: 8px;
     display: inline-block;
+    font-size: 8px;
 }
 
 .tile-count {
@@ -17,5 +23,17 @@
     top: 2px;
     left: -2px;
     font-size: 1.3em;
-    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.tile-icon.fa.fa-flag {
+    color: #C63702;
+    text-shadow: 0 -1px 1px rgba(255, 0, 0, 0.5);
+}
+.tile-icon.fa.fa-question-circle {
+    color: #FFFFFF;
+    text-shadow: 0 -1px 1px rgba(53, 209, 255, 0.5);
+}
+.tile-icon.fa.fa-bomb {
+    color: #FFFFFF;
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
 }

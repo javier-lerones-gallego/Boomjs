@@ -1,11 +1,16 @@
-a.ng-link-active {
-    color: #F00;
+app {
+    display: block;
+    height: 100%;
 }
-
 .app {
-    padding-top: 10px;
-}
+    position: absolute;
+    width: 100%;
+    top: 80px;
+    bottom: 0;
+    display: block;
 
-.menu {
-    margin-bottom: 10px;
+    .full-height {
+        display: block;
+        height: 100%;
+    }
 }

@@ -1,0 +1,92 @@
+home {
+    color: #121821;
+    h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        margin-left: 0;
+        margin-right: 0;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    .my-games {
+        margin-bottom: 20px;
+
+        .my-games-container {
+            background-color: #FFFFFF;
+            border-radius: 3px;
+
+            .header {
+                padding: 25px;
+                h2 {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    margin-left: 0;
+                    margin-right: 0;
+                    font-size: 17px;
+                    font-weight: 600;
+                    line-height: 27px;
+                }
+            }
+            ul.game-list {
+                margin-top: 0;
+                margin-bottom: 0;
+                margin-left: 0;
+                margin-right: 0;
+                padding-left: 0;
+                list-style: none;
+                li.game-list-item {
+                    border-top: 1px solid #ECEEF1;
+                    background-color: #FDFCF6;
+                    padding: 15px;
+                    a {
+                        display: block;
+                        text-decoration: none;
+                        color: #828B98;
+                        font-weight: 600;
+                        line-height: 21px;
+                    }
+                }
+            }
+        }
+    }
+    .game-selector {
+        .thumbnail {
+            cursor: pointer;
+            padding: 10px;
+            max-width: 250px;
+            display: inline-block;
+        }
+        .thumbnail> img.game-thumb {
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            margin-right: 0;
+            margin-left: 0;
+            width: 100%;
+        }
+        .caption.game {
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #FFFFFF;
+            padding: 0 9px;
+            line-height: 36px;
+        }
+        .caption.game.green {
+            background-color: #47A447;
+            border-color: #398439;
+            text-shadow: 0px 1px 0px #449D44;
+        }
+        .caption.game.orange {
+            background-color: #F0AD4E;
+            border-color: #EEA236;
+            text-shadow: 0px 1px 0px #EC971F;
+        }
+        .caption.game.red {
+            background-color: #D9534F;
+            border-color: #D43F3A;
+            text-shadow: 0px 1px 0px #C9302C;
+        }
+    }
+}

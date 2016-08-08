@@ -7,13 +7,7 @@ export default function Tile() {
             this._isMine = false;
             this._count = 0;
 
-            this._active = true;
-            this._flagged = false;
-            this._question = false;
-
-            this._revealed = false;
-
-            this._detonated = false;
+            this._state = 0;
 
             // Debug
             this._highlight = false;
@@ -31,49 +25,57 @@ export default function Tile() {
         get count() { return this._count; }
         set count(value) { this._count = value; }
 
-        get active() { return this._active; }
-        get question() { return this._question; }
-        get flagged() { return this._flagged; }
-        get revealed() { return this._revealed; }
-        get detonated() { return this._detonated; }
+        get active() { return this._state === 0; }
+        get question() { return this._state === 2; }
+        get flagged() { return this._state === 1; }
+        get revealed() { return this._state === 3; }
+        get detonated() { return this._state === 4; }
 
         get highlight() { return this._highlight; }
         set highlight(value) { this._highlight = value; }
 
+        get state() { return this._state; }
+        set state(value) {
+            switch (value) {
+                case 'ACTIVE':
+                    this._state = 0;
+                    break;
+                case 'FLAGGED':
+                    this._state = 1;
+                    break;
+                case 'QUESTION':
+                    this._state = 2;
+                    break;
+                case 'REVEALED':
+                    this._state = 3;
+                    break;
+                case 'DETONATED':
+                    this._state = 4;
+                    break;
+                default:
+                    this._state = 0;
+                    break;
+            }
+        }
+
         flag() {
-            this._active = false;
-            this._question = false;
-            this._revealed = false;
-            this._flagged = true;
+            this.state = 'FLAGGED';
         }
 
         unknown() {
-            this._active = false;
-            this._question = true;
-            this._revealed = false;
-            this._flagged = false;
+            this.state = 'QUESTION';
         }
 
         activate() {
-            this._active = true;
-            this._question = false;
-            this._revealed = false;
-            this._flagged = false;
+            this.state = 'ACTIVE';
         }
 
         reveal() {
-            this._active = false;
-            this._question = false;
-            this._revealed = true;
-            this._flagged = false;
+            this.state = 'REVEALED';
         }
 
         detonate() {
-            this._active = false;
-            this._question = false;
-            this._revealed = false;
-            this._flagged = false;
-            this._detonated = true;
+            this.state = 'DETONATED';
         }
     }
 

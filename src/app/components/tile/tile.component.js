@@ -70,11 +70,6 @@ class TileController {
                 // highlight the neighbours
             }
         }
-
-        // Trigger the clicked event, only used to start the timer
-
-        // Remove the focus to avoid the shadowed blue that stays after clicking
-        this.$element[0].blur();
     }
 
     onDblClick() {

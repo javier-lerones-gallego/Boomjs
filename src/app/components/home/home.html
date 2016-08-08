@@ -1,21 +1,38 @@
-<!-- menu -->
-<div class="menu">
-    <button type="button" class="btn btn3d btn-info" data-ui-sref="root.home">Home</button>
-    <button type="button" class="btn btn3d btn-success" data-ng-click="$ctrl.newGame('EASY')">Easy</button>
-    <button type="button" class="btn btn3d btn-warning" data-ng-click="$ctrl.newGame('MEDIUM')">Medium</button>
-    <button type="button" class="btn btn3d btn-danger" data-ng-click="$ctrl.newGame('HARD')">Hard</button>
+<div class="row">
+    <div class="my-games col-xs-12 col-sm-8 col-md-9">
+        <div class="my-games-container">
+            <!-- games active -->
+            <div class="header">
+                <h2>My Games</h2>
+            </div>
+            <ul class="game-list" data-ng-show="$ctrl.games">
+                <li class="game-list-item" data-ng-repeat="game in $ctrl.games">
+                    <a data-ui-sref="root.game({ id: game.id })">
+                            {{ game.difficulty }} {{ game.columns }}x{{ game.rows }}
+                        </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="game-selector col-xs-12 col-sm-4 col-md-3">
+        <!-- game selector -->
+        <div class="thumbnail" id="neweasy" data-ng-click="$ctrl.newGame('EASY')">
+            <img src="/images/easy.png" class="game-thumb" alt="...">
+            <div class="caption game green">
+                New Easy (9x9)
+            </div>
+        </div>
+        <div class="thumbnail" id="newmedium" data-ng-click="$ctrl.newGame('MEDIUM')">
+            <img src="/images/medium.png" class="game-thumb" alt="...">
+            <div class="caption game orange">
+                New Medium (16x16)
+            </div>
+        </div>
+        <div class="thumbnail" id="newexpert" data-ng-click="$ctrl.newGame('HARD')">
+            <img src="/images/expert.png" class="game-thumb" alt="...">
+            <div class="caption game red">
+                New Expert (30x16)
+            </div>
+        </div>
+    </div>
 </div>
-
-<!-- games active -->
-<div class="list-group" data-ng-show="$ctrl.games">
-    <a data-ui-sref="root.game({ id: game.id })"
-        data-ng-repeat="game in $ctrl.games"
-        class="list-group-item">
-        {{ game.difficulty }} {{ game.width }} x {{ game.height }}
-    </a>
-</div>
-
-<!-- the game board -->
-<div data-ui-view></div>
-
-<!-- footer -->

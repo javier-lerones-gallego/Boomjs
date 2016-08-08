@@ -6,4 +6,7 @@ export default function Run($rootScope, $state) {
             $state.go('root.home');
         }
     });
+
+    // Initially redirect to the home to avoid errors on game states
+    $state.go('root.home');
 }
