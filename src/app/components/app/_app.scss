@@ -5,12 +5,14 @@ app {
 .app {
     position: absolute;
     width: 100%;
-    top: 80px;
+    top: 60px;
     bottom: 0;
     display: block;
 
     .full-height {
+        padding-top: 20px;
         display: block;
         height: 100%;
+        overflow-x: auto;
     }
 }

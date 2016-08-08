@@ -16,23 +16,17 @@
     </div>
     <div class="game-selector col-xs-12 col-sm-4 col-md-3">
         <!-- game selector -->
-        <div class="thumbnail" id="neweasy" data-ng-click="$ctrl.newGame('EASY')">
-            <img src="/images/easy.png" class="game-thumb" alt="...">
-            <div class="caption game green">
-                New Easy (9x9)
+        <div class="game-selector-container">
+            <div class="header">
+                <h3><i class="fa fa-plus"></i>  New Game</h3>
             </div>
-        </div>
-        <div class="thumbnail" id="newmedium" data-ng-click="$ctrl.newGame('MEDIUM')">
-            <img src="/images/medium.png" class="game-thumb" alt="...">
-            <div class="caption game orange">
-                New Medium (16x16)
-            </div>
-        </div>
-        <div class="thumbnail" id="newexpert" data-ng-click="$ctrl.newGame('HARD')">
-            <img src="/images/expert.png" class="game-thumb" alt="...">
-            <div class="caption game red">
-                New Expert (30x16)
-            </div>
+            <ul class="new-game-options">
+                <li>
+                    <button type="button" class="btn btn-block btn-success" data-ng-click="$ctrl.newGame('EASY')">New Easy (9x9)</button>
+                    <button type="button" class="btn btn-block btn-warning" data-ng-click="$ctrl.newGame('MEDIUM')">New Medium (16x16)</button>
+                    <button type="button" class="btn btn-block btn-danger" data-ng-click="$ctrl.newGame('HARD')">New Expert (30x16)</button>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
