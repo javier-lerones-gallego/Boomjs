@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 /* ngInject */
 export default function Game(Guid, Board) {
     class GameModel {
@@ -13,13 +15,10 @@ export default function Game(Guid, Board) {
 
             // Timestamps
             this._start = null;
-            this._ellapsed = null;
+            this._end = null;
 
             // The Board model is instantiated in the create methods
             this._board = null;
-
-            // Debug flag
-            this._debug = false;
         }
 
         get id() { return this._id.value; }
@@ -45,8 +44,10 @@ export default function Game(Guid, Board) {
         get isPaused() { return this._state === 'PAUSED'; }
         get isFinished() { return this._state === 'FINISHED'; }
 
-        get debug() { return this._debug; }
-        set debug(value) { this._debug = value; }
+        get started() { return this._start; }
+        get end() { return this._end; }
+
+        get ellapsed() { return moment.duration(this._end.diff(this._start)).asSeconds(); }
 
         get css() { return this._difficulty.toLowerCase(); }
 
@@ -75,10 +76,6 @@ export default function Game(Guid, Board) {
             this._difficulty = 'HARD';
             // Instantiate the Board
             this._board = new Board(16, 30, 99);
-        }
-
-        custom(/* width, height, mineCount*/) {
-            // TODO
         }
 
         randomNumber(min, max) {
@@ -130,6 +127,10 @@ export default function Game(Guid, Board) {
             // Set the state
             this._state = 'NEW';
 
+            // Reset the time
+            this._start = null;
+            this._end = null;
+
             // Regenerate
             this.generate();
         }
@@ -137,11 +138,30 @@ export default function Game(Guid, Board) {
         start() {
             // Set the state
             this._state = 'STARTED';
+            // Set the start time
+            this._start = moment();
         }
 
         pause() {
             // Set the state
             this._state = 'PAUSED';
+        }
+
+        finish() {
+            // Set the state
+            this._state = 'FINISHED';
+
+            // Set the end time
+            this._end = moment();
+
+            // TODO: Delete all child collections and store only the stats to free up memory
+        }
+
+        gameOver() {
+            this._state = 'GAMEOVER';
+
+            // Set the end time
+            this._end = moment();
         }
     }
 

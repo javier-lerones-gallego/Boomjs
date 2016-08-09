@@ -20,6 +20,9 @@ export default function Board(Tile) {
         set mineCount(value) { this._mineCount = value; }
 
         get flagCount() { return this._tiles.filter(t => t.flagged).length; }
+        get first() { return this._tiles.filter(t => t.revealed).length === 1; }
+        get revealed() { return this._tiles.filter(t => t.revealed).length; }
+        get completed() { return this._tiles.length - this._mineCount === this.revealed; }
 
         get tiles() { return this._tiles; } // Read only, add and remove using the methods
 
@@ -103,6 +106,42 @@ export default function Board(Tile) {
                 const neighbour = n;
                 neighbour.highlight = true;
             });
+        }
+
+        reveal(tile) {
+            // Spread the revealing to its neighbours if the count is 0
+            if (tile.count === 0) {
+                this.revealNeighbours(tile);
+            }
+        }
+
+        revealNeighbours(tile) {
+            // The tile pressed is count !== 0
+            if (tile.count !== 0) {
+                throw new Error('Tried to reveal a tile with mine count > 0.');
+            }
+
+            const neighbours = this.getNeighbours(tile.x, tile.y);
+
+            const spreadTiles = neighbours.filter(n => n.count === 0 && n.active);
+            const endTiles = neighbours.filter(n => n.count !== 0 && n.active);
+
+            // Reveal the end Tiles
+            endTiles.forEach(t => {
+                t.reveal();
+            });
+
+            // Spread to the other tiles
+            spreadTiles.forEach(t => {
+                // First reveal the actual neighbour
+                t.reveal();
+                // Then tell its neighbours to spread
+                this.revealNeighbours(t);
+            });
+        }
+
+        gameOver() {
+
         }
     }
 

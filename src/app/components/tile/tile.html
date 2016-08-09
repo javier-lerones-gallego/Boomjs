@@ -8,7 +8,7 @@
     <i data-ng-if="$ctrl.tile.question && !$ctrl.game.debug" class="tile-icon fa fa-question-circle"></i>
     <i data-ng-if="$ctrl.tile.detonated && !$ctrl.game.debug" class="tile-icon fa fa-bomb"></i>
 
-    <span data-ng-if="$ctrl.tile.revealed && !$ctrl.game.debug"
+    <span data-ng-if="$ctrl.tile.revealed && !$ctrl.game.debug && $ctrl.tile.count > 0"
         data-ng-bind="$ctrl.tile.count"
         data-ng-class="'_' + $ctrl.tile.count"></span>
 

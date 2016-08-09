@@ -9,6 +9,8 @@ class HomeController {
 
     get games() { return this.GameService.games; }
     get paused() { return this.GameService.paused; }
+    get count() { return Object.keys(this.GameService.games).length; }
+
 
     newGame(difficulty) {
         this.GameService.create(difficulty)

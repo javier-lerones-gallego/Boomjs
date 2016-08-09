@@ -7,13 +7,6 @@ class TileController {
     }
 
     get css() {
-        if (this.game.debug) {
-            if (this.tile.highlight) {
-                return 'btn-debug btn-default';
-            }
-            return this.tile.isMine ? 'btn-debug btn-danger' : 'btn-debug btn-primary';
-        }
-
         if (this.tile.active) {
             return 'btn-primary';
         } else if (this.tile.flagged) {
@@ -35,6 +28,7 @@ class TileController {
             return false;
         } else if (event.button === 2 && this.tile.revealed && this.tile.count > 0) {
             // If the square is revealed highlight the neighbours on mousedown
+
             // TODO: Right mouse highlight neighbours
 
             return true;
@@ -45,11 +39,25 @@ class TileController {
     onMouseUp(event) {
         if (event.button === 0) {
             if (this.tile.active && !this.tile.isMine) {
-                // if not a bomb, reveal it and trigger the neighbour reveal
+                // if not a bomb, reveal it
                 this.tile.reveal();
+                // If it is the first tile revealed, tell the game to start the timer
+                if (this.board.first) {
+                    this.game.start();
+                }
+                // notify the board a tile has been revealed
+                this.board.reveal(this.tile);
+                // if the board is completed, end the game
+                if (this.board.completed) {
+                    this.game.finish();
+                }
             } else if (this.tile.active && this.tile.isMine) {
-                // Game Over, notify the board
+                // Game Over, notify the game
                 this.tile.detonate();
+                // Tell the board to show all tiles
+                this.board.gameOver();
+                // Notify the game it has ended
+                this.game.gameOver();
             }
         } else if (event.button === 2) {
             // Stop the context menu
@@ -80,7 +88,7 @@ class TileController {
             // If a neighbour with a mine wasn't covered with
             // a flag is revealed, it will detonate the mine
             if (this.tile.neighbouringFlagCount === this.tile.count) {
-                // pubsubService.publish('square.neighbours.click', { id: self.id });
+                // TODO
             }
         }
     }
