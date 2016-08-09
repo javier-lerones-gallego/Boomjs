@@ -46,10 +46,10 @@ game-list-game {
             display: inline-block;
 
             &:after {
+                display: inline-block;
                 content: $list-separator;
                 width: 20px;
                 text-align: center;
-                display: inline-block;
             }
 
             &:last-child:after {

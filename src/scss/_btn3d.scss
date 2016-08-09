@@ -104,62 +104,62 @@
 }
 
 .btn3d.active span._0 {
+    display: block;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     margin-top: -2px;
-    display: block;
 }
 .btn3d.active span._1 {
+    display: block;
     color: #26BCDA;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     margin-top: -2px;
-    display: block;
 }
 .btn3d.active span._2 {
+    display: block;
     color: #73912E;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     margin-top: -2px;
-    display: block;
 }
 .btn3d.active span._3 {
+    display: block;
     color: #F02A74;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     margin-top: -2px;
-    display: block;
 }
 .btn3d.active span._4 {
+    display: block;
     color: #2B7EC8;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     margin-top: -2px;
-    display: block;
 }
 .btn3d.active span._5 {
+    display: block;
     color: #CA2121;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     margin-top: -2px;
-    display: block;
 }
 .btn3d.active span._6 {
+    display: block;
     color: #FFDC00;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     margin-top: -2px;
-    display: block;
 }
 .btn3d.active span._7 {
+    display: block;
     color: #005403;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     margin-top: -2px;
-    display: block;
 }
 .btn3d.active span._8 {
+    display: block;
     color: #763F05;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     margin-top: -2px;
-    display: block;
 }
 
 .btn-default.active:focus {
     background-color: #E6E6E6;
-
+}
 .btn-primary.active:focus {
     background-color: #286090;
 }
@@ -174,4 +174,4 @@
 }
 .btn-danger.active:focus {
     background-color: #C9302C;
-}}
+}
