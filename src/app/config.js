@@ -20,9 +20,5 @@ export default function Config($locationProvider, $stateProvider, $urlRouterProv
         .state('root.game', {
             url: '/games/:id',
             template: '<game></game>',
-        })
-        .state('root.me', {
-            url: '/me',
-            template: '<me></me>',
         });
 }

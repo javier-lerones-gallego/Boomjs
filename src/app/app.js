@@ -27,7 +27,6 @@ import { GameStateComponent } from './components/game-state/game-state.component
 
 // Import Services
 import GameService from './services/game.service';
-import StatsService from './services/stats.service';
 
 // Import Model Factories
 import Guid from './models/guid.model';
@@ -39,9 +38,7 @@ import Tile from './models/tile.model';
 const appName = 'com.javierlerones.minesweeper';
 
 // Set up the angular app object with its dependencies
-const app = angular.module(appName, [
-    uiRouter,
-]);
+const app = angular.module(appName, [uiRouter]);
 
 // Configure the Angular App
 app.config(Config);
@@ -63,7 +60,6 @@ app.component(GameStateComponent.name, GameStateComponent);
 
 // Services
 app.service(GameService.name, GameService);
-app.service(StatsService.name, StatsService);
 
 // Models
 app.factory('Game', Game);
