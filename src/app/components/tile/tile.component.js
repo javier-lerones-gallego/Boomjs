@@ -16,7 +16,7 @@ class TileController {
         } else if (this.tile.revealed) {
             return 'btn-default active';
         } else if (this.tile.detonated) {
-            return 'btn-danger disabled';
+            return 'btn-danger';
         }
 
         return 'btn-primary';
@@ -67,6 +67,10 @@ class TileController {
                 // if active, switch to flag
                 if (this.tile.active) {
                     this.tile.flag();
+                    // if the board has all flags in the right place, end the game
+                    if (this.board.flagged) {
+                        this.game.finish();
+                    }
                 } else if (this.tile.flagged) {
                     // if flag switch to question
                     this.tile.unknown();
@@ -81,14 +85,16 @@ class TileController {
     }
 
     onDblClick() {
-        if (this.tile.revealed && !this.tile.isMine && this.tile.hasMineAround) {
+        if (this.tile.revealed) {
             // Will trigger a special reveal in all neighbours
             // if there is the same amount of flags in them as
             // the number of mines around it.
             // If a neighbour with a mine wasn't covered with
             // a flag is revealed, it will detonate the mine
-            if (this.tile.neighbouringFlagCount === this.tile.count) {
-                // TODO
+            if (this.board.neighbouringFlagCount(this.tile) === this.tile.count) {
+                if (this.board.forceRevealNeighbours(this.tile)) {
+                    this.game.gameOver();
+                }
             }
         }
     }

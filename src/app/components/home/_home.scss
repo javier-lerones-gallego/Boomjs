@@ -10,11 +10,12 @@ home {
         text-transform: uppercase;
     }
     .my-games {
-        margin-bottom: 20px;
 
         .my-games-container {
             background-color: #FFFFFF;
             border-radius: 3px;
+            margin-bottom: 20px;
+            margin-left: 20px;
 
             .header {
                 padding: 25px;
@@ -40,24 +41,17 @@ home {
                     border-top: 1px solid #ECEEF1;
                     background-color: #FDFCF6;
                     padding: 15px;
-                    a {
-                        display: block;
-                        text-decoration: none;
-                        color: #828B98;
-                        font-weight: 600;
-                        line-height: 21px;
-                    }
+                    padding-left: 35px;
 
                     &.started {
                         background-color: #F6F7FD;
+                        padding: 35px;
+                        padding-top: 20px;
+                        padding-bottom: 20px;
                     }
-                    &.gameover {
+                    &.paused {
                         background-color: #FDF6F6;
                     }
-                    &.finished {
-                        background-color: #F7FDF6;
-                    }
-
                 }
             }
         }

@@ -19,12 +19,20 @@ export default function Board(Tile) {
         get mineCount() { return this._mineCount; }
         set mineCount(value) { this._mineCount = value; }
 
-        get flagCount() { return this._tiles.filter(t => t.flagged).length; }
+        get flags() { return this._tiles.filter(t => t.flagged).length; }
+        get left() { return this._mineCount - this.flags; }
         get first() { return this._tiles.filter(t => t.revealed).length === 1; }
         get revealed() { return this._tiles.filter(t => t.revealed).length; }
         get completed() { return this._tiles.length - this._mineCount === this.revealed; }
+        get flagged() {
+            return this._tiles.filter(t => t.flagged && t.isMine).length === this._mineCount;
+        }
 
         get tiles() { return this._tiles; } // Read only, add and remove using the methods
+
+        get percentage() {
+            return Math.round((this.revealed * 100) / (this._tiles.length - this._mineCount));
+        }
 
         populate() {
             // Reset the array every time we invoke
@@ -108,6 +116,11 @@ export default function Board(Tile) {
             });
         }
 
+        neighbouringFlagCount(tile) {
+            const neighbours = this.getNeighbours(tile.x, tile.y);
+            return neighbours.filter(n => n.flagged).length;
+        }
+
         reveal(tile) {
             // Spread the revealing to its neighbours if the count is 0
             if (tile.count === 0) {
@@ -140,8 +153,30 @@ export default function Board(Tile) {
             });
         }
 
-        gameOver() {
+        forceRevealNeighbours(tile) {
+            const neighbours = this.getNeighbours(tile.x, tile.y);
 
+            let boom = false;
+            neighbours.forEach(n => {
+                if (!n.flagged) {
+                    if (n.isMine) {
+                        n.detonate();
+                        boom = true;
+                    } else {
+                        n.reveal();
+
+                        if (n.count === 0) {
+                            this.revealNeighbours(n);
+                        }
+                    }
+                }
+            });
+
+            return boom;
+        }
+
+        gameOver() {
+            // TODO: Show all tiles
         }
     }
 

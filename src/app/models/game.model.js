@@ -19,6 +19,10 @@ export default function Game(Guid, Board) {
 
             // The Board model is instantiated in the create methods
             this._board = null;
+
+
+            // Observers
+            this._observers = [];
         }
 
         get id() { return this._id.value; }
@@ -41,15 +45,34 @@ export default function Game(Guid, Board) {
         get isReady() { return this._state === 'READY'; }
         get isCreating() { return this._state === 'RANDOMIZING'; }
         get isStarted() { return this._state === 'STARTED'; }
-        get isPaused() { return this._state === 'PAUSED'; }
         get isFinished() { return this._state === 'FINISHED'; }
+        get isOver() { return this._state === 'GAMEOVER'; }
 
         get started() { return this._start; }
         get end() { return this._end; }
 
-        get ellapsed() { return moment.duration(this._end.diff(this._start)).asSeconds(); }
+        get ellapsed() { return moment(this._end.diff(this._start)).format('mm:ss'); }
 
         get css() { return this._difficulty.toLowerCase(); }
+
+        get observers() { return this._observers; }
+
+        subscribe(event, callback) {
+            this._observers.push({ event, callback });
+        }
+
+        notify(event) {
+            this._observers.forEach(o => {
+                if (o.event === event) {
+                    o.callback();
+                }
+            });
+        }
+
+        unsubscribe(event, callback) {
+            this._observers =
+                this._observers.filter(o => o.event !== event && o.callback === callback);
+        }
 
         easy() {
             this._rows = 9;
@@ -142,11 +165,6 @@ export default function Game(Guid, Board) {
             this._start = moment();
         }
 
-        pause() {
-            // Set the state
-            this._state = 'PAUSED';
-        }
-
         finish() {
             // Set the state
             this._state = 'FINISHED';
@@ -155,6 +173,9 @@ export default function Game(Guid, Board) {
             this._end = moment();
 
             // TODO: Delete all child collections and store only the stats to free up memory
+
+            // Notify subscribers
+            this.notify('WIN');
         }
 
         gameOver() {
@@ -162,6 +183,9 @@ export default function Game(Guid, Board) {
 
             // Set the end time
             this._end = moment();
+
+            // Notify subscribers
+            this.notify('BOOM');
         }
     }
 

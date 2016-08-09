@@ -6,12 +6,10 @@ class HeaderController {
         this.GameService = GameService;
         this.$state = $state;
         this.$element = $element;
-
-        this._game = this.GameService.active;
     }
 
-    get game() { return this._game; }
-    get board() { return this._game.board; }
+    get game() { return this.GameService.current; }
+    get board() { return this.game.board; }
 
     home() {
         this.$state.go('root.home');

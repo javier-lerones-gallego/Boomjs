@@ -6,8 +6,8 @@ export default class GameService {
         this.$state = $state;
         this.Game = Game;
 
-        // The collection of games, not an array bc they suck.
-        this._games = {};
+        // The collection of games.
+        this._games = [];
     }
 
     /**
@@ -20,53 +20,32 @@ export default class GameService {
      */
     get games() { return this._games; }
 
+    get active() { return this._games.filter(g => g.isReady || g.isStarted || g.isPaused); }
+    get done() { return this._games.filter(g => g.isFinished || g.isOver); }
     /**
      * Returns true of there is an active game
      */
-    get isPlaying() {
-        return Object.keys(this._games)
-            .some(gameKey => this._games[gameKey].isStarted);
-    }
+    get isPlaying() { return this._games.some(g => g.isStarted); }
 
-    get active() {
-        return this._games[Object.keys(this._games)
-            .filter(gameKey => gameKey === this.$state.params.id)];
-    }
+    get current() { return this._games.filter(g => g.id === this.$state.params.id)[0]; }
 
-    get paused() {
-        return this._games[Object.keys(this._games)
-            .filter(gameKey => this._games[gameKey].isPaused)];
-    }
+    get paused() { return this._games.filter(g => g.isPaused); }
 
-    get exists() {
-        return Object.keys(this._games)
-            .some(gameKey => gameKey === this.$state.params.id);
-    }
+    get exists() { return this._games.some(g => g.id === this.$state.params.id); }
 
     create(difficulty) {
         const newGame = new this.Game();
+
         if (difficulty === 'EASY') {
             newGame.easy();
         } else if (difficulty === 'MEDIUM') {
             newGame.medium();
         } else if (difficulty === 'HARD') {
             newGame.hard();
-        } else {
-            // TODO: Custom difficulty
-            newGame.custom(9, 9, 10);
         }
-        this._games[newGame.id] = newGame;
+
+        this._games.push(newGame);
         return this.$q.when(newGame.generate());
-    }
-
-    activate(id) {
-        Object.keys(this._games).forEach(gameKey => {
-            if (this._games[gameKey].isStarted) {
-                this._games[gameKey].pause();
-            }
-        });
-
-        this._games[id].start();
     }
 
     wrap(data) {
