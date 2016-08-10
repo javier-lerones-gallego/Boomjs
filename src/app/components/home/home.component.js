@@ -11,12 +11,20 @@ class HomeController {
     get active() { return this.GameService.active; }
     get done() { return this.GameService.done; }
 
-    newGame(difficulty) {
-        this.GameService.create(difficulty)
-            .then((game) => {
-                // redirect to the game
-                this.$state.go('root.game', { id: game.id });
-            });
+    easy() {
+        this.goToGame(this.GameService.easy());
+    }
+
+    medium() {
+        this.goToGame(this.GameService.medium());
+    }
+
+    expert() {
+        this.goToGame(this.GameService.expert());
+    }
+
+    goToGame(game) {
+        this.$state.go('root.game', { id: game.id });
     }
 }
 HomeController.$inject = ['GameService', '$state'];

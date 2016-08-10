@@ -1,8 +1,6 @@
 
 export default class GameService {
-    constructor($state, $q, Game) {
-        this.$q = $q;
-        this.$state = $state;
+    constructor(Game) {
         this.Game = Game;
 
         // The collection of games.
@@ -39,13 +37,6 @@ export default class GameService {
     get isPlaying() { return this._games.some(g => g.isStarted); }
 
     /**
-     * Returns true if the current URL id param matches an existing game.
-     *
-     * @readonly
-     */
-    get exists() { return this._games.some(g => g.id === this.$state.params.id); }
-
-    /**
      * Creates a game with the specified difficulty.
      *
      * @param {any} difficulty: Possible values are EASY, MEDIUM, and EXPERT.
@@ -63,7 +54,36 @@ export default class GameService {
         }
 
         this._games.push(newGame);
-        return this.$q.when(newGame.generate());
+        newGame.generate();
+
+        return newGame;
+    }
+
+    /**
+     * Create an easy game.
+     *
+     * @returns
+     */
+    easy() {
+        return this.create('EASY');
+    }
+
+    /**
+     * Create a medium game.
+     *
+     * @returns
+     */
+    medium() {
+        return this.create('MEDIUM');
+    }
+
+    /**
+     * Create an expert game.
+     *
+     * @returns
+     */
+    expert() {
+        return this.create('EXPERT');
     }
 
     /**
@@ -75,5 +95,15 @@ export default class GameService {
     query(id) {
         return this._games.filter(g => g.id === id)[0];
     }
+
+    /**
+     * Returns true if the current URL id param matches an existing game.
+     *
+     * @param {any} id
+     * @returns
+     */
+    exists(id) {
+        return this._games.some(g => g.id === id);
+    }
 }
-GameService.$inject = ['$state', '$q', 'Game'];
+GameService.$inject = ['Game'];
