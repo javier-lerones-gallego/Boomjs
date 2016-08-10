@@ -95,7 +95,7 @@ export default function Game(Guid, Board) {
             this._rows = 16;
             this._columns = 30;
             this._mineCount = 99;
-            this._difficulty = 'HARD';
+            this._difficulty = 'EXPERT';
             // Instantiate the Board
             this._board = new Board(16, 30, 99);
         }

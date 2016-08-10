@@ -39,7 +39,7 @@ export default class GameService {
             newGame.easy();
         } else if (difficulty === 'MEDIUM') {
             newGame.medium();
-        } else if (difficulty === 'HARD') {
+        } else if (difficulty === 'EXPERT') {
             newGame.hard();
         }
 
