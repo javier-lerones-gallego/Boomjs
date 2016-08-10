@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SassLintPlugin = require('sasslint-webpack-plugin');
-const NgAnnotatePlugin = require('ng-annotate-webpack-plugin');
 
 /**
  * Env
@@ -175,11 +174,6 @@ module.exports = (function makeWebpackConfig() {
                 template: './src/public/index.html',
                 inject: 'body',
                 favicon: './src/public/favicon.png',
-            }),
-
-            new NgAnnotatePlugin({
-                add: true,
-                // other ng-annotate options here 
             }),
 
             // Lint scss files

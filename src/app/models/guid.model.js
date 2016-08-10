@@ -1,4 +1,4 @@
-/* ngInject */
+
 export default function Guid() {
     class GuidModel {
 

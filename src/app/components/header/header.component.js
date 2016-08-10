@@ -1,6 +1,5 @@
 import template from './header.html';
 
-/* ngInject */
 class HeaderController {
     constructor(GameService, $state, $element) {
         this.GameService = GameService;
@@ -14,8 +13,8 @@ class HeaderController {
     home() {
         this.$state.go('root.home');
     }
-
 }
+HeaderController.$inject = ['GameService', '$state', '$element'];
 
 export const HeaderComponent = {
     name: 'sweeperHeader',

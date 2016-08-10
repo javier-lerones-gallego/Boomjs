@@ -1,6 +1,5 @@
 import moment from 'moment';
 
-/* ngInject */
 export default function Game(Guid, Board) {
     class GameModel {
         constructor() {
@@ -191,3 +190,4 @@ export default function Game(Guid, Board) {
 
     return GameModel;
 }
+Game.$inject = ['Guid', 'Board'];

@@ -1,7 +1,6 @@
 import template from './game-state.html';
 import moment from 'moment';
 
-/* ngInject */
 class GameStateController {
     constructor($state, $interval) {
         this.$state = $state;
@@ -38,6 +37,7 @@ class GameStateController {
         this.$state.go('root.home');
     }
 }
+GameStateController.$inject = ['$state', '$interval'];
 
 export const GameStateComponent = {
     name: 'gameState',

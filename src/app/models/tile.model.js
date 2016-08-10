@@ -1,4 +1,4 @@
-/* ngInject */
+
 export default function Tile() {
     class TileModel {
         constructor() {

@@ -1,5 +1,4 @@
 
-/* ngInject */
 export default function Config($locationProvider, $stateProvider, $urlRouterProvider) {
     // Enable HTML5 mode
     $locationProvider.html5Mode(true);
@@ -22,3 +21,4 @@ export default function Config($locationProvider, $stateProvider, $urlRouterProv
             template: '<game></game>',
         });
 }
+Config.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];

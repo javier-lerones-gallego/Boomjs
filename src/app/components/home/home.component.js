@@ -1,6 +1,5 @@
 import template from './home.html';
 
-/* ngInject */
 class HomeController {
     constructor(GameService, $state) {
         this.GameService = GameService;
@@ -21,6 +20,7 @@ class HomeController {
             });
     }
 }
+HomeController.$inject = ['GameService', '$state'];
 
 export const HomeComponent = {
     name: 'home',

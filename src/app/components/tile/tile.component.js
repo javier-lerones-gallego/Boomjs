@@ -1,6 +1,5 @@
 import template from './tile.html';
 
-/* ngInject */
 class TileController {
     constructor($element) {
         this.$element = $element;
@@ -103,6 +102,7 @@ class TileController {
         this.board.highlightNeighbours(this.tile);
     }
 }
+TileController.$inject = ['$element'];
 
 export const TileComponent = {
     name: 'tile',

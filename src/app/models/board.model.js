@@ -1,4 +1,4 @@
-/* ngInject */
+
 export default function Board(Tile) {
     class BoardModel {
         constructor(rows, columns, mineCount) {
@@ -182,3 +182,4 @@ export default function Board(Tile) {
 
     return BoardModel;
 }
+Board.$inject = ['Tile'];

@@ -1,5 +1,4 @@
 
-/* ngInject */
 export default class GameService {
     constructor($state, $q, Game) {
         this.$q = $q;
@@ -54,3 +53,4 @@ export default class GameService {
         return deferred.promise;
     }
 }
+GameService.$inject = ['$state', '$q', 'Game'];
