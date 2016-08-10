@@ -49,9 +49,19 @@
 }
 .btn3d.btn-primary {
     box-shadow: 0 0 0 1px #428BCA inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 4px 0 0 #357EBD, 0 4px 0 1px rgba(0, 0, 0, 0.4), 0 4px 4px 1px rgba(0, 0, 0, 0.5);
+    background: #286090; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover, #5797CE 0%, #286090 100%); /* FF3.6-15 */
+    background: -webkit-radial-gradient(center, ellipse cover, #5797CE 0%,#286090 100%); /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(ellipse at center, #5797CE 0%,#286090 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5797CE', endColorstr='#286090',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 .btn3d.btn-success {
     box-shadow: 0 0 0 1px #5CB85C inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 4px 0 0 #4CAC4C, 0 4px 0 1px rgba(0, 0, 0, 0.4), 0 4px 4px 1px rgba(0, 0, 0, 0.5);
+    background: #449D44; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover, #80E380 0%, #449D44 100%); /* FF3.6-15 */
+    background: -webkit-radial-gradient(center, ellipse cover, #80E380 0%,#449D44 100%); /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(ellipse at center, #80E380 0%,#449D44 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80E380', endColorstr='#449D44',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 .btn3d.btn-info {
     box-shadow: 0 0 0 1px #5BC0DE inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 4px 0 0 #46B8DA, 0 4px 0 1px rgba(0, 0, 0, 0.4), 0 4px 4px 1px rgba(0, 0, 0, 0.5);
@@ -60,7 +70,6 @@
     background: -webkit-radial-gradient(center, ellipse cover, #AEECFF 0%,#52DBFF 100%); /* Chrome10-25,Safari5.1-6 */
     background: radial-gradient(ellipse at center, #AEECFF 0%,#52DBFF 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#AEECFF', endColorstr='#52DBFF',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-
 }
 .btn3d.btn-warning {
     box-shadow: 0 0 0 1px #F0AD4E inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 4px 0 0 #EEA236, 0 4px 0 1px rgba(0, 0, 0, 0.4), 0 4px 4px 1px rgba(0, 0, 0, 0.5);
@@ -72,6 +81,11 @@
 }
 .btn3d.btn-danger {
     box-shadow: 0 0 0 1px #C63702 inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 4px 0 0 #C24032, 0 4px 0 1px rgba(0, 0, 0, 0.4), 0 4px 4px 1px rgba(0, 0, 0, 0.5);
+    background: #C9302C; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover, #C9302C 0%, #AD201D 100%); /* FF3.6-15 */
+    background: -webkit-radial-gradient(center, ellipse cover, #C9302C 0%,#AD201D 100%); /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(ellipse at center, #C9302C 0%,#AD201D 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C9302C', endColorstr='#AD201D',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 .btn3d:active.btn-default,
