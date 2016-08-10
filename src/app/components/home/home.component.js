@@ -7,7 +7,6 @@ class HomeController {
     }
 
     get games() { return this.GameService.games; }
-    get paused() { return this.GameService.paused; }
 
     get active() { return this.GameService.active; }
     get done() { return this.GameService.done; }
