@@ -1,14 +1,14 @@
 import template from './game.html';
 
 class GameController {
-    constructor(GameService) {
+    constructor(GameService, $state) {
         this.GameService = GameService;
+        this.$state = $state;
     }
 
-    get game() { return this.GameService.current; }
-    get board() { return this.game.board; }
+    get game() { return this.GameService.query(this.$state.params.id); }
 }
-GameController.$inject = ['GameService'];
+GameController.$inject = ['GameService', '$state'];
 
 export const GameComponent = {
     name: 'game',

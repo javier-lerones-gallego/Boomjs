@@ -39,15 +39,6 @@ export default class GameService {
     get isPlaying() { return this._games.some(g => g.isStarted); }
 
     /**
-     * Returns the current active game based on URL.
-     * Need to refactor this to inject this into the components as
-     * a binding instead of through the service.
-     *
-     * @readonly
-     */
-    get current() { return this._games.filter(g => g.id === this.$state.params.id)[0]; }
-
-    /**
      * Returns true if the current URL id param matches an existing game.
      *
      * @readonly
@@ -73,6 +64,16 @@ export default class GameService {
 
         this._games.push(newGame);
         return this.$q.when(newGame.generate());
+    }
+
+    /**
+     * Returns a game by id.
+     *
+     * @param {any} id
+     * @returns
+     */
+    query(id) {
+        return this._games.filter(g => g.id === id)[0];
     }
 }
 GameService.$inject = ['$state', '$q', 'Game'];
