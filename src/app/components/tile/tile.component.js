@@ -67,6 +67,7 @@ class TileController {
                 if (this.tile.active) {
                     this.tile.flag();
                     // if the board has all flags in the right place, end the game
+                    // TODO: but only if there are no active tiles left.
                     if (this.board.flagged) {
                         this.game.finish();
                     }
@@ -77,29 +78,18 @@ class TileController {
                     // if question, switch to active
                     this.tile.activate();
                 }
-            } else if (this.tile.count > 0) {
-                // highlight the neighbours
             }
         }
     }
 
     onDblClick() {
         if (this.tile.revealed) {
-            // Will trigger a special reveal in all neighbours
-            // if there is the same amount of flags in them as
-            // the number of mines around it.
-            // If a neighbour with a mine wasn't covered with
-            // a flag is revealed, it will detonate the mine
             if (this.board.neighbouringFlagCount(this.tile) === this.tile.count) {
                 if (this.board.forceRevealNeighbours(this.tile)) {
                     this.game.gameOver();
                 }
             }
         }
-    }
-
-    highlightNeighbours() {
-        this.board.highlightNeighbours(this.tile);
     }
 }
 TileController.$inject = ['$element'];
