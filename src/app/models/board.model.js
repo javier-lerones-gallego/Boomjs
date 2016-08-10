@@ -104,18 +104,6 @@ export default function Board(Tile) {
             });
         }
 
-        highlightNeighbours(tile) {
-            // turn off all others first
-            this.dehighlight();
-
-            const neighbours = this.getNeighbours(tile.x, tile.y);
-
-            neighbours.forEach(n => {
-                const neighbour = n;
-                neighbour.highlight = true;
-            });
-        }
-
         neighbouringFlagCount(tile) {
             const neighbours = this.getNeighbours(tile.x, tile.y);
             return neighbours.filter(n => n.flagged).length;
