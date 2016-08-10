@@ -19,19 +19,47 @@ export default class GameService {
      */
     get games() { return this._games; }
 
-    get active() { return this._games.filter(g => g.isReady || g.isStarted || g.isPaused); }
+    /**
+     * Returns a list of games that are either ready or started.
+     *
+     * @readonly
+     */
+    get active() { return this._games.filter(g => g.isReady || g.isStarted); }
+
+    /**
+     * Returns a list of games that are either finished or over.
+     *
+     * @readonly
+     */
     get done() { return this._games.filter(g => g.isFinished || g.isOver); }
+
     /**
      * Returns true of there is an active game
      */
     get isPlaying() { return this._games.some(g => g.isStarted); }
 
+    /**
+     * Returns the current active game based on URL.
+     * Need to refactor this to inject this into the components as
+     * a binding instead of through the service.
+     *
+     * @readonly
+     */
     get current() { return this._games.filter(g => g.id === this.$state.params.id)[0]; }
 
-    get paused() { return this._games.filter(g => g.isPaused); }
-
+    /**
+     * Returns true if the current URL id param matches an existing game.
+     *
+     * @readonly
+     */
     get exists() { return this._games.some(g => g.id === this.$state.params.id); }
 
+    /**
+     * Creates a game with the specified difficulty.
+     *
+     * @param {any} difficulty: Possible values are EASY, MEDIUM, and EXPERT.
+     * @returns
+     */
     create(difficulty) {
         const newGame = new this.Game();
 
@@ -45,12 +73,6 @@ export default class GameService {
 
         this._games.push(newGame);
         return this.$q.when(newGame.generate());
-    }
-
-    wrap(data) {
-        const deferred = this.$q.defer();
-        deferred.resolve(data);
-        return deferred.promise;
     }
 }
 GameService.$inject = ['$state', '$q', 'Game'];
