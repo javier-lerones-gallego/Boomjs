@@ -1,9 +1,9 @@
 import moment from 'moment';
 
-export default function Game(Guid, Board) {
+export default function Game(Board) {
     class GameModel {
         constructor() {
-            this._id = new Guid();
+            this._id = this.id();
             this._rows = null;
             this._columns = null;
             this._mineCount = null;
@@ -18,18 +18,9 @@ export default function Game(Guid, Board) {
 
             // The Board model is instantiated in the create methods
             this._board = null;
-
-
-            // Observers
-            this._observers = [];
         }
 
         get id() { return this._id.value; }
-        set id(value) {
-            const guid = new this.Guid();
-            guid.value = value;
-            this._id = guid;
-        }
 
         get rows() { return this._rows; }
         get columns() { return this._columns; }
@@ -53,25 +44,6 @@ export default function Game(Guid, Board) {
         get ellapsed() { return moment(this._end.diff(this._start)).format('mm:ss'); }
 
         get css() { return this._difficulty.toLowerCase(); }
-
-        get observers() { return this._observers; }
-
-        subscribe(event, callback) {
-            this._observers.push({ event, callback });
-        }
-
-        notify(event) {
-            this._observers.forEach(o => {
-                if (o.event === event) {
-                    o.callback();
-                }
-            });
-        }
-
-        unsubscribe(event, callback) {
-            this._observers =
-                this._observers.filter(o => o.event !== event && o.callback === callback);
-        }
 
         easy() {
             this._rows = 9;
@@ -172,9 +144,6 @@ export default function Game(Guid, Board) {
             this._end = moment();
 
             // TODO: Delete all child collections and store only the stats to free up memory
-
-            // Notify subscribers
-            this.notify('WIN');
         }
 
         gameOver() {
@@ -182,12 +151,17 @@ export default function Game(Guid, Board) {
 
             // Set the end time
             this._end = moment();
+        }
 
-            // Notify subscribers
-            this.notify('BOOM');
+        id() {
+            return 'xxxxxx'.replace(/[xy]/g, (c) => {
+                const r = Math.random() * 16 | 0;
+                const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
         }
     }
 
     return GameModel;
 }
-Game.$inject = ['Guid', 'Board'];
+Game.$inject = ['Board'];
