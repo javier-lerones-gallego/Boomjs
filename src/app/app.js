@@ -29,13 +29,12 @@ import { GameStateComponent } from './components/game-state/game-state.component
 import GameService from './services/game.service';
 
 // Import Model Factories
-import Guid from './models/guid.model';
 import Game from './models/game.model';
 import Board from './models/board.model';
 import Tile from './models/tile.model';
 
 // Declare the angular app name
-const appName = 'com.javierlerones.minesweeper';
+const appName = 'com.javierlerones.boomjs';
 
 // Set up the angular app object with its dependencies
 const app = angular.module(appName, [uiRouter]);
@@ -63,7 +62,6 @@ app.service(GameService.name, GameService);
 
 // Models
 app.factory('Game', Game);
-app.factory('Guid', Guid);
 app.factory('Tile', Tile);
 app.factory('Board', Board);
 
