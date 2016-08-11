@@ -10,7 +10,7 @@ export default function Config($locationProvider, $stateProvider, $urlRouterProv
     $stateProvider
         .state('root', {
             abstract: true,
-            template: '<app></app>',
+            template: '<boomjs-app></boomjs-app>',
         })
         .state('root.home', {
             url: '/',

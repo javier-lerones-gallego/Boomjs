@@ -11,7 +11,7 @@ export default class AppController {
 AppController.$inject = ['GameService', '$state'];
 
 export const AppComponent = {
-    name: 'app',
+    name: 'boomjsApp',
     controller: AppController,
     template,
 };
