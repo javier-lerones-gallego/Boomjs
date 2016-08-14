@@ -14,9 +14,8 @@ class HeaderController {
 HeaderController.$inject = ['$state'];
 
 export const HeaderComponent = {
-    name: 'sweeperHeader',
+    name: 'boomjsHeader',
     bindings: {
-        fixed: '<',
         game: '<',
     },
     controller: HeaderController,

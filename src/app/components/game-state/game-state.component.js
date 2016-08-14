@@ -2,9 +2,10 @@ import template from './game-state.html';
 import moment from 'moment';
 
 class GameStateController {
-    constructor($state, $interval) {
+    constructor($state, $interval, GameService) {
         this.$state = $state;
         this.$interval = $interval;
+        this.GameService = GameService;
 
         this._timer = null;
         this._value = null;
@@ -33,11 +34,25 @@ class GameStateController {
 
     get value() { return this._value ? this._value : 'Click on a Tile to Start'; }
 
-    continue() {
+    home() {
         this.$state.go('root.home');
     }
+
+    newGame() {
+        if (this.game.isEasy) {
+            this.goToGame(this.GameService.easy());
+        } else if (this.game.isMedium) {
+            this.goToGame(this.GameService.medium());
+        } else {
+            this.goToGame(this.GameService.expert());
+        }
+    }
+
+    goToGame(game) {
+        this.$state.go('root.game', { id: game.id });
+    }
 }
-GameStateController.$inject = ['$state', '$interval'];
+GameStateController.$inject = ['$state', '$interval', 'GameService'];
 
 export const GameStateComponent = {
     name: 'gameState',

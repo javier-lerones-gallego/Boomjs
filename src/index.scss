@@ -1,17 +1,11 @@
 $fa-font-path: '~font-awesome/fonts';
 
-@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700');
-
-@import '~font-awesome/scss/font-awesome';
-
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/variables";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/mixins";
-@import "~bootstrap-sass/assets/stylesheets/bootstrap/normalize";
-@import "~bootstrap-sass/assets/stylesheets/bootstrap/scaffolding";
-@import "~bootstrap-sass/assets/stylesheets/bootstrap/grid";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/buttons";
-@import "~bootstrap-sass/assets/stylesheets/bootstrap/forms";
-@import "~bootstrap-sass/assets/stylesheets/bootstrap/navbar";
+
+@import '~font-awesome/scss/font-awesome';
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700');
 
 @import './scss/colors';
 @import './scss/globals';
@@ -23,7 +17,7 @@ $fa-font-path: '~font-awesome/fonts';
 @import './app/components/board/board';
 @import './app/components/header/header';
 @import './app/components/tile/tile';
-@import './app/components/game-list-game/game-list';
+@import './app/components/game-list/game-list';
 @import './app/components/success/success';
 @import './app/components/boom/boom';
 @import './app/components/game-state/game-state';

@@ -1,24 +1,16 @@
-home {
-    color: #121821;
-    h3 {
-        margin-top: 0;
-        margin-bottom: 10px;
-        margin-left: 0;
-        margin-right: 0;
-        font-size: 12px;
-        font-weight: 600;
-        text-transform: uppercase;
-    }
-    .my-games {
-
-        .my-games-container {
+        .panel {
             background-color: #FFFFFF;
             border-radius: 3px;
-            margin-bottom: 20px;
-            margin-left: 20px;
 
-            .header {
+           .header {
+                display: flex;
+                flex: 1;
+                justify-content: flex-start;
+                align-items: flex-start;
+                flex-flow: column;
+
                 padding: 25px;
+
                 h2 {
                     margin-top: 0;
                     margin-bottom: 0;
@@ -29,58 +21,113 @@ home {
                     line-height: 27px;
                 }
             }
-            ul.game-list {
-                margin-top: 0;
-                margin-bottom: 0;
-                margin-left: 0;
-                margin-right: 0;
-                padding-left: 0;
-                list-style: none;
-
-                li.game-list-item {
-                    border-top: 1px solid #ECEEF1;
-                    background-color: #FDFCF6;
-                    padding: 15px;
-                    padding-left: 35px;
-
-                    &.started {
-                        background-color: #F6F7FD;
-                        padding: 35px;
-                        padding-top: 20px;
-                        padding-bottom: 20px;
-                    }
-                    &.paused {
-                        background-color: #FDF6F6;
-                    }
-                }
+            .footer {
+                display: flex;
+                flex: 1;
+                justify-content: space-between;
+                align-items: flex-start;
+                flex-flow: row;
+                padding: 15px 20px;
             }
         }
-    }
-    .game-selector {
-        .game-selector-container {
-            background-color: #FFFFFF;
-            border-radius: 3px;
 
-            padding: 10px;
+boomjs-home {
+    display: flex;
+    flex: 1;
+    flex-flow: row;
+    align-items: flex-start;
+
+    color: #121821;
+    h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        margin-left: 0;
+        margin-right: 0;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    .left-column {
+        display: flex;
+        flex: 70;
+        flex-flow: column;
+        justify-content: flex-start;
+        align-items: stretch;
+
+        .my-games {
+            display: flex;
+            flex: 1;
+            flex-flow: column;
+
+            margin-top: 0;
+            margin-bottom: 20px;
+            margin-right: 20px;
+            margin-left: 20px;
+        }
+
+        .won-and-lost {
+            display: flex;
+            flex: 1;
+            flex-flow: column;
+
+            margin-top: 0;
+            margin-bottom: 20px;
+            margin-right: 20px;
+            margin-left: 20px;
+        }
+    }
+    .right-column {
+        display: flex;
+        flex: 30;
+        flex-flow: column;
+        justify-content: flex-start;
+        align-items: stretch;
+
+        .game-selector {
+            display: flex;
+            flex: 1;
+            flex-flow: column;
+
+            margin-bottom: 20px;
+            margin-right: 20px;
+
             .header {
-                padding: 5px 0 10px 5px;
+                padding: 15px 20px 0px 20px;
+
                 h3 {
-                    margin-top: 0;
-                    margin-bottom: 0;
-                    margin-left: 0;
-                    margin-right: 0;
-                    font-size: 14px;
-                    font-weight: 600;
-                    line-height: 25px;
+                        margin-top: 0;
+                        margin-bottom: 0;
+                        margin-left: 0;
+                        margin-right: 0;
+                        font-size: 14px;
+                        font-weight: 600;
+                        line-height: 25px;
                 }
             }
+
             ul.new-game-options {
+                display: flex;
+                flex: 1;
+                flex-flow: column;
+                align-items: stretch;
+
+                padding: 10px;
+
                 margin-top: 0;
                 margin-bottom: 0;
                 margin-left: 0;
                 margin-right: 0;
-                padding-left: 0;
                 list-style: none;
+
+                li {
+                    display: flex;
+                    flex: 1;
+                    margin-bottom: 10px;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
             }
         }
 

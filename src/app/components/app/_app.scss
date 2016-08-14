@@ -1,18 +1,17 @@
 boomjs-app {
-    display: block;
+    display: flex;
+    flex: 1;
+    flex-flow: column;
+    align-items: stretch;
     height: 100%;
 }
-.app {
-    display: block;
-    position: absolute;
-    width: 100%;
-    top: 60px;
-    bottom: 0;
+.below-header {
+    display: flex;
+    flex: 1;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: stretch;
 
-    .full-height {
-        display: block;
-        padding-top: 20px;
-        height: 100%;
-        overflow-x: auto;
-    }
+    overflow-y: auto;
+    padding-top: 20px;
 }

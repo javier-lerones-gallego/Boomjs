@@ -1,39 +1,36 @@
 tile {
-    display: inline-block;
-    width: 43px;
-    height: 37px;
-}
+    display: flex;
+    height: 42px;
+    width: 42px;
+    justify-content: center;
+    align-items: flex-start;
 
-.btn-debug {
-    padding: 0;
-    line-height: 10px;
-}
+    button {
+        width: 38px;
+        height: 34px;
+    }
 
-.tile-coordinates {
-    display: inline-block;
-    font-size: 8px;
-}
+    .tile-count {
+        display: block;
+    }
 
-.tile-count {
-    display: block;
-}
+    .tile-icon.fa {
+        position: relative;
+        top: 2px;
+        left: -2px;
+        font-size: 1.3em;
+    }
 
-.tile-icon.fa {
-    position: relative;
-    top: 2px;
-    left: -2px;
-    font-size: 1.3em;
-}
-
-.tile-icon.fa.fa-flag {
-    color: #C63702;
-    text-shadow: 0 -1px 1px rgba(255, 0, 0, 0.5);
-}
-.tile-icon.fa.fa-question-circle {
-    color: #FFFFFF;
-    text-shadow: 0 -1px 1px rgba(53, 209, 255, 0.5);
-}
-.tile-icon.fa.fa-bomb {
-    color: #FFFFFF;
-    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+    .tile-icon.fa.fa-flag {
+        color: #C63702;
+        text-shadow: 0 -1px 1px rgba(255, 0, 0, 0.5);
+    }
+    .tile-icon.fa.fa-question-circle {
+        color: #FFFFFF;
+        text-shadow: 0 -1px 1px rgba(53, 209, 255, 0.5);
+    }
+    .tile-icon.fa.fa-bomb {
+        color: #FFFFFF;
+        text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+    }
 }

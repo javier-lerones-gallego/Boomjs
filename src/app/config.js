@@ -10,15 +10,15 @@ export default function Config($locationProvider, $stateProvider, $urlRouterProv
     $stateProvider
         .state('root', {
             abstract: true,
-            template: '<boomjs-app></boomjs-app>',
+            template: '<boomjs-app />',
         })
         .state('root.home', {
             url: '/',
-            template: '<home></home>',
+            template: '<boomjs-home />',
         })
         .state('root.game', {
             url: '/games/:id',
-            template: '<game></game>',
+            template: '<boomjs-game />',
         });
 }
 Config.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];

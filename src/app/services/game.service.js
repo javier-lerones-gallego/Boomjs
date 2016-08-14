@@ -1,6 +1,7 @@
 
 export default class GameService {
     constructor(Game) {
+        // The Game model factory
         this.Game = Game;
 
         // The collection of games.
@@ -40,7 +41,7 @@ export default class GameService {
      * Creates a game with the specified difficulty.
      *
      * @param {any} difficulty: Possible values are EASY, MEDIUM, and EXPERT.
-     * @returns
+     * @returns The new Game object.
      */
     create(difficulty) {
         const newGame = new this.Game();

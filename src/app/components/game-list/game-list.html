@@ -1,0 +1,19 @@
+<ul class="game-list">
+    <li class="game-list-item"
+        data-ng-repeat="game in $ctrl.games | filter:$ctrl.filter"
+        data-ng-class="game.state.toLowerCase()">
+
+            <a data-ui-sref="root.game({ id: game.id })">
+                {{ game.difficulty }}
+            </a>
+            <span>({{ game.columns }}x{{ game.rows }})</span>
+            <div data-ng-if="game.isStarted">
+                <ul>
+                    <li>started {{ game.started.fromNow() }}</li>
+                    <li>{{ game.board.flags }}/{{ game.board.mineCount }} flags</li>
+                    <li>{{ game.board.percentage }}% completed</li>
+                </ul>
+            </div>
+
+    </li>
+</ul>

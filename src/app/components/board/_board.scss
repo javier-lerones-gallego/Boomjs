@@ -1,20 +1,26 @@
 board {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    display: flex;
+
     margin-top: 0;
     margin-bottom: 0;
-    padding: 20px;
+
     background-color: #FFFFFF;
     border-radius: 3px;
-    padding-top: 10px;
-    padding-right: 10px;
+
+    padding: 10px;
+
+    .tile-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-content: flex-start;
+    }
 }
 board.easy {
-    width: 420px;
+    width: 390px;
 }
 board.medium {
-    width: 720px;
+    width: 680px;
 }
 board.hard {
     width: 1320px
