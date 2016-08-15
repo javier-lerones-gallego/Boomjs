@@ -1,5 +1,5 @@
 
-export default function Board(Tile) {
+export default function Board(Tile, UtilsService) {
     class BoardModel {
         constructor(rows, columns, mineCount) {
             this._rows = rows;
@@ -67,16 +67,12 @@ export default function Board(Tile) {
             }
         }
 
-        randomNumber(min, max) {
-            return Math.floor(Math.random() * (max - min + 1) + min);
-        }
-
         randomX() {
-            return this.randomNumber(0, this._rows - 1);
+            return UtilsService.randomNumber(0, this._rows - 1);
         }
 
         randomY() {
-            return this.randomNumber(0, this._columns - 1);
+            return UtilsService.randomNumber(0, this._columns - 1);
         }
 
         reset() {
@@ -199,4 +195,4 @@ export default function Board(Tile) {
 
     return BoardModel;
 }
-Board.$inject = ['Tile'];
+Board.$inject = ['Tile', 'UtilsService'];
