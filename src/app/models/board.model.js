@@ -50,6 +50,35 @@ export default function Board(Tile) {
             }
         }
 
+        generate() {
+            // Randomize the mine locations
+            for (let mines = 0; mines < this._mineCount; mines++) {
+                let foundEmptySpot = false;
+                while (!foundEmptySpot) {
+                    const x = this.randomX();
+                    const y = this.randomY();
+
+                    if (!this.hasMine(x, y)) {
+                        // Add the mine to the board
+                        this.addMine(x, y);
+                        foundEmptySpot = true;
+                    }
+                }
+            }
+        }
+
+        randomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+
+        randomX() {
+            return this.randomNumber(0, this._rows - 1);
+        }
+
+        randomY() {
+            return this.randomNumber(0, this._columns - 1);
+        }
+
         reset() {
             this._tiles = [];
         }

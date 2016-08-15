@@ -86,40 +86,12 @@ export default function Game(Board) {
             this._board = new Board(16, 30, 99);
         }
 
-        randomNumber(min, max) {
-            return Math.floor(Math.random() * (max - min + 1) + min);
-        }
-
-        randomX() {
-            return this.randomNumber(0, this._rows - 1);
-        }
-
-        randomY() {
-            return this.randomNumber(0, this._columns - 1);
-        }
-
-        hasMine(x, y) {
-            return this._mines.some(mine => mine.x === x && mine.y === y);
-        }
-
         generate() {
             // First populate the board with all its tiles
             this._board.populate();
 
-            // Randomize the mine locations
-            for (let mines = 0; mines < this._mineCount; mines++) {
-                let foundEmptySpot = false;
-                while (!foundEmptySpot) {
-                    const x = this.randomX();
-                    const y = this.randomY();
-
-                    if (!this._board.hasMine(x, y)) {
-                        // Add the mine to the board
-                        this._board.addMine(x, y);
-                        foundEmptySpot = true;
-                    }
-                }
-            }
+            // Randomize the mines
+            this._board.generate();
 
             // Set the state to ready after creating the game.
             this._state = 'READY';
@@ -158,7 +130,7 @@ export default function Game(Board) {
             this._stats = {
                 flags_set: this._board.flags,
                 percentage_revealed: this._board.percentage,
-                time_elapsed: this._end,
+                time_elapsed: moment(this._end.diff(this._start)).format('mm:ss'),
             };
 
             // Delete the board object to save memory

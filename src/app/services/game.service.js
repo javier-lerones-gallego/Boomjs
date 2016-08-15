@@ -19,11 +19,6 @@ export default class GameService {
     get games() { return this._games; }
 
     /**
-     * Returns true of there is an active game
-     */
-    get isPlaying() { return this._games.some(g => g.isStarted); }
-
-    /**
      * Creates a game with the specified difficulty.
      *
      * @param {any} difficulty: Possible values are EASY, MEDIUM, and EXPERT.
@@ -81,16 +76,6 @@ export default class GameService {
      */
     query(id) {
         return this._games.filter(g => g.id === id)[0];
-    }
-
-    /**
-     * Returns true if the current URL id param matches an existing game.
-     *
-     * @param {any} id
-     * @returns
-     */
-    exists(id) {
-        return this._games.some(g => g.id === id);
     }
 }
 GameService.$inject = ['Game'];

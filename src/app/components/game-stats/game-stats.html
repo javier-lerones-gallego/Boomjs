@@ -2,7 +2,34 @@
     <div class="header">
         <h2>Stats</h2>
         <p>
-
+            <span>{{ $ctrl.games.length || 0 }} total, </span>
+            <span>{{ $ctrl.allActive.length || 0 }} in progress, </span>
+            <span>{{ $ctrl.allFinished.length || 0 }} won, </span>
+            <span>{{ $ctrl.allOver.length || 0 }} lost.</span>
+        </p>
+        <p class="easy section" data-ng-if="$ctrl.easy.length">
+            <strong>Easy</strong><br />
+            <span data-ng-if="$ctrl.easyActive.length">{{ $ctrl.easyActive.length || 0 }} in progress, </span>
+            <span>{{ $ctrl.easyFinished.length || 0 }} won, </span>
+            <span>{{ $ctrl.easyOver.length || 0 }} lost.<br /></span>
+            <span data-ng-if="$ctrl.easyFinished.length">Best: {{ $ctrl.easyFastest.stats.time_elapsed }}<br/></span>
+            <span data-ng-if="$ctrl.easyFinished.length > 1">Worst: {{ $ctrl.easySlowest.stats.time_elapsed }}<br/></span>
+        </p>
+        <p class="medium section" data-ng-if="$ctrl.medium.length">
+            <strong>Medium</strong><br />
+            <span data-ng-if="$ctrl.mediumActive.length">{{ $ctrl.mediumActive.length || 0 }} in progress, </span>
+            <span>{{ $ctrl.mediumFinished.length || 0 }} won, </span>
+            <span>{{ $ctrl.mediumOver.length || 0 }} lost.<br /></span>
+            <span data-ng-if="$ctrl.mediumFinished.length">Best: {{ $ctrl.mediumFastest.stats.time_elapsed }}<br/></span>
+            <span data-ng-if="$ctrl.mediumFinished.length > 1">Worst: {{ $ctrl.mediumSlowest.stats.time_elapsed }}<br/></span>
+        </p>
+        <p class="expert section" data-ng-if="$ctrl.expert.length">
+            <strong>Expert</strong><br />
+            <span data-ng-if="$ctrl.expertActive.length">{{ $ctrl.expertActive.length || 0 }} in progress, </span>
+            <span>{{ $ctrl.expertFinished.length || 0 }} won, </span>
+            <span>{{ $ctrl.expertOver.length || 0 }} lost.<br /></span>
+            <span data-ng-if="$ctrl.expertFinished.length">Best: {{ $ctrl.expertFastest.stats.time_elapsed }}<br/></span>
+            <span data-ng-if="$ctrl.expertFinished.length > 1">Worst: {{ $ctrl.expertSlowest.stats.time_elapsed }}<br/></span>
         </p>
     </div>
 </div>
