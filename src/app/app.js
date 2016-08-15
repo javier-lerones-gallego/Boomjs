@@ -26,6 +26,7 @@ import { MyGamesComponent } from './components/my-games/my-games.component';
 import { GameStatsComponent } from './components/game-stats/game-stats.component';
 import { NewGameComponent } from './components/new-game/new-game.component';
 import { FlagCountComponent } from './components/flag-count/flag-count.component';
+import { GameTimerComponent } from './components/game-timer/game-timer.component';
 
 // Import Services
 import GameService from './services/game.service';
@@ -64,6 +65,7 @@ app.component(MyGamesComponent.name, MyGamesComponent);
 app.component(GameStatsComponent.name, GameStatsComponent);
 app.component(NewGameComponent.name, NewGameComponent);
 app.component(FlagCountComponent.name, FlagCountComponent);
+app.component(GameTimerComponent.name, GameTimerComponent);
 
 // Services
 app.service(GameService.name, GameService);

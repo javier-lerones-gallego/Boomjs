@@ -9,13 +9,8 @@
     </svg>
   </a>
 
-  <game-timer game="$ctrl.game"></game-timer>
-  <flag-count game="$ctrl.game" data-ng-if="$ctrl.showFlagCount"></flag-count>
-
-  <!--<ul class="stats" data-ng-show="$ctrl.game !== undefined">
-      <li><i class="fa fa-2x fa-clock-o"></i></li>
-      <li><span data-ng-bind="$ctrl.value" data-ng-cloak></span></li>
-  </ul>-->
+  <game-timer game="$ctrl.game" data-ng-if="$ctrl.showGameStats"></game-timer>
+  <flag-count game="$ctrl.game" data-ng-if="$ctrl.showGameStats"></flag-count>
 
   <button type="button" class="game-state-button btn"
       data-ng-class="{'btn-success': $ctrl.game.isEasy, 'btn-warning': $ctrl.game.isMedium, 'btn-danger': $ctrl.game.isExpert}"
