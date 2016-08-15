@@ -66,15 +66,15 @@ export default function Board(Tile, UtilsService) {
             }
         }
 
-        generate() {
-            // Randomize the mine locations
+        generate(tile) {
+            // Randomize the mine locations, avoid the tile we just clicked on
             for (let mines = 0; mines < this._mineCount; mines++) {
                 let foundEmptySpot = false;
                 while (!foundEmptySpot) {
                     const x = this.randomX();
                     const y = this.randomY();
 
-                    if (!this.hasMine(x, y)) {
+                    if (tile.x !== x && tile.y !== y && !this.hasMine(x, y)) {
                         // Add the mine to the board
                         this.addMine(x, y);
                         foundEmptySpot = true;

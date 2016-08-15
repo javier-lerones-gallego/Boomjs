@@ -90,9 +90,6 @@ export default function Game(Board, UtilsService) {
             // First populate the board with all its tiles
             this._board.populate();
 
-            // Randomize the mines
-            this._board.generate();
-
             // Set the state to ready after creating the game.
             this._state = 'READY';
 
