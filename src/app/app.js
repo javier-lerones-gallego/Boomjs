@@ -25,6 +25,7 @@ import { BoomComponent } from './components/boom/boom.component';
 import { MyGamesComponent } from './components/my-games/my-games.component';
 import { GameStatsComponent } from './components/game-stats/game-stats.component';
 import { NewGameComponent } from './components/new-game/new-game.component';
+import { FlagCountComponent } from './components/flag-count/flag-count.component';
 
 // Import Services
 import GameService from './services/game.service';
@@ -62,6 +63,7 @@ app.component(BoomComponent.name, BoomComponent);
 app.component(MyGamesComponent.name, MyGamesComponent);
 app.component(GameStatsComponent.name, GameStatsComponent);
 app.component(NewGameComponent.name, NewGameComponent);
+app.component(FlagCountComponent.name, FlagCountComponent);
 
 // Services
 app.service(GameService.name, GameService);

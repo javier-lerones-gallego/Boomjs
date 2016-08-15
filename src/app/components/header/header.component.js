@@ -35,6 +35,11 @@ class HeaderController {
     get value() { return this._value ? this._value : 'Click on a Tile to Start'; }
     get board() { return this.game.board; }
 
+    get showFlagCount() {
+        // Show the flag count if game is not undefined and if it is not over or finished
+        return this.game !== undefined && !this.game.isFinished && !this.game.isOver;
+    }
+
     home() {
         this.$state.go('root.home');
     }
