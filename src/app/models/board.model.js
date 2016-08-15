@@ -24,6 +24,13 @@ export default function Board(Tile, UtilsService) {
         get first() { return this._tiles.filter(t => t.revealed).length === 1; }
         get revealed() { return this._tiles.filter(t => t.revealed).length; }
 
+        /**
+         * Returns true if all tiles without bomb
+         * have been correctly revealed, independently
+         * of all the bombs being flagged or not.
+         *
+         * @readonly
+         */
         get completed() { return this._tiles.length - this._mineCount === this.revealed; }
 
         /**
