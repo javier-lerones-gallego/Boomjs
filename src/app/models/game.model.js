@@ -1,9 +1,9 @@
 import moment from 'moment';
 
-export default function Game(Board) {
+export default function Game(Board, UtilsService) {
     class GameModel {
         constructor() {
-            this._id = this.newId();
+            this._id = UtilsService.newId();
             this._rows = null;
             this._columns = null;
             this._mineCount = null;
@@ -30,7 +30,7 @@ export default function Game(Board) {
         get columns() { return this._columns; }
         get mineCount() { return this._mineCount; }
         get difficulty() { return this._difficulty; }
-        get displayDifficulty() { return this.toTitleCase(this._difficulty); }
+        get displayDifficulty() { return UtilsService.toTitleCase(this._difficulty); }
 
         get isEasy() { return this._difficulty === 'EASY'; }
         get isMedium() { return this._difficulty === 'MEDIUM'; }
@@ -144,20 +144,8 @@ export default function Game(Board) {
             this._end = moment();
         }
 
-        newId() {
-            return 'xxxxxx'.replace(/[xy]/g, (c) => {
-                const r = Math.random() * 16 | 0;
-                const v = c === 'x' ? r : (r & 0x3 | 0x8);
-                return v.toString(16);
-            });
-        }
-
-        toTitleCase(str) {
-            return str.replace(/\w\S*/g, (txt) =>
-                txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
-        }
     }
 
     return GameModel;
 }
-Game.$inject = ['Board'];
+Game.$inject = ['Board', 'UtilsService'];
