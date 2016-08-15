@@ -1,23 +1,7 @@
 <div class="left-column">
-    <my-games games="$ctrl.games" page-size="5"></my-games>
-    <game-stats games="$ctrl.games"></game-stats>
+    <my-games games="$ctrl.games" page-size="10"></my-games>
 </div>
 <div class="right-column">
-    <!-- game selector -->
-    <div class="game-selector panel">
-        <div class="header">
-            <h3><i class="fa fa-plus"></i> New Game</h3>
-        </div>
-        <ul class="new-game-options">
-            <li>
-                <button type="button" class="btn btn-block btn-success" data-ng-click="$ctrl.easy()">New Easy (9x9)</button>
-            </li>
-            <li>
-                <button type="button" class="btn btn-block btn-warning" data-ng-click="$ctrl.medium()">New Medium (16x16)</button>
-            </li>
-            <li>
-                <button type="button" class="btn btn-block btn-danger" data-ng-click="$ctrl.expert()">New Expert (30x16)</button>
-            </li>
-        </ul>
-    </div>
+    <new-game></new-game>
+    <game-stats games="$ctrl.games"></game-stats>
 </div>

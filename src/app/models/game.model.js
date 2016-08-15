@@ -13,11 +13,15 @@ export default function Game(Board) {
             this._state = 'NEW';
 
             // Timestamps
+            this._created = moment();
             this._start = null;
             this._end = null;
 
             // The Board model is instantiated in the create methods
             this._board = null;
+
+            // The stats for when the game is over
+            this._stats = {};
         }
 
         get id() { return this._id; }
@@ -38,17 +42,22 @@ export default function Game(Board) {
         get board() { return this._board; } // Readonly, generated
 
         get isReady() { return this._state === 'READY'; }
-        get isCreating() { return this._state === 'RANDOMIZING'; }
         get isStarted() { return this._state === 'STARTED'; }
         get isFinished() { return this._state === 'FINISHED'; }
         get isOver() { return this._state === 'GAMEOVER'; }
 
+        get isActive() { return this.isReady || this.isStarted; }
+        get isDone() { return this.isOver || this.isFinished; }
+
+        get created() { return this._created.valueOf(); }
         get started() { return this._start; }
         get end() { return this._end; }
 
         get ellapsed() { return moment(this._end.diff(this._start)).format('mm:ss'); }
 
         get css() { return this._difficulty.toLowerCase(); }
+
+        get stats() { return this._stats; }
 
         easy() {
             this._rows = 9;
@@ -94,9 +103,6 @@ export default function Game(Board) {
         }
 
         generate() {
-            // Set the state
-            this._state = 'RANDOMIZING';
-
             // First populate the board with all its tiles
             this._board.populate();
 
@@ -148,7 +154,15 @@ export default function Game(Board) {
             // Set the end time
             this._end = moment();
 
-            // TODO: Delete all child collections and store only the stats to free up memory
+            // Save the stats to this object
+            this._stats = {
+                flags_set: this._board.flags,
+                percentage_revealed: this._board.percentage,
+                time_elapsed: this._end,
+            };
+
+            // Delete the board object to save memory
+            this._board.gameOver();
         }
 
         gameOver() {

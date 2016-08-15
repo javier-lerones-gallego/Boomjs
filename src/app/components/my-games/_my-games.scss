@@ -24,11 +24,18 @@ my-games {
                 padding: 15px;
                 padding-left: 35px;
                 color: #828B98;
+                cursor: pointer;
+                &:hover {
+                    background-color: #FDFBEE;
+                }
                 &.started {
                     background-color: #F6F7FD;
                     padding: 35px;
                     padding-top: 20px;
                     padding-bottom: 20px;
+                    &:hover {
+                        background-color: #EDEFFC;
+                    }
                 }
                 &.gameover {
                     background-color: #FDF4F4;

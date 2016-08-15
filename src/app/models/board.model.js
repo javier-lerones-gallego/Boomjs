@@ -164,7 +164,7 @@ export default function Board(Tile) {
         }
 
         gameOver() {
-            // TODO: Show all tiles
+            // TODO: Show all tiles?
         }
     }
 

@@ -1,23 +1,25 @@
 <div class="my-games panel">
     <div class="header">
         <h2>My Games</h2>
-        <p data-ng-if="$ctrl.games.length === 0">
+        <p data-ng-if="!$ctrl.activeCount">
             You don't have any games yet, use the buttons on the right to play.
         </p>
-        <p data-ng-if="$ctrl.games.length">
-            <span>Total Games: {{ $ctrl.games.length }}</span>
+        <p data-ng-if="$ctrl.activeCount">
+            <span>Total Games: {{ $ctrl.activeCount }}</span>
         </p>
     </div>
 
     <ul class="game-list">
         <li class="game-list-item"
-            data-ng-repeat="game in $ctrl.games | startFrom:$ctrl.pagerStart | limitTo:$ctrl.pagerSize"
+            data-ng-click="$ctrl.goTo(game)"
+            data-ng-if="game.isActive"
+            data-ng-repeat="game in $ctrl.games | orderBy:'-created' | startFrom:$ctrl.pagerStart | limitTo:$ctrl.pagerSize"
             data-ng-class="game.state.toLowerCase()">
 
-                <a data-ui-sref="root.game({ id: game.id })">
-                    {{ game.difficulty }}
-                </a>
+                <a data-ui-sref="root.game({ id: game.id })" data-ng-bind="game.difficulty"></a>
                 <span>({{ game.columns }}x{{ game.rows }})</span>
+                <span data-ng-show="game.isReady">Not started yet</span>
+
                 <div data-ng-if="game.isStarted">
                     <ul>
                         <li>started {{ game.started.fromNow() }}</li>
@@ -29,7 +31,7 @@
         </li>
     </ul>
 
-    <div class="footer pager" data-ng-if="$ctrl.games.length">
+    <div class="footer pager" data-ng-if="$ctrl.activeCount">
         <span><a data-ng-show="$ctrl.showPrevious" href data-ng-click="$ctrl.previous()">Previous</a></span>
         <span>Page: {{ $ctrl.page }}</span>
         <span><a data-ng-show="$ctrl.showNext" href data-ng-click="$ctrl.next()">Next</a></span>

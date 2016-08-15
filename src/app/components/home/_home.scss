@@ -60,54 +60,5 @@ boomjs-home {
         flex-flow: column;
         justify-content: flex-start;
         align-items: stretch;
-
-        .game-selector {
-            display: flex;
-            flex: 1;
-            flex-flow: column;
-
-            margin-bottom: 20px;
-            margin-right: 20px;
-
-            .header {
-                padding: 15px 20px 0px 20px;
-
-                h3 {
-                        margin-top: 0;
-                        margin-bottom: 0;
-                        margin-left: 0;
-                        margin-right: 0;
-                        font-size: 14px;
-                        font-weight: 600;
-                        line-height: 25px;
-                }
-            }
-
-            ul.new-game-options {
-                display: flex;
-                flex: 1;
-                flex-flow: column;
-                align-items: stretch;
-
-                padding: 10px;
-
-                margin-top: 0;
-                margin-bottom: 0;
-                margin-left: 0;
-                margin-right: 0;
-                list-style: none;
-
-                li {
-                    display: flex;
-                    flex: 1;
-                    margin-bottom: 10px;
-
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
-                }
-            }
-        }
-
     }
 }
