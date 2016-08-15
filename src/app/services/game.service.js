@@ -19,20 +19,6 @@ export default class GameService {
     get games() { return this._games; }
 
     /**
-     * Returns a list of games that are either ready or started.
-     *
-     * @readonly
-     */
-    get active() { return this._games.filter(g => g.isReady || g.isStarted); }
-
-    /**
-     * Returns a list of games that are either finished or over.
-     *
-     * @readonly
-     */
-    get done() { return this._games.filter(g => g.isFinished || g.isOver); }
-
-    /**
      * Returns true of there is an active game
      */
     get isPlaying() { return this._games.some(g => g.isStarted); }

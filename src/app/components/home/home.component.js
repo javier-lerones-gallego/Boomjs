@@ -7,12 +7,7 @@ class HomeController {
     }
 
     get games() { return this.GameService.games; }
-    get active() { return this.GameService.active; }
     get done() { return this.GameService.done; }
-
-    activeFilter() {
-        return (games) => games.filter((game) => game.isReady || game.isStarted);
-    }
 
     easy() {
         this.goToGame(this.GameService.easy());

@@ -20,16 +20,17 @@ import { HeaderComponent } from './components/header/header.component';
 import { BoardComponent } from './components/board/board.component';
 import { TileComponent } from './components/tile/tile.component';
 import { GameComponent } from './components/game/game.component';
-import { GameListComponent } from './components/game-list/game-list.component';
 import { SuccessComponent } from './components/success/success.component';
 import { BoomComponent } from './components/boom/boom.component';
 import { GameStateComponent } from './components/game-state/game-state.component';
+import { MyGamesComponent } from './components/my-games/my-games.component';
+import { GameStatsComponent } from './components/game-stats/game-stats.component';
 
 // Import Services
 import GameService from './services/game.service';
 
 // Import Filters
-import ActiveFilter from './filters/active.filter';
+import StartFromFilter from './filters/startfrom.filter';
 
 // Import Model Factories
 import Game from './models/game.model';
@@ -55,16 +56,17 @@ app.component(HeaderComponent.name, HeaderComponent);
 app.component(BoardComponent.name, BoardComponent);
 app.component(TileComponent.name, TileComponent);
 app.component(GameComponent.name, GameComponent);
-app.component(GameListComponent.name, GameListComponent);
 app.component(SuccessComponent.name, SuccessComponent);
 app.component(BoomComponent.name, BoomComponent);
 app.component(GameStateComponent.name, GameStateComponent);
+app.component(MyGamesComponent.name, MyGamesComponent);
+app.component(GameStatsComponent.name, GameStatsComponent);
 
 // Services
 app.service(GameService.name, GameService);
 
 // Filters
-app.filter(ActiveFilter.name, ActiveFilter.filter);
+app.filter(StartFromFilter.name, StartFromFilter.filter);
 
 // Models
 app.factory('Game', Game);

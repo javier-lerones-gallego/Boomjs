@@ -53,28 +53,6 @@ boomjs-home {
         flex-flow: column;
         justify-content: flex-start;
         align-items: stretch;
-
-        .my-games {
-            display: flex;
-            flex: 1;
-            flex-flow: column;
-
-            margin-top: 0;
-            margin-bottom: 20px;
-            margin-right: 20px;
-            margin-left: 20px;
-        }
-
-        .won-and-lost {
-            display: flex;
-            flex: 1;
-            flex-flow: column;
-
-            margin-top: 0;
-            margin-bottom: 20px;
-            margin-right: 20px;
-            margin-left: 20px;
-        }
     }
     .right-column {
         display: flex;
