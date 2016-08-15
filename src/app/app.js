@@ -29,6 +29,7 @@ import { NewGameComponent } from './components/new-game/new-game.component';
 
 // Import Services
 import GameService from './services/game.service';
+import UtilsService from './services/utils.service';
 
 // Import Filters
 import StartFromFilter from './filters/startfrom.filter';
@@ -66,6 +67,7 @@ app.component(NewGameComponent.name, NewGameComponent);
 
 // Services
 app.service(GameService.name, GameService);
+app.service(UtilsService.name, UtilsService);
 
 // Filters
 app.filter(StartFromFilter.name, StartFromFilter.filter);
