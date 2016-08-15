@@ -25,12 +25,6 @@ class TileController {
         if (event.button === 1) {
             // Cancel the scrolling for the middle button
             return false;
-        } else if (event.button === 2 && this.tile.revealed && this.tile.count > 0) {
-            // If the square is revealed highlight the neighbours on mousedown
-
-            // TODO: Right mouse highlight neighbours
-
-            return true;
         }
         return true;
     }
