@@ -8,9 +8,6 @@ export default function Tile() {
             this._count = 0;
 
             this._state = 0;
-
-            // Debug
-            this._highlight = false;
         }
 
         get x() { return this._x; }
@@ -30,9 +27,6 @@ export default function Tile() {
         get flagged() { return this._state === 1; }
         get revealed() { return this._state === 3; }
         get detonated() { return this._state === 4; }
-
-        get highlight() { return this._highlight; }
-        set highlight(value) { this._highlight = value; }
 
         get state() { return this._state; }
         set state(value) {
