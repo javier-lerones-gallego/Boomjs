@@ -5,13 +5,13 @@
     </div>
     <ul class="new-game-options">
         <li>
-            <button type="button" class="btn btn-block btn-success" data-ng-click="$ctrl.easy()">New Easy (9x9)</button>
+            <new-game-button difficulty="EASY" show-size="true" class="btn-block"></new-game-button>
         </li>
         <li>
-            <button type="button" class="btn btn-block btn-warning" data-ng-click="$ctrl.medium()">New Medium (16x16)</button>
+            <new-game-button difficulty="MEDIUM" show-size="true" class="btn-block"></new-game-button>
         </li>
         <li>
-            <button type="button" class="btn btn-block btn-danger" data-ng-click="$ctrl.expert()">New Expert (30x16)</button>
+            <new-game-button difficulty="EXPERT" show-size="true" class="btn-block"></new-game-button>
         </li>
     </ul>
 </div>

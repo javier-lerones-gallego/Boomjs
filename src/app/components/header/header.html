@@ -12,12 +12,14 @@
   <game-timer game="$ctrl.game" data-ng-if="$ctrl.showGameStats"></game-timer>
   <flag-count game="$ctrl.game" data-ng-if="$ctrl.showGameStats"></flag-count>
 
-  <button type="button" class="game-state-button btn"
-      data-ng-class="{'btn-success': $ctrl.game.isEasy, 'btn-warning': $ctrl.game.isMedium, 'btn-danger': $ctrl.game.isExpert}"
-      data-ng-show="$ctrl.game.isFinished || $ctrl.game.isOver"
-      data-ng-click="$ctrl.newGame()">New {{ $ctrl.game.displayDifficulty }}</button>
+  <new-game-button difficulty="EASY" show-size="false"
+    data-ng-if="$ctrl.showButtons && $ctrl.game.isEasy"></new-game-button>
+  <new-game-button difficulty="MEDIUM" show-size="false"
+    data-ng-if="$ctrl.showButtons && $ctrl.game.isMedium"></new-game-button>
+  <new-game-button difficulty="EXPERT" show-size="false"
+    data-ng-if="$ctrl.showButtons && $ctrl.game.isExpert"></new-game-button>
 
-  <button type="button" class="game-state-button btn btn-warning"
+  <button type="button" class="home-button btn btn-warning"
       data-ng-show="$ctrl.game.isFinished || $ctrl.game.isOver"
       data-ng-click="$ctrl.home()">Home</button>
 </header>
