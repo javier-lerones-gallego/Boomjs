@@ -22,10 +22,12 @@ import { TileComponent } from './components/tile/tile.component';
 import { GameComponent } from './components/game/game.component';
 import { SuccessComponent } from './components/success/success.component';
 import { BoomComponent } from './components/boom/boom.component';
-import { GameStateComponent } from './components/game-state/game-state.component';
 import { MyGamesComponent } from './components/my-games/my-games.component';
 import { GameStatsComponent } from './components/game-stats/game-stats.component';
 import { NewGameComponent } from './components/new-game/new-game.component';
+import { FlagCountComponent } from './components/flag-count/flag-count.component';
+import { GameTimerComponent } from './components/game-timer/game-timer.component';
+import { NewGameButtonComponent } from './components/new-game-button/new-game-button.component';
 
 // Import Services
 import GameService from './services/game.service';
@@ -60,10 +62,12 @@ app.component(TileComponent.name, TileComponent);
 app.component(GameComponent.name, GameComponent);
 app.component(SuccessComponent.name, SuccessComponent);
 app.component(BoomComponent.name, BoomComponent);
-app.component(GameStateComponent.name, GameStateComponent);
 app.component(MyGamesComponent.name, MyGamesComponent);
 app.component(GameStatsComponent.name, GameStatsComponent);
 app.component(NewGameComponent.name, NewGameComponent);
+app.component(FlagCountComponent.name, FlagCountComponent);
+app.component(GameTimerComponent.name, GameTimerComponent);
+app.component(NewGameButtonComponent.name, NewGameButtonComponent);
 
 // Services
 app.service(GameService.name, GameService);

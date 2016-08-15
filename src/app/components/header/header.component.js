@@ -5,7 +5,19 @@ class HeaderController {
         this.$state = $state;
     }
 
-    get board() { return this.game.board; }
+    get showGameStats() {
+        if (this.game === undefined) {
+            return false;
+        }
+        return !this.game.isFinished && !this.game.isOver;
+    }
+
+    get showButtons() {
+        if (this.game === undefined) {
+            return false;
+        }
+        return this.game.isFinished || this.game.isOver;
+    }
 
     home() {
         this.$state.go('root.home');

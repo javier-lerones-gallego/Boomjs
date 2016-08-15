@@ -1,0 +1,15 @@
+flag-count {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+
+    i.fa {
+        padding-right: 10px;
+    }
+
+    span {
+        font-weight: 700;
+        font-size: 1.2em;
+    }
+}
