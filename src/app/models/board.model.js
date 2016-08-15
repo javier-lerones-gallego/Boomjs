@@ -21,7 +21,7 @@ export default function Board(Tile, UtilsService) {
 
         get flags() { return this._tiles.filter(t => t.flagged).length; }
         get left() { return this._mineCount - this.flags; }
-        get first() { return this._tiles.filter(t => t.revealed).length === 1; }
+        get first() { return this._tiles.filter(t => t.revealed).length === 0; }
         get revealed() { return this._tiles.filter(t => t.revealed).length; }
 
         /**
