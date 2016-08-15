@@ -23,9 +23,25 @@ export default function Board(Tile, UtilsService) {
         get left() { return this._mineCount - this.flags; }
         get first() { return this._tiles.filter(t => t.revealed).length === 1; }
         get revealed() { return this._tiles.filter(t => t.revealed).length; }
+
+        /**
+         * Returns true if all tiles without bomb
+         * have been correctly revealed, independently
+         * of all the bombs being flagged or not.
+         *
+         * @readonly
+         */
         get completed() { return this._tiles.length - this._mineCount === this.revealed; }
+
+        /**
+         * Returns true if all the bombs have been flagged and
+         * all the rest of the tiles have been revealed.
+         *
+         * @readonly
+         */
         get flagged() {
-            return this._tiles.filter(t => t.flagged && t.isMine).length === this._mineCount;
+            return this._tiles.filter(t => t.flagged && t.isMine).length === this.mineCount
+                && this.revealed === this.tiles.length - this.mineCount;
         }
 
         get tiles() { return this._tiles; } // Read only, add and remove using the methods
