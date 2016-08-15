@@ -25,25 +25,24 @@ class TileController {
         if (event.button === 1) {
             // Cancel the scrolling for the middle button
             return false;
-        } else if (event.button === 2 && this.tile.revealed && this.tile.count > 0) {
-            // If the square is revealed highlight the neighbours on mousedown
-
-            // TODO: Right mouse highlight neighbours
-
-            return true;
         }
         return true;
     }
 
     onMouseUp(event) {
         if (event.button === 0) {
+            // If it is the first tile revealed, randomize the mines first
+            if (this.board.first) {
+                // Safe first click
+                this.board.generate(this.tile);
+                // Start the timer
+                this.game.start();
+            }
+
+            // Proceed after checking if it is the first click
             if (this.tile.active && !this.tile.isMine) {
                 // if not a bomb, reveal it
                 this.tile.reveal();
-                // If it is the first tile revealed, tell the game to start the timer
-                if (this.board.first) {
-                    this.game.start();
-                }
                 // notify the board a tile has been revealed
                 this.board.reveal(this.tile);
                 // if the board is completed, end the game
@@ -67,7 +66,6 @@ class TileController {
                 if (this.tile.active) {
                     this.tile.flag();
                     // if the board has all flags in the right place, end the game
-                    // TODO: but only if there are no active tiles left.
                     if (this.board.flagged) {
                         this.game.finish();
                     }
