@@ -1,7 +1,11 @@
+import Subscriber from './subscriber';
 
 export default function Tile() {
-    class TileModel {
+    class TileModel extends Subscriber {
         constructor() {
+            // Subscriber
+            super();
+
             this._x = -1;
             this._y = -1;
             this._isMine = false;
@@ -70,6 +74,7 @@ export default function Tile() {
 
         detonate() {
             this.state = 'DETONATED';
+            this.broadcast('DETONATE');
         }
     }
 
