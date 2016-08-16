@@ -143,7 +143,7 @@ export default function Game(Board, UtilsService) {
             this._end = moment();
 
             // Add the amount of miliseconds to the elapsed total.
-            this._elapsed += moment(moment().diff(this._pause)).miliseconds();
+            this._elapsed += moment().diff(this._pause);
 
             // Save stats
             this.saveStats();
@@ -159,7 +159,7 @@ export default function Game(Board, UtilsService) {
             this._end = moment();
 
             // Add the amount of miliseconds to the elapsed total.
-            this._elapsed += moment(moment().diff(this._pause)).miliseconds();
+            this._elapsed += moment().diff(this._pause);
 
             // Save stats
             this.saveStats();
@@ -170,7 +170,7 @@ export default function Game(Board, UtilsService) {
             this._stats = {
                 flags_set: this._board.flags,
                 percentage_revealed: this._board.percentage,
-                time_elapsed: moment(this._end.diff(this._start)).format('mm:ss'),
+                time_elapsed: moment().diff(this._pause),
             };
         }
     }
