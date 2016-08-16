@@ -170,7 +170,7 @@ export default function Game(Board, UtilsService) {
             this._stats = {
                 flags_set: this._board.flags,
                 percentage_revealed: this._board.percentage,
-                time_elapsed: moment().diff(this._pause),
+                time_elapsed: moment(this._elapsed),
             };
         }
     }
