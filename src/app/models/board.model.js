@@ -195,8 +195,19 @@ export default function Board(Tile, UtilsService) {
             return boom;
         }
 
+        revealBoard() {
+            this._tiles.forEach(tile => {
+                if (tile.isMine) {
+                    tile.detonate();
+                } else {
+                    tile.reveal();
+                }
+            });
+        }
+
         gameOver() {
-            // TODO: Show all tiles?
+            // Show all tiles?
+            this.revealBoard();
         }
     }
 
