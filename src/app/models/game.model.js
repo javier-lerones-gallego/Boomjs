@@ -16,6 +16,8 @@ export default function Game(Board, UtilsService) {
             this._created = moment();
             this._start = null;
             this._end = null;
+            this._elapsed = 0;
+            this._pause = null;
 
             // The Board model is instantiated in the create methods
             this._board = null;
@@ -45,15 +47,16 @@ export default function Game(Board, UtilsService) {
         get isStarted() { return this._state === 'STARTED'; }
         get isFinished() { return this._state === 'FINISHED'; }
         get isOver() { return this._state === 'GAMEOVER'; }
+        get isPaused() { return this._state === 'PAUSED'; }
 
-        get isActive() { return this.isReady || this.isStarted; }
+        get isActive() { return this.isReady || this.isStarted || this.isPaused; }
         get isDone() { return this.isOver || this.isFinished; }
 
         get created() { return this._created.valueOf(); }
         get started() { return this._start; }
         get end() { return this._end; }
 
-        get ellapsed() { return moment(this._end.diff(this._start)).format('mm:ss'); }
+        get elapsed() { return this._elapsed; }
 
         get css() { return this._difficulty.toLowerCase(); }
 
@@ -114,6 +117,22 @@ export default function Game(Board, UtilsService) {
             this._state = 'STARTED';
             // Set the start time
             this._start = moment();
+            // Set the initial paused time to avoid checking for null
+            this._pause = this._start;
+        }
+
+        pause() {
+            // Add the amount of miliseconds to the elapsed total.
+            this._elapsed += moment().diff(this._pause);
+            // Set the state
+            this._state = 'PAUSED';
+        }
+
+        resume() {
+            // Reset pause to now
+            this._pause = moment();
+            // Set the state
+            this._state = 'STARTED';
         }
 
         finish() {
@@ -123,12 +142,11 @@ export default function Game(Board, UtilsService) {
             // Set the end time
             this._end = moment();
 
-            // Save the stats to this object
-            this._stats = {
-                flags_set: this._board.flags,
-                percentage_revealed: this._board.percentage,
-                time_elapsed: moment(this._end.diff(this._start)).format('mm:ss'),
-            };
+            // Add the amount of miliseconds to the elapsed total.
+            this._elapsed += moment(moment().diff(this._pause)).miliseconds();
+
+            // Save stats
+            this.saveStats();
 
             // Delete the board object to save memory
             this._board.gameOver();
@@ -139,8 +157,22 @@ export default function Game(Board, UtilsService) {
 
             // Set the end time
             this._end = moment();
+
+            // Add the amount of miliseconds to the elapsed total.
+            this._elapsed += moment(moment().diff(this._pause)).miliseconds();
+
+            // Save stats
+            this.saveStats();
         }
 
+        saveStats() {
+            // Save the stats to this object
+            this._stats = {
+                flags_set: this._board.flags,
+                percentage_revealed: this._board.percentage,
+                time_elapsed: moment(this._end.diff(this._start)).format('mm:ss'),
+            };
+        }
     }
 
     return GameModel;

@@ -14,9 +14,11 @@ export default class GameTimerController {
         this._timer = this.$interval(() => {
             if (this.game) {
                 if (this.game.isStarted) {
-                    this._value = moment(moment().diff(this.game.started)).format('mm:ss');
+                    const elapsed = this.game.started.clone();
+                    elapsed.add(this.game.elapsed, 'ms');
+                    this._value = moment(moment().diff(elapsed)).format('mm:ss');
                 } else if (this.game.isOver || this.game.isFinished) {
-                    this._value = this.game.ellapsed;
+                    this._value = this.game.elapsed.format('mm:ss');
                 } else if (this.game.isReady) {
                     this._value = null;
                 }
