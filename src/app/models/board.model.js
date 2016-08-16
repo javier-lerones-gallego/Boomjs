@@ -146,8 +146,8 @@ export default function Board(Tile, UtilsService) {
         }
 
         neighbouringFlagCount(tile) {
-            const neighbours = this.getNeighbours(tile.x, tile.y);
-            return neighbours.filter(n => n.flagged).length;
+            return this.getNeighbours(tile.x, tile.y)
+                .filter(n => n.flagged).length;
         }
 
         reveal(tile) {
