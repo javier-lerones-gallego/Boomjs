@@ -5,7 +5,7 @@ boomjs-header {
         display: flex;
         flex: 1;
         flex-flow: row;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
         background-color: #2D72D9;
         color: #FFFFFF;
@@ -16,13 +16,21 @@ boomjs-header {
             justify-content: flex-start;
             align-items: flex-end;
         }
-        flag-count,
-        game-timer {
-            margin-right: 20px;
+        .game-stats {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+            game-timer {
+                margin-right: 20px;
+            }
         }
-        new-game-button,
-        .home-button {
-            margin-right: 10px;
+        .game-buttons {
+            display: flex;
+            flex: 1;
+            new-game-button,
+            .home-button {
+                margin-right: 10px;
+            }
         }
     }
 }

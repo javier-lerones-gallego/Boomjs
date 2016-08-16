@@ -16,7 +16,7 @@ class HeaderController {
         if (this.game === undefined) {
             return false;
         }
-        return this.game.isStarted || this.game.isFinished || this.game.isPaused;
+        return !this.game.isOver;
     }
 
     get showButtons() {
