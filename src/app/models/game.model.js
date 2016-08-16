@@ -1,8 +1,12 @@
 import moment from 'moment';
+import Subscriber from './subscriber';
 
 export default function Game(Board, UtilsService) {
-    class GameModel {
+    class GameModel extends Subscriber {
         constructor() {
+            // Subscriber
+            super();
+
             this._id = UtilsService.newId();
             this._rows = null;
             this._columns = null;
@@ -150,6 +154,9 @@ export default function Game(Board, UtilsService) {
 
             // Delete the board object to save memory
             this._board.gameOver();
+
+            // Trigger success event
+            this.broadcast('WIN');
         }
 
         gameOver() {
