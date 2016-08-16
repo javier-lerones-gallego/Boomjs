@@ -85,6 +85,11 @@ class TileController {
             if (this.board.neighbouringFlagCount(this.tile) === this.tile.count) {
                 if (this.board.forceRevealNeighbours(this.tile)) {
                     this.game.gameOver();
+                } else {
+                    // If no boom, check for game finish
+                    if (this.board.completed) {
+                        this.game.finish();
+                    }
                 }
             }
         }
