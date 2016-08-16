@@ -12,6 +12,13 @@ class HeaderController {
         return !this.game.isFinished && !this.game.isOver;
     }
 
+    get showGameTimer() {
+        if (this.game === undefined) {
+            return false;
+        }
+        return this.game.isStarted || this.game.isFinished || this.game.isPaused;
+    }
+
     get showButtons() {
         if (this.game === undefined) {
             return false;
