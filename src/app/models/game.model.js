@@ -16,7 +16,7 @@ export default function Game(Board, UtilsService) {
             this._created = moment();
             this._start = null;
             this._end = null;
-            this._elapsed = null;
+            this._elapsed = 0;
             this._pause = null;
 
             // The Board model is instantiated in the create methods
@@ -56,7 +56,7 @@ export default function Game(Board, UtilsService) {
         get started() { return this._start; }
         get end() { return this._end; }
 
-        get ellapsed() { return moment(this._end.diff(this._start)).format('mm:ss'); }
+        get elapsed() { return this._elapsed; }
 
         get css() { return this._difficulty.toLowerCase(); }
 
@@ -115,8 +115,6 @@ export default function Game(Board, UtilsService) {
         start() {
             // Set the state
             this._state = 'STARTED';
-            // Set elapsed time to 0;
-            this._elapsed = 0;
             // Set the start time
             this._start = moment();
             // Set the initial paused time to avoid checking for null
