@@ -1,9 +1,13 @@
 explosion {
     display: inline-block;
     position: absolute;
+    margin-top: -25px;
 
-
-    .explosion-container {
-
+    .explosion {
+        width: 100px;
+        height: 100px;
+        background-image: url('./public/explosion.gif');
+        background-repeat: no-repeat;
+        background-size: 100px 100px;
     }
 }
