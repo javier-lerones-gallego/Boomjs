@@ -49,7 +49,9 @@ class TileController {
                 if (this.board.completed) {
                     this.game.finish();
                 }
-            } else if (this.tile.active && this.tile.isMine) {
+            }
+
+            if (this.tile.active && this.tile.isMine) {
                 // Game Over, notify the game
                 this.tile.detonate();
                 // Tell the board to show all tiles
@@ -58,23 +60,13 @@ class TileController {
                 this.game.gameOver();
             }
         } else if (event.button === 2) {
-            // Stop the context menu
-            event.preventDefault();
-
             if (!this.tile.revealed) {
-                // if active, switch to flag
-                if (this.tile.active) {
-                    this.tile.flag();
-                    // if the board has all flags in the right place, end the game
-                    if (this.board.completed) {
-                        this.game.finish();
-                    }
-                } else if (this.tile.flagged) {
-                    // if flag switch to question
-                    this.tile.unknown();
-                } else if (this.tile.question) {
-                    // if question, switch to active
-                    this.tile.activate();
+                // Switch the state of the tile, active, flagged, question mark
+                this.tile.toggle();
+
+                // if the board has all flags in the right place, end the game
+                if (this.tile.flagged && this.board.completed) {
+                    this.game.finish();
                 }
             }
         }
@@ -84,6 +76,7 @@ class TileController {
         if (this.tile.revealed) {
             if (this.board.neighbouringFlagCount(this.tile) === this.tile.count) {
                 if (this.board.forceRevealNeighbours(this.tile)) {
+                    // If there was a bomb revealed, game over
                     this.game.gameOver();
                 } else {
                     // If no boom, check for game finish

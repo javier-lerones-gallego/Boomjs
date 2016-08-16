@@ -56,16 +56,20 @@ export default function Tile() {
             }
         }
 
-        flag() {
-            this.state = 'FLAGGED';
-        }
-
-        unknown() {
-            this.state = 'QUESTION';
-        }
-
-        activate() {
-            this.state = 'ACTIVE';
+        toggle() {
+            switch (this.state) {
+                case 'ACTIVE':
+                    this.state = 'FLAGGED';
+                    break;
+                case 'FLAGGED':
+                    this.state = 'QUESTION';
+                    break;
+                case 'QUESTION':
+                    this.state = 'ACTIVE';
+                    break;
+                default:
+                    this.state = 'ACTIVE';
+            }
         }
 
         reveal() {
