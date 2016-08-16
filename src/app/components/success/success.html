@@ -1,6 +1,14 @@
 <div class="success" data-ng-class="{'visible': $ctrl.game.isFinished }">
 
 
-
+    <div>
+        <new-game-button difficulty="EASY" show-size="false"
+            data-ng-if="$ctrl.game.isEasy"></new-game-button>
+        <new-game-button difficulty="MEDIUM" show-size="false"
+            data-ng-if="$ctrl.game.isMedium"></new-game-button>
+        <new-game-button difficulty="EXPERT" show-size="false"
+            data-ng-if="$ctrl.game.isExpert"></new-game-button>
+        <a data-ui-sref="root.home" class="btn btn-warning">Home</button>
+    </div>
 
 </div>
