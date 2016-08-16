@@ -16,7 +16,7 @@ success {
         z-index: 3;
 
         &.visible {
-            top: 0;
+            top: 60px;
             bottom: 0;
             transition: top 0.2s ease-in-out, bottom 0.2s ease-in-out;
         }

@@ -195,7 +195,8 @@ export default function Board(Tile, UtilsService, $timeout) {
             return boom;
         }
 
-        revealBoard() {
+        gameOver() {
+            // Show all tiles?
             this._tiles.forEach((tile, index) => {
                 if (tile.isMine) {
                     $timeout(() => {
@@ -205,11 +206,6 @@ export default function Board(Tile, UtilsService, $timeout) {
                     tile.reveal();
                 }
             });
-        }
-
-        gameOver() {
-            // Show all tiles?
-            this.revealBoard();
         }
     }
 
