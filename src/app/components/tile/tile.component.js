@@ -66,7 +66,7 @@ class TileController {
                 if (this.tile.active) {
                     this.tile.flag();
                     // if the board has all flags in the right place, end the game
-                    if (this.board.flagged) {
+                    if (this.board.completed) {
                         this.game.finish();
                     }
                 } else if (this.tile.flagged) {
