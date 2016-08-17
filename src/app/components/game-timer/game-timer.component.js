@@ -32,7 +32,7 @@ export default class GameTimerController {
         }
     }
 
-    get value() { return this._value ? this._value : 'Click on a Tile to Start'; }
+    get value() { return this._value ? this._value : '00:00'; }
 
 }
 GameTimerController.$inject = ['$interval'];

@@ -18,13 +18,16 @@ board {
     }
 }
 board.easy {
-    width: 390px;
+    min-width: 390px;
+    max-width: 390px;
 }
 board.medium {
-    width: 694px;
+    min-width: 694px;
+    max-width: 694px;
 }
 board.expert {
-    width: 1300px;
+    min-width: 1300px;
+    max-width: 1300px;
 }
 
 
