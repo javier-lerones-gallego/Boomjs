@@ -20,7 +20,7 @@
                 <span>({{ game.columns }}x{{ game.rows }})</span>
                 <span data-ng-show="game.isReady">Not started yet</span>
 
-                <div data-ng-if="game.isStarted">
+                <div data-ng-if="game.isPaused">
                     <ul>
                         <li>started {{ game.started.fromNow() }}</li>
                         <li>{{ game.board.flags }}/{{ game.board.mineCount }} flags</li>
