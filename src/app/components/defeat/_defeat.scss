@@ -1,5 +1,5 @@
-success {
-    .success {
+defeat {
+    .defeat {
         display: none;
         position: absolute;
         top: 60px;
@@ -18,7 +18,13 @@ success {
         .actions {
             text-align: center;
             h3 {
-                font-size: 2em;
+                font-size: 1em;
+                text-shadow: 0 0 7px rgba(230, 13, 13, 0.8);
+                color: #BD3B3B;
+                line-height: 120px;
+                transition: font-size 0.25s ease-in-out;
+                -webkit-margin-before: 10px;
+                -webkit-margin-after: 10px;
             }
             a {
                 text-decoration: none;
@@ -28,6 +34,11 @@ success {
 
         &.visible {
             display: flex;
+
+            h3 {
+                font-size: 3em;
+                transition: font-size 0.25s ease-in-out;
+            }
         }
 
 

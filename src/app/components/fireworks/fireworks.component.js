@@ -72,7 +72,7 @@ class Particle {
         return (this.alpha < 0.005);
     }
 
-    render(context, fireworkCanvas) {
+    render(context, fireworkCanvas, smallGlow) {
         const c = context;
 
         const x = Math.round(this.pos.x);
@@ -86,7 +86,7 @@ class Particle {
 
         // draw the line from where we were to where
         // we are now
-        c.fillStyle = 'rgba(255,255,255,0.3)';
+        c.fillStyle = 'rgba(255,255,255,0.75)';
         c.beginPath();
         c.moveTo(this.pos.x, this.pos.y);
         c.lineTo(this.pos.x + 1.5, this.pos.y);
@@ -96,9 +96,11 @@ class Particle {
         c.fill();
 
         // draw in the images
+        c.drawImage(smallGlow, x - 3, y - 3);
         c.drawImage(fireworkCanvas,
-            this.gridX, this.gridY, 4, 4,
-            x - 2, y - 2, 4, 4);
+            this.gridX, this.gridY, 12, 12,
+            x - 6, y - 6, 12, 12);
+
 
         c.restore();
     }
@@ -137,6 +139,9 @@ export default class FireworksController {
         // because that's rad n all
         this.fireworkCanvas = document.createElement('canvas');
         this.fireworkContext = this.fireworkCanvas.getContext('2d');
+
+        this.bigGlow = document.getElementById('big-glow');
+        this.smallGlow = document.getElementById('small-glow');
 
         // Create the palette
         this.createFireworkPalette(12);
@@ -177,7 +182,7 @@ export default class FireworksController {
     }
 
     clearContext() {
-        this.mainContext.fillStyle = 'rgba(0,0,0,0.1)';
+        this.mainContext.fillStyle = 'rgba(0,0,0,0.2)';
         this.mainContext.fillRect(0, 0, this.viewportWidth, this.viewportHeight);
     }
 
@@ -194,8 +199,12 @@ export default class FireworksController {
             const gridX = marker % size;
             const gridY = Math.floor(marker / size) * gridSize;
 
-            this.fireworkContext.fillStyle = `hsl(${Math.round(c * 3.6)},100%,60%)`;
+            this.fireworkContext.fillStyle = `hsl(${Math.round(c * 3.6)},100%,10%)`;
             this.fireworkContext.fillRect(gridX, gridY, gridSize, gridSize);
+            this.fireworkContext.drawImage(
+                this.bigGlow,
+                gridX,
+                gridY);
         }
     }
 
@@ -255,7 +264,7 @@ export default class FireworksController {
 
             // pass the canvas context and the firework
             // colours to the
-            firework.render(this.mainContext, this.fireworkCanvas);
+            firework.render(this.mainContext, this.fireworkCanvas, this.smallGlow);
         }
     }
 
