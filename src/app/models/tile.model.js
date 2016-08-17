@@ -58,13 +58,13 @@ export default function Tile() {
 
         toggle() {
             switch (this.state) {
-                case 'ACTIVE':
+                case 0:
                     this.state = 'FLAGGED';
                     break;
-                case 'FLAGGED':
+                case 1:
                     this.state = 'QUESTION';
                     break;
-                case 'QUESTION':
+                case 2:
                     this.state = 'ACTIVE';
                     break;
                 default:

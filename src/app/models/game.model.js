@@ -152,8 +152,7 @@ export default function Game(Board, UtilsService) {
             // Save stats
             this.saveStats();
 
-            // Delete the board object to save memory
-            this._board.gameOver();
+            // TODO: Delete the board to save memory
 
             // Trigger success event
             this.broadcast('WIN');

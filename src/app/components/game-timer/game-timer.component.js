@@ -18,7 +18,7 @@ export default class GameTimerController {
                     elapsed.add(this.game.elapsed, 'ms');
                     this._value = moment(moment().diff(elapsed)).format('mm:ss');
                 } else if (this.game.isOver || this.game.isFinished) {
-                    this._value = this.game.elapsed.format('mm:ss');
+                    this._value = moment(this.game.elapsed).format('mm:ss');
                 } else if (this.game.isReady) {
                     this._value = null;
                 }

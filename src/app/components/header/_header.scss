@@ -27,6 +27,7 @@ boomjs-header {
         .game-buttons {
             display: flex;
             flex: 1;
+            justify-content: flex-end;
             new-game-button,
             .home-button {
                 margin-right: 10px;

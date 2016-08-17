@@ -1,10 +1,11 @@
 success {
     .success {
+        display: none;
         position: absolute;
-        top: -200px;
+        top: 60px;
         left: 0;
         right: 0;
-        bottom: 100%;
+        bottom: 0;
         background-color: rgba(255, 255, 255, 0.54);
         overflow: hidden;
         color: #FFFFFF;
@@ -15,18 +16,27 @@ success {
         margin-left: auto;
         z-index: 3;
 
-        &.visible {
-            top: 60px;
-            bottom: 0;
-            transition: top 0.2s ease-in-out, bottom 0.2s ease-in-out;
+        justify-content: space-around;
+        align-items: center;
+        flex: 1;
+        flex-flow:column;
+
+        .actions {
+            text-align: center;
+            h3 {
+                font-size: 2em;
+            }
+            a {
+                text-decoration: none;
+                margin-left: 10px;
+            }
         }
 
-        svg {
-            margin-top: 0;
-            margin-bottom: 0;
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%;
+        &.visible {
+            display: flex;
         }
+
+
+
     }
 }
