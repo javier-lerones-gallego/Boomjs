@@ -1,5 +1,7 @@
 
-export default function Config($locationProvider, $stateProvider, $urlRouterProvider) {
+export default function Config($locationProvider,
+    $stateProvider,
+    $urlRouterProvider) {
     // Enable HTML5 mode
     $locationProvider.html5Mode(true);
 
@@ -8,16 +10,27 @@ export default function Config($locationProvider, $stateProvider, $urlRouterProv
 
     // Define the app states
     $stateProvider
+        .state('signin', {
+            url: '^/signin',
+            template: '<boomjs-signin />',
+        })
         .state('root', {
             abstract: true,
             template: '<boomjs-app />',
+            resolve: {
+                // controller will not be loaded until $waitForSignIn resolves
+                // Auth refers to our $firebaseAuth wrapper in the factory below
+                // $waitForSignIn returns a promise so the resolve waits for it to complete
+                currentAuth: ['$firebaseAuth', ($firebaseAuth) => $firebaseAuth().$requireSignIn()],
+            },
         })
         .state('root.home', {
-            url: '/',
+            url: '^/',
             template: '<boomjs-home />',
+
         })
         .state('root.game', {
-            url: '/games/:id',
+            url: '^/games/:id',
             template: '<boomjs-game />',
         });
 }

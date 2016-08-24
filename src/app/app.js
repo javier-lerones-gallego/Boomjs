@@ -4,6 +4,10 @@ import '../index.scss';
 // Import angular
 import angular from 'angular';
 
+// Import firebase stuff
+import firebase from 'firebase'; // eslint-disable-line no-unused-vars
+import angularfire from 'angularfire';
+
 // Import uiRouter
 import uiRouter from 'angular-ui-router';
 
@@ -30,6 +34,7 @@ import { GameTimerComponent } from './components/game-timer/game-timer.component
 import { NewGameButtonComponent } from './components/new-game-button/new-game-button.component';
 import { ExplosionComponent } from './components/explosion/explosion.component';
 import { FireworksComponent } from './components/fireworks/fireworks.component';
+import { SigninComponent } from './components/signin/signin.component';
 
 // Import Services
 import LogService from './services/log.service';
@@ -48,7 +53,7 @@ import Tile from './models/tile.model';
 const appName = 'com.javierlerones.boomjs';
 
 // Set up the angular app object with its dependencies
-const app = angular.module(appName, [uiRouter]);
+const app = angular.module(appName, [uiRouter, angularfire]);
 
 // Configure the Angular App
 app.config(Config);
@@ -73,6 +78,7 @@ app.component(GameTimerComponent.name, GameTimerComponent);
 app.component(NewGameButtonComponent.name, NewGameButtonComponent);
 app.component(ExplosionComponent.name, ExplosionComponent);
 app.component(FireworksComponent.name, FireworksComponent);
+app.component(SigninComponent.name, SigninComponent);
 
 // Services
 app.service(LogService.name, LogService);
@@ -94,3 +100,12 @@ app.constant('environment', 'dev');
 angular.element(document).ready(() => {
     angular.bootstrap(document, [appName]);
 });
+
+// Initialize Firebase
+const config = {
+    apiKey: 'AIzaSyAbzHwkEl8UBu6A42XzfN_WmietUOc5AXE',
+    authDomain: 'boomjs-5abad.firebaseapp.com',
+    databaseURL: 'https://boomjs-5abad.firebaseio.com',
+    storageBucket: 'boomjs-5abad.appspot.com',
+};
+firebase.initializeApp(config);

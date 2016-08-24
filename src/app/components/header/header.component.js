@@ -1,8 +1,9 @@
 import template from './header.html';
 
 class HeaderController {
-    constructor($state) {
+    constructor($state, $firebaseAuth) {
         this.$state = $state;
+        this.$firebaseAuth = $firebaseAuth;
     }
 
     get showGameStats() {
@@ -29,8 +30,13 @@ class HeaderController {
     home() {
         this.$state.go('root.home');
     }
+
+    signout() {
+        this.$firebaseAuth().$signOut();
+        this.$state.go('signin');
+    }
 }
-HeaderController.$inject = ['$state'];
+HeaderController.$inject = ['$state', '$firebaseAuth'];
 
 export const HeaderComponent = {
     name: 'boomjsHeader',
