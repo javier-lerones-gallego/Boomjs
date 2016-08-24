@@ -32,6 +32,7 @@ import { ExplosionComponent } from './components/explosion/explosion.component';
 import { FireworksComponent } from './components/fireworks/fireworks.component';
 
 // Import Services
+import LogService from './services/log.service';
 import GameService from './services/game.service';
 import UtilsService from './services/utils.service';
 
@@ -74,6 +75,7 @@ app.component(ExplosionComponent.name, ExplosionComponent);
 app.component(FireworksComponent.name, FireworksComponent);
 
 // Services
+app.service(LogService.name, LogService);
 app.service(GameService.name, GameService);
 app.service(UtilsService.name, UtilsService);
 
