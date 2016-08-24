@@ -87,7 +87,10 @@ app.factory('Game', Game);
 app.factory('Tile', Tile);
 app.factory('Board', Board);
 
-// Bootstrap the Angular app when the document is ready
+// Constants
+app.constant('environment', 'dev');
+
+// Bootstrap the Angular app when the document is readyeslint
 angular.element(document).ready(() => {
     angular.bootstrap(document, [appName]);
 });
