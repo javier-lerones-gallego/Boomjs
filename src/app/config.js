@@ -49,14 +49,14 @@ export default function Config($locationProvider,
             template: '<boomjs-app layout="column" flex />',
         })
         .state('root.home', {
-            url: '/',
+            url: '^/',
             template: '<boomjs-home />',
             data: {
                 title: 'Home',
             },
         })
         .state('root.game', {
-            url: '/games/:id',
+            url: '^/games/:id',
             template: '<boomjs-game />',
             data: {
                 title: 'Game',
