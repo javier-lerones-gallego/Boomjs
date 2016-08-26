@@ -1,37 +1,7 @@
 boomjs-header {
-    display: flex;
-    height: 60px;
-    .header {
-        display: flex;
-        flex: 1;
-        flex-flow: row;
-        justify-content: space-around;
-        align-items: center;
-        background-color: #2D72D9;
-        color: #FFFFFF;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.75);
-        a.logo {
-            display: flex;
-            flex: 1;
-            justify-content: flex-start;
-            align-items: flex-end;
-        }
-        .game-stats {
-            display: flex;
-            flex: 1;
-            justify-content: center;
-            game-timer {
-                margin-right: 20px;
-            }
-        }
-        .game-buttons {
-            display: flex;
-            flex: 1;
-            justify-content: flex-end;
-            new-game-button,
-            .home-button {
-                margin-right: 10px;
-            }
+    md-icon {
+        svg {
+            fill: $white;
         }
     }
 }

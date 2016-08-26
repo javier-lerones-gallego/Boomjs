@@ -1,7 +1,7 @@
-<div class="left-column">
-    <my-games games="$ctrl.games" page-size="10"></my-games>
+<div flex-md="70" flex-lg="70" layout-fill>
+    <my-games games="$ctrl.games" page-size="10" flex layout="column"></my-games>
 </div>
-<div class="right-column">
-    <new-game></new-game>
-    <game-stats games="$ctrl.games"></game-stats>
+<div flex-md="30" flex-lg="30" layout="column" layout-fill>
+    <new-game flex layout="column" hide-xs hide-sm></new-game>
+    <game-stats games="$ctrl.games" flex layout="column"></game-stats>
 </div>

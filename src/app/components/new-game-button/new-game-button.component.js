@@ -21,13 +21,13 @@ class NewGameButtonController {
     get css() {
         switch (this.difficulty) {
             case 'EASY':
-                return this.class ? 'btn-success '.concat(this.class) : 'btn-success';
+                return this.class ? ' '.concat(this.class) : '';
             case 'MEDIUM':
-                return this.class ? 'btn-warning '.concat(this.class) : 'btn-warning';
+                return this.class ? 'md-primary '.concat(this.class) : 'md-primary';
             case 'EXPERT':
-                return this.class ? 'btn-danger '.concat(this.class) : 'btn-danger';
+                return this.class ? 'md-warn '.concat(this.class) : 'md-warn';
             default:
-                return this.class ? 'btn-success '.concat(this.class) : 'btn-success';
+                return this.class ? ' '.concat(this.class) : '';
         }
     }
 

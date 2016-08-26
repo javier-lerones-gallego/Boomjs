@@ -1,36 +1,51 @@
 tile {
-    display: flex;
-    height: 42px;
-    width: 42px;
-    justify-content: center;
-    align-items: flex-start;
 
-    button {
-        width: 38px;
-        height: 34px;
-    }
+    button.md-button {
+        min-width: 40px;
+        max-width: 40px;
+        min-height: 40px;
+        max-height: 40px;
 
-    .tile-count {
-        display: block;
-    }
+        margin-left: 3px;
+        margin-right: 3px;
+        margin-top: 3px;
+        margin-bottom: 3px;
 
-    .tile-icon.fa {
-        position: relative;
-        top: 2px;
-        left: -2px;
-        font-size: 1.3em;
-    }
+        md-icon {
+            svg {
+                fill: $white;
+            }
+        }
 
-    .tile-icon.fa.fa-flag {
-        color: #C63702;
-        text-shadow: 0 -1px 1px rgba(255, 0, 0, 0.5);
-    }
-    .tile-icon.fa.fa-question-circle {
-        color: #FFFFFF;
-        text-shadow: 0 -1px 1px rgba(53, 209, 255, 0.5);
-    }
-    .tile-icon.fa.fa-bomb {
-        color: #FFFFFF;
-        text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+        span.tile-count {
+            font-size: 1.3em;
+            font-weight: 700;
+
+            &._1 {
+                color: $tile1;
+            }
+            &._2 {
+                color: $tile2;
+            }
+            &._3 {
+                color: $tile3;
+            }
+            &._4 {
+                color: $tile4;
+            }
+            &._5 {
+                color: $tile5;
+            }
+            &._6 {
+                color: $tile6;
+            }
+            &._7 {
+                color: $tile7;
+            }
+            &._8 {
+                color: $tile8;
+            }
+        }
+
     }
 }

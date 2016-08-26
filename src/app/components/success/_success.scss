@@ -2,35 +2,29 @@ success {
     .success {
         display: none;
         position: absolute;
-        top: 60px;
+        top: 0;
         left: 0;
         right: 0;
         bottom: 0;
         overflow: hidden;
-        color: #FFFFFF;
+        color: $white;
         z-index: 3;
 
-        justify-content: space-around;
-        align-items: center;
-        flex: 1;
-        flex-flow:column;
-
         .actions {
-            text-align: center;
             h3 {
                 font-size: 2em;
             }
             a {
                 text-decoration: none;
-                margin-left: 10px;
+                font-size: 1.2em;
+                text-align: center;
+                color: $white;
+                margin-top: 10px;
             }
         }
 
         &.visible {
             display: flex;
         }
-
-
-
     }
 }

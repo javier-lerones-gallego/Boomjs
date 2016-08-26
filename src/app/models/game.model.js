@@ -76,21 +76,21 @@ export default function Game(Board, UtilsService) {
         }
 
         medium() {
-            this._rows = 16;
+            this._rows = 15;
             this._columns = 16;
             this._mineCount = 40;
             this._difficulty = 'MEDIUM';
             // Instantiate the Board
-            this._board = new Board(16, 16, 40);
+            this._board = new Board(15, 16, 40);
         }
 
         hard() {
-            this._rows = 16;
+            this._rows = 15;
             this._columns = 30;
             this._mineCount = 99;
             this._difficulty = 'EXPERT';
             // Instantiate the Board
-            this._board = new Board(16, 30, 99);
+            this._board = new Board(15, 30, 99);
         }
 
         generate() {

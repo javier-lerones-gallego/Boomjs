@@ -1,17 +1,13 @@
 <!-- game selector -->
-<div class="new-game panel">
-    <div class="header">
-        <h3><i class="fa fa-plus"></i> New Game</h3>
-    </div>
-    <ul class="new-game-options">
-        <li>
-            <new-game-button difficulty="EASY" show-size="true" class="btn-block"></new-game-button>
-        </li>
-        <li>
-            <new-game-button difficulty="MEDIUM" show-size="true" class="btn-block"></new-game-button>
-        </li>
-        <li>
-            <new-game-button difficulty="EXPERT" show-size="true" class="btn-block"></new-game-button>
-        </li>
-    </ul>
-</div>
+<md-card md-theme="default">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">New Game</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content layout="column" layout-align="space-between">
+        <new-game-button difficulty="EASY" show-size="true"></new-game-button>
+        <new-game-button difficulty="MEDIUM" show-size="true"></new-game-button>
+        <new-game-button difficulty="EXPERT" show-size="true"></new-game-button>
+    </md-card-content>
+</md-card>

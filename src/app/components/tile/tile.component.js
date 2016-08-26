@@ -7,18 +7,18 @@ class TileController {
 
     get css() {
         if (this.tile.active) {
-            return 'btn-primary';
+            return 'md-raised md-primary';
         } else if (this.tile.flagged) {
-            return 'btn-warning';
+            return 'md-raised md-warn';
         } else if (this.tile.question) {
-            return 'btn-info';
+            return 'md-raised md-primary';
         } else if (this.tile.revealed) {
-            return 'btn-default active';
+            return 'md-default active';
         } else if (this.tile.detonated) {
-            return 'btn-danger';
+            return 'md-raised md-warn';
         }
 
-        return 'btn-primary';
+        return 'md-primary';
     }
 
     onMouseDown(event) {

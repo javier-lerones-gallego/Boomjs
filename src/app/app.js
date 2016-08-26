@@ -11,6 +11,9 @@ import angularfire from 'angularfire';
 // Import uiRouter
 import uiRouter from 'angular-ui-router';
 
+// Import Angular MAterial
+import ngMaterial from 'angular-material';
+
 // Import Angular config files
 import Config from './config';
 import Run from './run';
@@ -53,7 +56,7 @@ import Tile from './models/tile.model';
 const appName = 'com.javierlerones.boomjs';
 
 // Set up the angular app object with its dependencies
-const app = angular.module(appName, [uiRouter, angularfire]);
+const app = angular.module(appName, [uiRouter, ngMaterial]);
 
 // Configure the Angular App
 app.config(Config);

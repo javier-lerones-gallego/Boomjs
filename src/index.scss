@@ -1,27 +1,19 @@
-$fa-font-path: '~font-awesome/fonts';
-
-@import "~bootstrap-sass/assets/stylesheets/bootstrap/variables";
-@import "~bootstrap-sass/assets/stylesheets/bootstrap/mixins";
-@import "~bootstrap-sass/assets/stylesheets/bootstrap/buttons";
-
-@import '~font-awesome/scss/font-awesome';
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700');
+
+@import "~angular-material/modules/scss/angular-material";
+@import "~angular-material/modules/scss/angular-material.layouts";
+@import "~angular-material/modules/scss/angular-material.layout-attributes";
 
 @import './scss/colors';
 @import './scss/globals';
-@import './scss/btn3d';
 
-@import './app/components/app/app';
-@import './app/components/home/home';
 @import './app/components/game/game';
 @import './app/components/board/board';
 @import './app/components/header/header';
+@import './app/components/my-games/my-games';
 @import './app/components/tile/tile';
 @import './app/components/success/success';
 @import './app/components/defeat/defeat';
-@import './app/components/my-games/my-games';
-@import './app/components/game-stats/game-stats';
-@import './app/components/new-game/new-game';
 @import './app/components/flag-count/flag-count';
 @import './app/components/game-timer/game-timer';
 @import './app/components/explosion/explosion';
