@@ -56,7 +56,7 @@ export default function Config($locationProvider,
         })
         .state('root.game', {
             url: '/games/:id',
-            template: '<boomjs-game layout-align="center center" layout-fill flex  />',
+            template: '<boomjs-game layout-align="start start" layout-fill flex  />',
         });
 }
 Config.$inject = ['$locationProvider',

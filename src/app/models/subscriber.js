@@ -25,9 +25,12 @@ export default class Subscriber {
     }
 
     broadcast(event) {
-        this.subscribers.get(event).forEach(listener => {
-            listener();
-        });
+        const events = this.subscribers.get(event);
+        if (events) {
+            events.forEach(listener => {
+                listener();
+            });
+        }
     }
 
     unsubscribeAll() {

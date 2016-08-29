@@ -31,43 +31,51 @@ class TileController {
 
     onMouseUp(event) {
         if (event.button === 0) {
-            // If it is the first tile revealed, randomize the mines first
-            if (this.board.first) {
-                // Safe first click
-                this.board.generate(this.tile);
-                // Start the timer
-                this.game.start();
-            }
-
-            // Proceed after checking if it is the first click
-            if (this.tile.active && !this.tile.isMine) {
-                // if not a bomb, reveal it
-                this.tile.reveal();
-                // notify the board a tile has been revealed
-                this.board.reveal(this.tile);
-                // if the board is completed, end the game
-                if (this.board.completed) {
-                    this.game.finish();
-                }
-            }
-
-            if (this.tile.active && this.tile.isMine) {
-                // Game Over, notify the game
-                this.tile.detonate();
-                // Tell the board to show all tiles
-                this.board.gameOver();
-                // Notify the game it has ended
-                this.game.gameOver();
-            }
+            this.onLeftMouse();
         } else if (event.button === 2) {
-            if (!this.tile.revealed) {
-                // Switch the state of the tile, active, flagged, question mark
-                this.tile.toggle();
+            this.onRightMouse();
+        }
+    }
 
-                // if the board has all flags in the right place, end the game
-                if (this.tile.flagged && this.board.completed) {
-                    this.game.finish();
-                }
+    onLeftMouse() {
+        // If it is the first tile revealed, randomize the mines first
+        if (this.board.first) {
+            // Safe first click
+            this.board.generate(this.tile);
+            // Start the timer
+            this.game.start();
+        }
+
+        // Proceed after checking if it is the first click
+        if (this.tile.active && !this.tile.isMine) {
+            // if not a bomb, reveal it
+            this.tile.reveal();
+            // notify the board a tile has been revealed
+            this.board.reveal(this.tile);
+            // if the board is completed, end the game
+            if (this.board.completed) {
+                this.game.finish();
+            }
+        }
+
+        if (this.tile.active && this.tile.isMine) {
+            // Game Over, notify the game
+            this.tile.detonate();
+            // Tell the board to show all tiles
+            this.board.gameOver();
+            // Notify the game it has ended
+            this.game.gameOver();
+        }
+    }
+
+    onRightMouse() {
+        if (!this.tile.revealed) {
+            // Switch the state of the tile, active, flagged, question mark
+            this.tile.toggle();
+
+            // if the board has all flags in the right place, end the game
+            if (this.tile.flagged && this.board.completed) {
+                this.game.finish();
             }
         }
     }

@@ -1,0 +1,28 @@
+<md-sidenav class="md-sidenav-left" md-component-id="left" md-whiteframe="4">
+    <md-toolbar class="md-hue-2">
+        <div class="md-toolbar-tools">
+            <span flex>Boomjs</span>
+        </div>
+    </md-toolbar>
+    <md-content>
+        <md-list data-ng-cloak>
+            <md-list-item data-ng-click="$ctrl.home()">
+                <md-icon md-svg-icon="home.svg"></md-icon>
+                <p>Home</p>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item data-ng-click="$ctrl.easy()">
+                <md-icon md-svg-icon="extension.svg"></md-icon>
+                <p>New Easy Game</p>
+            </md-list-item>
+            <md-list-item data-ng-click="$ctrl.medium()">
+                <md-icon md-svg-icon="extension.svg"></md-icon>
+                <p>New Medium Game</p>
+            </md-list-item>
+            <md-list-item data-ng-click="$ctrl.expert()">
+                <md-icon md-svg-icon="extension.svg"></md-icon>
+                <p>New Expert Game</p>
+            </md-list-item>
+        </md-list>
+    </md-content>
+</md-sidenav>

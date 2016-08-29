@@ -1,5 +1,5 @@
 
-export default function Board(Tile, UtilsService, $timeout) {
+export default function Board(Tile, UtilsService) {
     class BoardModel {
         constructor(rows, columns, mineCount) {
             this._rows = rows;
@@ -197,11 +197,9 @@ export default function Board(Tile, UtilsService, $timeout) {
 
         gameOver() {
             // Show all tiles?
-            this._tiles.forEach((tile, index) => {
+            this._tiles.forEach(tile => {
                 if (tile.isMine) {
-                    $timeout(() => {
-                        tile.detonate();
-                    }, index * 5);
+                    tile.detonate();
                 } else {
                     tile.reveal();
                 }
@@ -211,4 +209,4 @@ export default function Board(Tile, UtilsService, $timeout) {
 
     return BoardModel;
 }
-Board.$inject = ['Tile', 'UtilsService', '$timeout'];
+Board.$inject = ['Tile', 'UtilsService'];

@@ -1,6 +1,8 @@
 board {
-    md-content {
+    div {
+        background-color: $white;
         padding: 5px;
+        border-radius: 3px;
     }
 }
 board.easy {

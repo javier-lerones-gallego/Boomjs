@@ -24,6 +24,7 @@ import { AppComponent } from './components/app/app.component';
 // Import Components
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { BoardComponent } from './components/board/board.component';
 import { TileComponent } from './components/tile/tile.component';
 import { GameComponent } from './components/game/game.component';
@@ -31,11 +32,9 @@ import { SuccessComponent } from './components/success/success.component';
 import { DefeatComponent } from './components/defeat/defeat.component';
 import { MyGamesComponent } from './components/my-games/my-games.component';
 import { GameStatsComponent } from './components/game-stats/game-stats.component';
-import { NewGameComponent } from './components/new-game/new-game.component';
 import { FlagCountComponent } from './components/flag-count/flag-count.component';
 import { GameTimerComponent } from './components/game-timer/game-timer.component';
 import { NewGameButtonComponent } from './components/new-game-button/new-game-button.component';
-import { ExplosionComponent } from './components/explosion/explosion.component';
 import { FireworksComponent } from './components/fireworks/fireworks.component';
 import { SigninComponent } from './components/signin/signin.component';
 
@@ -68,6 +67,7 @@ app.component(AppComponent.name, AppComponent);
 // Components
 app.component(HomeComponent.name, HomeComponent);
 app.component(HeaderComponent.name, HeaderComponent);
+app.component(SidenavComponent.name, SidenavComponent);
 app.component(BoardComponent.name, BoardComponent);
 app.component(TileComponent.name, TileComponent);
 app.component(GameComponent.name, GameComponent);
@@ -75,11 +75,9 @@ app.component(SuccessComponent.name, SuccessComponent);
 app.component(DefeatComponent.name, DefeatComponent);
 app.component(MyGamesComponent.name, MyGamesComponent);
 app.component(GameStatsComponent.name, GameStatsComponent);
-app.component(NewGameComponent.name, NewGameComponent);
 app.component(FlagCountComponent.name, FlagCountComponent);
 app.component(GameTimerComponent.name, GameTimerComponent);
 app.component(NewGameButtonComponent.name, NewGameButtonComponent);
-app.component(ExplosionComponent.name, ExplosionComponent);
 app.component(FireworksComponent.name, FireworksComponent);
 app.component(SigninComponent.name, SigninComponent);
 
