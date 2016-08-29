@@ -12,6 +12,10 @@ class SidenavController {
         this.$state.go('root.home');
     }
 
+    menu() {
+        this.$mdSidenav('left').close();
+    }
+
     me() {
         this.$mdSidenav('left').close();
         this.$state.go('root.me');

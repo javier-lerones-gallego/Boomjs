@@ -3,5 +3,17 @@ my-games {
         svg {
             fill: $white;
         }
+
+        &.easy {
+            background-color: $avatarEasy;
+        }
+
+        &.medium {
+            background-color: $avatarMedium;
+        }
+
+        &.expert {
+            background-color: $avatarExpert;
+        }
     }
 }
