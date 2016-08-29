@@ -30,8 +30,8 @@ class GameStatsController {
         return this.allActive.filter(g => g.isMedium).sort(this.sortByTimeElappsed);
     }
     get mediumOver() { return this.allOver.filter(g => g.isMedium).sort(this.sortByTimeElappsed); }
-    get mediumFastest() { return this.easyFinished[0]; }
-    get mediumSlowest() { return this.easyFinished[this.easyFinished.length - 1]; }
+    get mediumFastest() { return this.mediumFinished[0]; }
+    get mediumSlowest() { return this.mediumFinished[this.mediumFinished.length - 1]; }
 
     get expertFinished() {
         return this.allFinished.filter(g => g.isExpert).sort(this.sortByTimeElappsed);
@@ -40,8 +40,8 @@ class GameStatsController {
         return this.allActive.filter(g => g.isExpert).sort(this.sortByTimeElappsed);
     }
     get expertOver() { return this.allOver.filter(g => g.isExpert).sort(this.sortByTimeElappsed); }
-    get expertFastest() { return this.easyFinished[0]; }
-    get expertSlowest() { return this.easyFinished[this.easyFinished.length - 1]; }
+    get expertFastest() { return this.expertFinished[0]; }
+    get expertSlowest() { return this.expertFinished[this.expertFinished.length - 1]; }
 
     sortByTimeElappsed(a, b) {
         if (a.stats.time_elapsed < b.stats.time_elapsed) {
