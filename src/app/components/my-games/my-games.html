@@ -6,7 +6,7 @@
             <span class="md-subhead" data-ng-if="$ctrl.activeCount">Total Games: {{ $ctrl.activeCount }}</span>
         </md-card-title-text>
     </md-card-title>
-    <md-card-content data-ng-if="$ctrl.games.length">
+    <md-card-content data-ng-if="$ctrl.activeCount">
         <md-list class="md-dense">
             <md-subheader class="md-no-sticky">Active Games</md-subheader>
             <md-list-item class="md-2-line" data-ng-if="game.isActive" data-ng-click="$ctrl.goTo(game)" data-ng-repeat="game in $ctrl.games | orderBy:'-created' | startFrom:$ctrl.pagerStart | limitTo:$ctrl.pagerSize">
