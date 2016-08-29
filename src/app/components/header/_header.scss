@@ -1,10 +1,12 @@
 boomjs-header {
-    md-icon {
-        svg {
-            fill: $white;
+    md-toolbar {
+        .md-toolbar-tools {
+            color: $white;
+            md-icon {
+                svg {
+                    fill: $white;
+                }
+            }
         }
-    }
-    .title {
-        color: $white;
     }
 }
