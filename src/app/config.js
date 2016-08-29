@@ -50,13 +50,24 @@ export default function Config($locationProvider,
         })
         .state('root.home', {
             url: '/',
-            template: `<boomjs-home layout-xs="column"
-                layout-sm="column" layout-md="row" layout-lg="row"
-                flex layout-align="start start" layout-fill />`,
+            template: '<boomjs-home />',
+            data: {
+                title: 'Home',
+            },
         })
         .state('root.game', {
             url: '/games/:id',
-            template: '<boomjs-game layout-align="start start" layout-fill flex  />',
+            template: '<boomjs-game />',
+            data: {
+                title: 'Game',
+            },
+        })
+        .state('root.me', {
+            url: '/me',
+            template: '<boomjs-me />',
+            data: {
+                title: 'Me',
+            },
         });
 }
 Config.$inject = ['$locationProvider',

@@ -12,6 +12,11 @@ class SidenavController {
         this.$state.go('root.home');
     }
 
+    me() {
+        this.$mdSidenav('left').close();
+        this.$state.go('root.me');
+    }
+
     easy() {
         this.goToGame(this.GameService.easy());
     }

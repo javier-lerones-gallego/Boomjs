@@ -1,9 +1,12 @@
 import template from './header.html';
 
 class HeaderController {
-    constructor($mdSidenav) {
+    constructor($state, $mdSidenav) {
+        this.$state = $state;
         this.$mdSidenav = $mdSidenav;
     }
+
+    get title() { return this.$state.current.data.title; }
 
     get showGameStats() {
         if (this.game === undefined) {
@@ -35,7 +38,7 @@ class HeaderController {
         this.$state.go('signin');
     }
 }
-HeaderController.$inject = ['$mdSidenav'];
+HeaderController.$inject = ['$state', '$mdSidenav'];
 
 export const HeaderComponent = {
     name: 'boomjsHeader',

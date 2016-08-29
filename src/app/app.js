@@ -24,6 +24,7 @@ import { AppComponent } from './components/app/app.component';
 // Import Components
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
+import { MeComponent } from './components/me/me.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { BoardComponent } from './components/board/board.component';
 import { TileComponent } from './components/tile/tile.component';
@@ -66,6 +67,7 @@ app.component(AppComponent.name, AppComponent);
 
 // Components
 app.component(HomeComponent.name, HomeComponent);
+app.component(MeComponent.name, MeComponent);
 app.component(HeaderComponent.name, HeaderComponent);
 app.component(SidenavComponent.name, SidenavComponent);
 app.component(BoardComponent.name, BoardComponent);

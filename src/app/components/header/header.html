@@ -4,7 +4,7 @@
       data-ng-click="$ctrl.menu()">
       <md-icon md-svg-icon="menu.svg"></md-icon>
     </md-button>
-    <span flex></span>
+    <span class="title" flex data-ng-bind="$ctrl.title"></span>
     <span layout="row" layout-align="center center">
       <game-timer game="$ctrl.game" data-ng-if="$ctrl.showGameTimer" layout-margin layout="row" layout-align="center center"></game-timer>
       <flag-count game="$ctrl.game" data-ng-if="$ctrl.showGameStats" layout-margin layout="row" layout-align="space-around center"></flag-count>
