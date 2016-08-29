@@ -13,7 +13,7 @@ class TileController {
         } else if (this.tile.question) {
             return 'md-raised md-primary';
         } else if (this.tile.revealed) {
-            return 'md-default active';
+            return 'md-default';
         } else if (this.tile.detonated) {
             return 'md-raised md-warn';
         }
