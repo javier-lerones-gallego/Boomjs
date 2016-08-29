@@ -85,6 +85,7 @@ class TileController {
             if (this.board.neighbouringFlagCount(this.tile) === this.tile.count) {
                 if (this.board.forceRevealNeighbours(this.tile)) {
                     // If there was a bomb revealed, game over
+                    this.board.gameOver();
                     this.game.gameOver();
                 } else {
                     // If no boom, check for game finish
