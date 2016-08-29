@@ -32,11 +32,6 @@ class HeaderController {
     menu() {
         this.$mdSidenav('left').toggle();
     }
-
-    signout() {
-        this.$firebaseAuth().$signOut();
-        this.$state.go('signin');
-    }
 }
 HeaderController.$inject = ['$state', '$mdSidenav'];
 

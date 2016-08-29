@@ -6,10 +6,6 @@ class HomeController {
         this.$state = $state;
     }
 
-    $onInit() {
-
-    }
-
     get games() { return this.GameService.games; }
     get done() { return this.GameService.done; }
 }

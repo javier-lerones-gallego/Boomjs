@@ -40,23 +40,19 @@ export default function Config($locationProvider,
 
     // Define the app states
     $stateProvider
-        .state('signin', {
-            url: '^/signin',
-            template: '<boomjs-signin />',
-        })
         .state('root', {
             abstract: true,
             template: '<boomjs-app layout="column" flex />',
         })
         .state('root.home', {
-            url: '^/',
+            url: '/',
             template: '<boomjs-home />',
             data: {
                 title: 'Home',
             },
         })
         .state('root.game', {
-            url: '^/games/:id',
+            url: '/games/:id',
             template: '<boomjs-game />',
             data: {
                 title: 'Game',

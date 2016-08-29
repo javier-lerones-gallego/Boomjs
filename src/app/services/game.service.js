@@ -1,20 +1,11 @@
-import firebase from 'firebase';
 
 export default class GameService {
-    constructor(Game, $firebaseAuth, $firebaseArray) {
+    constructor(Game) {
         // The Game model factory
         this.Game = Game;
 
-        // Load the games from firebase
-        const gamesRef = firebase.database().ref().child('games');
-
         // The collection of games.
         this._games = [];
-
-        // Only try to load the games if we are authorized to do so
-        if ($firebaseAuth().$getAuth()) {
-            this._games = $firebaseArray(gamesRef);
-        }
     }
 
     /**
@@ -87,4 +78,4 @@ export default class GameService {
         return this._games.filter(g => g.id === id)[0];
     }
 }
-GameService.$inject = ['Game', '$firebaseAuth', '$firebaseArray'];
+GameService.$inject = ['Game'];
