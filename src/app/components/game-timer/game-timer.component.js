@@ -1,9 +1,8 @@
-import template from './game-state.html';
+import template from './game-timer.html';
 import moment from 'moment';
 
-class GameStateController {
-    constructor($state, $interval) {
-        this.$state = $state;
+export default class GameTimerController {
+    constructor($interval) {
         this.$interval = $interval;
 
         this._timer = null;
@@ -15,9 +14,11 @@ class GameStateController {
         this._timer = this.$interval(() => {
             if (this.game) {
                 if (this.game.isStarted) {
-                    this._value = moment(moment().diff(this.game.started)).format('mm:ss');
+                    const elapsed = this.game.started.clone();
+                    elapsed.add(this.game.elapsed, 'ms');
+                    this._value = moment(moment().diff(elapsed)).format('mm:ss');
                 } else if (this.game.isOver || this.game.isFinished) {
-                    this._value = this.game.ellapsed;
+                    this._value = moment(this.game.elapsed).format('mm:ss');
                 } else if (this.game.isReady) {
                     this._value = null;
                 }
@@ -31,19 +32,16 @@ class GameStateController {
         }
     }
 
-    get value() { return this._value ? this._value : 'Click on a Tile to Start'; }
+    get value() { return this._value ? this._value : '00:00'; }
 
-    continue() {
-        this.$state.go('root.home');
-    }
 }
-GameStateController.$inject = ['$state', '$interval'];
+GameTimerController.$inject = ['$interval'];
 
-export const GameStateComponent = {
-    name: 'gameState',
+export const GameTimerComponent = {
+    name: 'gameTimer',
     bindings: {
         game: '<',
     },
-    controller: GameStateController,
+    controller: GameTimerController,
     template,
 };

@@ -1,0 +1,39 @@
+md-sidenav {
+    md-toolbar {
+        .md-toolbar-tools {
+            md-icon {
+                svg {
+                    fill: $white;
+                }
+            }
+            span {
+                color: $white;
+            }
+        }
+    }
+
+    md-list {
+        md-icon {
+            svg {
+                fill: $sidebaricons;
+            }
+            &.easy {
+                svg {
+                    fill: $avatarEasy;
+                }
+            }
+
+            &.medium {
+                svg {
+                    fill: $avatarMedium;
+                }
+            }
+
+            &.expert {
+                svg {
+                    fill: $avatarExpert;
+                }
+            }
+        }
+    }
+}

@@ -1,17 +1,21 @@
 import template from './game.html';
 
 class GameController {
-    constructor(GameService, $state) {
-        this.GameService = GameService;
-        this.$state = $state;
+    $onInit() {
+        // If the game is paused when entering the component, resume it.
+        if (this.game.isPaused) {
+            this.game.resume();
+        }
     }
 
-    get game() { return this.GameService.query(this.$state.params.id); }
+    get game() { return this.parent.game; }
 }
-GameController.$inject = ['GameService', '$state'];
 
 export const GameComponent = {
-    name: 'game',
+    name: 'boomjsGame',
     controller: GameController,
+    require: {
+        parent: '^boomjsApp',
+    },
     template,
 };

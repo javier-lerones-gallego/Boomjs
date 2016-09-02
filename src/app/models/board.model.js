@@ -1,5 +1,5 @@
 
-export default function Board(Tile) {
+export default function Board(Tile, UtilsService) {
     class BoardModel {
         constructor(rows, columns, mineCount) {
             this._rows = rows;
@@ -21,11 +21,18 @@ export default function Board(Tile) {
 
         get flags() { return this._tiles.filter(t => t.flagged).length; }
         get left() { return this._mineCount - this.flags; }
-        get first() { return this._tiles.filter(t => t.revealed).length === 1; }
+        get first() { return this._tiles.filter(t => t.revealed).length === 0; }
         get revealed() { return this._tiles.filter(t => t.revealed).length; }
-        get completed() { return this._tiles.length - this._mineCount === this.revealed; }
-        get flagged() {
-            return this._tiles.filter(t => t.flagged && t.isMine).length === this._mineCount;
+
+        /**
+         * Returns true if all the bombs have been flagged and
+         * all the rest of the tiles have been revealed.
+         *
+         * @readonly
+         */
+        get completed() {
+            return this._tiles.filter(t => t.flagged && t.isMine).length === this.mineCount
+                && this.revealed === this.tiles.length - this.mineCount;
         }
 
         get tiles() { return this._tiles; } // Read only, add and remove using the methods
@@ -48,6 +55,31 @@ export default function Board(Tile) {
                     this._tiles.push(newTile);
                 }
             }
+        }
+
+        generate(tile) {
+            // Randomize the mine locations, avoid the tile we just clicked on
+            for (let mines = 0; mines < this._mineCount; mines++) {
+                let foundEmptySpot = false;
+                while (!foundEmptySpot) {
+                    const x = this.randomX();
+                    const y = this.randomY();
+
+                    if (tile.x !== x && tile.y !== y && !this.hasMine(x, y)) {
+                        // Add the mine to the board
+                        this.addMine(x, y);
+                        foundEmptySpot = true;
+                    }
+                }
+            }
+        }
+
+        randomX() {
+            return UtilsService.randomNumber(0, this._rows - 1);
+        }
+
+        randomY() {
+            return UtilsService.randomNumber(0, this._columns - 1);
         }
 
         reset() {
@@ -105,8 +137,8 @@ export default function Board(Tile) {
         }
 
         neighbouringFlagCount(tile) {
-            const neighbours = this.getNeighbours(tile.x, tile.y);
-            return neighbours.filter(n => n.flagged).length;
+            return this.getNeighbours(tile.x, tile.y)
+                .filter(n => n.flagged).length;
         }
 
         reveal(tile) {
@@ -164,10 +196,17 @@ export default function Board(Tile) {
         }
 
         gameOver() {
-            // TODO: Show all tiles
+            // Show all tiles?
+            this._tiles.forEach(tile => {
+                if (tile.isMine) {
+                    tile.detonate();
+                } else {
+                    tile.reveal();
+                }
+            });
         }
     }
 
     return BoardModel;
 }
-Board.$inject = ['Tile'];
+Board.$inject = ['Tile', 'UtilsService'];

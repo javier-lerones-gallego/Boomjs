@@ -1,4 +1,5 @@
-<sweeper-header fixed="true" game="$ctrl.game"></sweeper-header>
-<div class="app">
-    <div data-ui-view class="container-fluid full-height"></div>
-</div>
+<boomjs-header game="$ctrl.game"></boomjs-header>
+<section layout="row" flex>
+    <boomjs-sidenav></boomjs-sidenav>
+    <md-content data-md-theme="background" data-ui-view flex></md-content>
+</section>

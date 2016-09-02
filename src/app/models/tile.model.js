@@ -1,16 +1,17 @@
+import Subscriber from './subscriber';
 
 export default function Tile() {
-    class TileModel {
+    class TileModel extends Subscriber {
         constructor() {
+            // Subscriber
+            super();
+
             this._x = -1;
             this._y = -1;
             this._isMine = false;
             this._count = 0;
 
             this._state = 0;
-
-            // Debug
-            this._highlight = false;
         }
 
         get x() { return this._x; }
@@ -30,9 +31,6 @@ export default function Tile() {
         get flagged() { return this._state === 1; }
         get revealed() { return this._state === 3; }
         get detonated() { return this._state === 4; }
-
-        get highlight() { return this._highlight; }
-        set highlight(value) { this._highlight = value; }
 
         get state() { return this._state; }
         set state(value) {
@@ -58,16 +56,20 @@ export default function Tile() {
             }
         }
 
-        flag() {
-            this.state = 'FLAGGED';
-        }
-
-        unknown() {
-            this.state = 'QUESTION';
-        }
-
-        activate() {
-            this.state = 'ACTIVE';
+        toggle() {
+            switch (this.state) {
+                case 0:
+                    this.state = 'FLAGGED';
+                    break;
+                case 1:
+                    this.state = 'QUESTION';
+                    break;
+                case 2:
+                    this.state = 'ACTIVE';
+                    break;
+                default:
+                    this.state = 'ACTIVE';
+            }
         }
 
         reveal() {
@@ -76,6 +78,7 @@ export default function Tile() {
 
         detonate() {
             this.state = 'DETONATED';
+            this.broadcast('DETONATE');
         }
     }
 

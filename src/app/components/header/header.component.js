@@ -1,22 +1,43 @@
 import template from './header.html';
 
 class HeaderController {
-    constructor($state) {
+    constructor($state, $mdSidenav) {
         this.$state = $state;
+        this.$mdSidenav = $mdSidenav;
     }
 
-    get board() { return this.game.board; }
+    get title() { return this.$state.current.data.title; }
 
-    home() {
-        this.$state.go('root.home');
+    get showGameStats() {
+        if (this.game === undefined) {
+            return false;
+        }
+        return !this.game.isFinished && !this.game.isOver;
+    }
+
+    get showGameTimer() {
+        if (this.game === undefined) {
+            return false;
+        }
+        return !this.game.isOver;
+    }
+
+    get showButtons() {
+        if (this.game === undefined) {
+            return false;
+        }
+        return this.game.isFinished || this.game.isOver;
+    }
+
+    menu() {
+        this.$mdSidenav('left').toggle();
     }
 }
-HeaderController.$inject = ['$state'];
+HeaderController.$inject = ['$state', '$mdSidenav'];
 
 export const HeaderComponent = {
-    name: 'sweeperHeader',
+    name: 'boomjsHeader',
     bindings: {
-        fixed: '<',
         game: '<',
     },
     controller: HeaderController,

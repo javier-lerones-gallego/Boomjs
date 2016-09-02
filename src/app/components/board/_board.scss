@@ -1,23 +1,36 @@
 board {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding: 20px;
-    background-color: #FFFFFF;
-    border-radius: 3px;
-    padding-top: 10px;
-    padding-right: 10px;
+    div {
+        background-color: $white;
+        padding: 5px;
+        border-radius: 3px;
+    }
 }
 board.easy {
-    width: 420px;
+    div {
+        min-width: 424px;
+        max-width: 424px;
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 board.medium {
-    width: 720px;
+    div {
+        min-width: 746px;
+        max-width: 746px;
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
-board.hard {
-    width: 1320px
+board.expert {
+    div {
+        min-width: 1390px;
+        max-width: 1390px;
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
 

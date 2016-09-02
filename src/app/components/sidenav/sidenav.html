@@ -1,0 +1,36 @@
+<md-sidenav class="md-sidenav-left" md-component-id="left" md-whiteframe="4">
+    <md-toolbar class="md-hue-2">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="Menu"
+                data-ng-click="$ctrl.menu()">
+            <md-icon md-svg-icon="menu.svg"></md-icon>
+            </md-button>
+            <span flex>Boomjs</span>
+        </div>
+    </md-toolbar>
+    <md-content>
+        <md-list data-ng-cloak>
+            <md-list-item data-ng-click="$ctrl.home()">
+                <md-icon md-svg-icon="home.svg"></md-icon>
+                <p>Home</p>
+            </md-list-item>
+            <md-list-item data-ng-click="$ctrl.me()">
+                <md-icon md-svg-icon="person.svg"></md-icon>
+                <p>Me</p>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item data-ng-click="$ctrl.easy()">
+                <md-icon md-svg-icon="extension.svg" class="easy"></md-icon>
+                <p>New Easy Game</p>
+            </md-list-item>
+            <md-list-item data-ng-click="$ctrl.medium()">
+                <md-icon md-svg-icon="extension.svg" class="medium"></md-icon>
+                <p>New Medium Game</p>
+            </md-list-item>
+            <md-list-item data-ng-click="$ctrl.expert()">
+                <md-icon md-svg-icon="extension.svg" class="expert"></md-icon>
+                <p>New Expert Game</p>
+            </md-list-item>
+        </md-list>
+    </md-content>
+</md-sidenav>

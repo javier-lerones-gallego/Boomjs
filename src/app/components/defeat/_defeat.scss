@@ -1,0 +1,34 @@
+defeat {
+    .defeat {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+        color: $white;
+        z-index: 3;
+
+        .actions {
+            background-color: rgba(0,0,0,0.75);
+            border-radius: 4px;
+            text-align: center;
+            padding: 20px;
+            h3 {
+                font-size: 2em;
+            }
+            a {
+                text-decoration: none;
+                font-size: 1.2em;
+                text-align: center;
+                color: $white;
+                margin-top: 10px;
+            }
+        }
+
+        &.visible {
+            display: flex;
+        }
+    }
+}
