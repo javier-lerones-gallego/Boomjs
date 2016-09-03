@@ -1,0 +1,52 @@
+<md-sidenav-layout>
+  <!-- The sidenav -->
+  <md-sidenav #start mode="over">
+    <!-- The sidenavs toolbar -->
+    <md-toolbar color="warn">
+      <button md-icon-button #menubutton (click)="start.close()">
+        <md-icon class="md-24">arrow_back</md-icon>
+      </button>
+      <span>Menu</span>
+    </md-toolbar>
+    <!-- The sidenav list -->
+    <md-nav-list class="side">
+      <h3 md-subheader>Places</h3>
+      <md-list-item>
+        <md-icon md-list-avatar>home</md-icon>
+        <a md-line href="/">Home</a>
+      </md-list-item>
+      <md-list-item>
+        <md-icon md-list-avatar>person</md-icon>
+        <a md-line href="/me">Me</a>
+      </md-list-item>
+      <md-divider></md-divider>
+      <h3 md-subheader>New Game</h3>
+      <md-list-item>
+        <md-icon md-list-avatar>extension</md-icon>
+        <a md-line href="/easy">Easy</a>
+      </md-list-item>
+      <md-list-item>
+        <md-icon md-list-avatar>extension</md-icon>
+        <a md-line href="/medium">Medium</a>
+      </md-list-item>
+      <md-list-item>
+        <md-icon md-list-avatar>extension</md-icon>
+        <a md-line href="/expert">Expert</a>
+      </md-list-item>
+    </md-nav-list>
+  </md-sidenav>
+
+  <!-- The main content toolbar -->
+  <md-toolbar color="warn">
+    <button md-icon-button #menubutton (click)="start.open()">
+      <md-icon class="md-24">menu</md-icon>
+    </button>
+    <span>Boomjs</span>
+  </md-toolbar>
+
+  <!-- The content of the app -->
+  <md-card>
+    <md-card-title>My Games</md-card-title>
+    <md-card-subtitle>You have no games yet</md-card-subtitle>
+  </md-card>
+</md-sidenav-layout>
