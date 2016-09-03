@@ -1,0 +1,16 @@
+<div class="success" flex layout-align="center center" data-ng-class="{'visible': $ctrl.game.isFinished }">
+
+    <fireworks game="$ctrl.game"></fireworks>
+
+    <div class="actions" layout="column">
+        <h3>Congratulations, You Won!</h3>
+        <new-game-button difficulty="EASY" show-size="false"
+            data-ng-if="$ctrl.game.isEasy"></new-game-button>
+        <new-game-button difficulty="MEDIUM" show-size="false"
+            data-ng-if="$ctrl.game.isMedium"></new-game-button>
+        <new-game-button difficulty="EXPERT" show-size="false"
+            data-ng-if="$ctrl.game.isExpert"></new-game-button>
+        <a data-ui-sref="root.home">Or Go Back Home</a>
+    </div>
+
+</div>
