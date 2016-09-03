@@ -5,13 +5,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SassLintPlugin = require('sasslint-webpack-plugin');
+const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 
 /**
  * Env
  * Get npm lifecycle event to identify the environment
  */
 const ENV = process.env.npm_lifecycle_event;
-const isTest = ENV === 'test' || ENV === 'test-watch';
 const isProd = ENV === 'build';
 
 module.exports = (function makeWebpackConfig() {
@@ -22,14 +22,27 @@ module.exports = (function makeWebpackConfig() {
      */
     const config = {};
 
+    // extensions
+    config.resolve = {
+        extensions: ['', '.webpack.js', '.web.js', '.js', '.ts', '.html', '.scss']
+    };
+
     /**
      * Entry
      * Reference: http://webpack.github.io/docs/configuration.html#entry
      * Should be an empty object if it's generating a test build
      * Karma will set this when it's a test build
      */
-    config.entry = isTest ? {} : {
-        app: './src/app/app.js',
+    config.entry = {
+        app: './src/app/app.ts',
+        vendor: [
+          'es6-shim',
+          'angular',
+          'angular-animate',
+          'angular-material',
+          'angular-ui-router',
+          'moment'
+        ]
     };
 
     /**
@@ -38,7 +51,7 @@ module.exports = (function makeWebpackConfig() {
      * Should be an empty object if it's generating a test build
      * Karma will handle setting it up for you when it's a test build
      */
-    config.output = isTest ? {} : {
+    config.output = {
         // Absolute output directory
         path: `${__dirname}/dist`,
 
@@ -60,9 +73,7 @@ module.exports = (function makeWebpackConfig() {
      * Reference: http://webpack.github.io/docs/configuration.html#devtool
      * Type of sourcemap to use per build type
      */
-    if (isTest) {
-        config.devtool = 'inline-source-map';
-    } else if (isProd) {
+    if (isProd) {
         config.devtool = null;
     } else {
         config.devtool = 'source-map';
@@ -80,13 +91,8 @@ module.exports = (function makeWebpackConfig() {
         preLoaders: [],
         loaders: [
             {
-                // JS LOADER
-                // Reference: https://github.com/babel/babel-loader
-                // Transpile .js files using babel-loader
-                // Compiles ES6 and ES7 into ES5 code
-                test: /src.*\.js$/,
-                loaders: ['babel', 'eslint'],
-                exclude: /node_modules/,
+                test: /\.ts$/,
+                loaders: [ 'ts-loader' ],
             }, {
                 // CSS LOADER
                 // Reference: https://github.com/webpack/css-loader
@@ -100,8 +106,7 @@ module.exports = (function makeWebpackConfig() {
                 //
                 // Reference: https://github.com/webpack/style-loader
                 // Use style-loader in development.
-                loader: isTest ?
-                    'null' : ExtractTextPlugin.extract('style', 'css?sourceMap!postcss'),
+                loader: ExtractTextPlugin.extract({ fallbackLoader: 'style', loader: 'css?sourceMap!postcss' }),
             }, {
                 test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 loader: 'url-loader?limit=10000&minetype=application/font-woff',
@@ -129,23 +134,7 @@ module.exports = (function makeWebpackConfig() {
                 loader: 'html',
             },
         ],
-        noParse: [/highlightjs$/],
     };
-
-    // ISPARTA LOADER
-    // Reference: https://github.com/deepsweet/isparta-loader
-    // Instrument JS files with Isparta for subsequent code coverage reporting
-    // Skips node_modules and files that end with .test.js
-    if (isTest) {
-        config.module.preLoaders.push({
-            test: /\.js$/,
-            exclude: [
-                /node_modules/,
-                /\.spec\.js$/,
-            ],
-            loader: 'isparta',
-        });
-    }
 
     /**
      * PostCSS
@@ -165,41 +154,38 @@ module.exports = (function makeWebpackConfig() {
      */
     config.plugins = [];
 
-    // Skip rendering index.html in test mode
-    if (!isTest) {
-        // Reference: https://github.com/ampedandwired/html-webpack-plugin
-        // Render index.html
-        config.plugins.push(
-            new HtmlWebpackPlugin({
-                template: './src/public/index.html',
-                inject: 'body',
-                favicon: './src/public/favicon.png',
-            }),
+    // Reference: https://github.com/ampedandwired/html-webpack-plugin
+    // Render index.html
+    config.plugins.push(
+        new HtmlWebpackPlugin({
+            template: './src/public/index.html',
+            inject: 'body',
+            favicon: './src/public/favicon.png',
+        }),
 
-            // Lint scss files
-            new SassLintPlugin({
-                configFile: '.sass-lint.yml',
-                context: ['./src'],
-                ignoreFiles: [],
-                ignorePlugins: ['extract-text-webpack-plugin'],
-                glob: '**/*.s?(a|c)ss',
-                quiet: false,
-                failOnWarning: false,
-                failOnError: false,
-                testing: false,
-            }),
+        // Lint scss files
+        new SassLintPlugin({
+            configFile: '.sass-lint.yml',
+            context: ['./src'],
+            ignoreFiles: [],
+            ignorePlugins: ['extract-text-webpack-plugin'],
+            glob: '**/*.s?(a|c)ss',
+            quiet: false,
+            failOnWarning: false,
+            failOnError: false,
+            testing: false,
+        }),
 
-            // Tell moment to only load the en-us locale file
-            new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en-us/),
+        // Tell moment to only load the en-us locale file
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en-us/),
 
-            // Reference: https://github.com/webpack/extract-text-webpack-plugin
-            // Extract css files
-            // Disabled when in test mode or not in build mode
-            new ExtractTextPlugin('[name].[hash].css', {
-                disable: !isProd,
-            })
-        );
-    }
+        // Reference: https://github.com/webpack/extract-text-webpack-plugin
+        // Extract css files
+        // Disabled when in test mode or not in build mode
+        new ExtractTextPlugin({ fileName: '[name].[hash].css',
+            disable: !isProd
+        })
+    );
 
     // Add build specific plugins
     if (isProd) {
@@ -230,8 +216,8 @@ module.exports = (function makeWebpackConfig() {
             new CopyWebpackPlugin([{
                 from: `${__dirname}/src/public`,
             }], {
-                ignore: ['.DS_Store'],
-            })
+                    ignore: ['.DS_Store'],
+                })
         );
     }
 
@@ -246,4 +232,4 @@ module.exports = (function makeWebpackConfig() {
     };
 
     return config;
-}());
+} ());
