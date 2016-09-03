@@ -2,7 +2,7 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "module": "commonjs",
-    "noEmitOnError": true,
+    "noEmitOnError": false,
     "noImplicitAny": false,
     "outDir": "./dist/",
     "removeComments": true,

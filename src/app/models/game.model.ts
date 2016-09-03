@@ -31,7 +31,7 @@ export interface IGame {
     started: moment.Moment;
     end: moment.Moment;
 
-    elapsed: moment.Moment;
+    elapsed: number;
     css: string;
 
     stats: any; // TODO
