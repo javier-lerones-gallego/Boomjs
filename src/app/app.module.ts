@@ -8,7 +8,11 @@ import { routing, appRoutingProviders } from './app.routing';
 import { Store, StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
-import { gameReducer } from './reducers/game.reducer';
+
+import reducer from './reducers';
+import services from './services';
+import actions from './actions';
+import guards from './guards';
 
 import { MdCardModule } from '@angular2-material/card';
 import { MdButtonModule } from '@angular2-material/button';
@@ -35,7 +39,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     BrowserModule,
     FormsModule,
     HttpModule,
-    StoreModule.provideStore({ game: gameReducer }, { counter: 0 }),
+    StoreModule.provideStore(reducer),
     StoreDevtoolsModule.instrumentStore({
       monitor: useLogMonitor({
         visible: true,
@@ -46,7 +50,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     MdButtonModule, MdCardModule, MdIconModule, MdToolbarModule, MdSidenavModule, MdListModule,
     routing
   ],
-  providers: [MdIconRegistry, appRoutingProviders],
+  providers: [MdIconRegistry, appRoutingProviders, services, actions, guards],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
