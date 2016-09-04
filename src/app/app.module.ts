@@ -8,7 +8,7 @@ import { routing, appRoutingProviders } from './app.routing';
 import { Store, StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
-import { gameReducer } from './game.reducer';
+import { gameReducer } from './reducers/game.reducer';
 
 import { MdCardModule } from '@angular2-material/card';
 import { MdButtonModule } from '@angular2-material/button';
@@ -21,7 +21,6 @@ import { AppComponent } from './app.component';
 import { MyGamesComponent } from './my-games/my-games.component';
 import { MeComponent } from './me/me.component';
 import { GameComponent } from './game/game.component';
-import { NewGameComponent } from './new-game/new-game.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
@@ -30,7 +29,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     MyGamesComponent,
     MeComponent,
     GameComponent,
-    NewGameComponent,
     PageNotFoundComponent
   ],
   imports: [

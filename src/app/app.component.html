@@ -24,15 +24,15 @@
         </a>
       <md-divider></md-divider>
       <h3 md-subheader>New Game</h3>
-      <a md-list-item routerLink="/new/easy" routerLinkActive="active" (click)="sidenav.close()">
+      <a md-list-item (click)="easy();sidenav.close()">
         <md-icon md-list-icon>extension</md-icon>
         <span md-line>Easy</span>
       </a>
-      <a md-list-item routerLink="/new/medium" routerLinkActive="active" (click)="sidenav.close()">
+      <a md-list-item (click)="medium();sidenav.close()">
         <md-icon md-list-icon>extension</md-icon>
         <span md-line>Medium</span>
       </a>
-      <a md-list-item routerLink="/new/expert" routerLinkActive="active" (click)="sidenav.close()">
+      <a md-list-item (click)="expert();sidenav.close()">
         <md-icon md-list-icon>extension</md-icon>
         <span md-line>Expert</span>
       </a>
