@@ -8,14 +8,7 @@ import { routing, appRoutingProviders } from './app.routing';
 import * as firebase from 'firebase';
 import { AngularFireModule } from 'angularfire2';
 
-import { Store, StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
-
-import reducer from './reducers';
 import services from './services';
-import actions from './actions';
-import guards from './guards';
 
 import { MdCardModule } from '@angular2-material/card';
 import { MdButtonModule } from '@angular2-material/button';
@@ -52,20 +45,11 @@ export const firebaseConfig = {
     HttpModule,
 
     AngularFireModule.initializeApp(firebaseConfig),
-
-    StoreModule.provideStore(reducer),
-    StoreDevtoolsModule.instrumentStore({
-      monitor: useLogMonitor({
-        visible: true,
-        position: 'right'
-      })
-    }),
-    StoreLogMonitorModule,
-
     MdButtonModule, MdCardModule, MdIconModule, MdToolbarModule, MdSidenavModule, MdListModule,
+
     routing
   ],
-  providers: [MdIconRegistry, appRoutingProviders, services, actions, guards],
+  providers: [MdIconRegistry, appRoutingProviders, services],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
