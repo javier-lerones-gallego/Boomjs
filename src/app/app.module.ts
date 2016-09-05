@@ -5,6 +5,9 @@ import { HttpModule } from '@angular/http';
 
 import { routing, appRoutingProviders } from './app.routing';
 
+import * as firebase from 'firebase';
+import { AngularFireModule } from 'angularfire2';
+
 import { Store, StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
@@ -27,6 +30,14 @@ import { MeComponent } from './me/me.component';
 import { GameComponent } from './game/game.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
+// Must export the config
+export const firebaseConfig = {
+    apiKey: 'AIzaSyAbzHwkEl8UBu6A42XzfN_WmietUOc5AXE',
+    authDomain: 'boomjs-5abad.firebaseapp.com',
+    databaseURL: 'https://boomjs-5abad.firebaseio.com',
+    storageBucket: 'boomjs-5abad.appspot.com'
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +50,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     BrowserModule,
     FormsModule,
     HttpModule,
+
+    AngularFireModule.initializeApp(firebaseConfig),
+
     StoreModule.provideStore(reducer),
     StoreDevtoolsModule.instrumentStore({
       monitor: useLogMonitor({
@@ -47,6 +61,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
       })
     }),
     StoreLogMonitorModule,
+
     MdButtonModule, MdCardModule, MdIconModule, MdToolbarModule, MdSidenavModule, MdListModule,
     routing
   ],
