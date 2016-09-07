@@ -1,9 +1,9 @@
 import { Routes, RouterModule }   from '@angular/router';
 
-import { MyGamesComponent } from './my-games/my-games.component';
-import { MeComponent } from './me/me.component';
-import { GameComponent } from './game/game.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MyGamesComponent } from './components/my-games/my-games.component';
+import { MeComponent } from './components/me/me.component';
+import { GameComponent } from './components/game/game.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
   { path: '', component: MyGamesComponent, data: { title: 'BoomJS'} },

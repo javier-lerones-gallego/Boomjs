@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { routing, appRoutingProviders } from './app.routing';
 
 import * as firebase from 'firebase';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
 import services from './services';
 
@@ -17,11 +17,12 @@ import { MdToolbarModule } from '@angular2-material/toolbar';
 import { MdSidenavModule } from '@angular2-material/sidenav';
 import { MdListModule } from '@angular2-material/list/list';
 
-import { AppComponent } from './app.component';
-import { MyGamesComponent } from './my-games/my-games.component';
-import { MeComponent } from './me/me.component';
-import { GameComponent } from './game/game.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AppComponent } from './components/app/app.component';
+import { MyGamesComponent } from './components/my-games/my-games.component';
+import { MeComponent } from './components/me/me.component';
+import { GameComponent } from './components/game/game.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { TileComponent } from './components/tile/tile.component';
 
 // Must export the config
 export const firebaseConfig = {
@@ -31,20 +32,26 @@ export const firebaseConfig = {
     storageBucket: 'boomjs-5abad.appspot.com'
 };
 
+export const firebaseAuthConfig = {
+  provider: AuthProviders.Google,
+  method: AuthMethods.Redirect
+};
+
 @NgModule({
   declarations: [
     AppComponent,
     MyGamesComponent,
     MeComponent,
     GameComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    TileComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
 
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
     MdButtonModule, MdCardModule, MdIconModule, MdToolbarModule, MdSidenavModule, MdListModule,
 
     routing
