@@ -12,8 +12,4 @@ const appRoutes: Routes = [
   { path: '**', component: PageNotFoundComponent, data: { title: 'Not Found' }  }
 ];
 
-export const appRoutingProviders: any[] = [
-
-];
-
 export const routing = RouterModule.forRoot(appRoutes);
