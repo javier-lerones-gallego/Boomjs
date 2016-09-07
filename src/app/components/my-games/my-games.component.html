@@ -1,5 +1,5 @@
 <md-card *ngFor="let game of games | async">
-  <md-card-title>{{ game.difficulty }}</md-card-title>
+  <md-card-title>{{ game.difficulty | titleCase }}</md-card-title>
   <md-card-subtitle>({{ game.rows}}x{{ game.columns}})</md-card-subtitle>
   <md-card-content>
 
