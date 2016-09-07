@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { routing, appRoutingProviders } from './app.routing';
+import { routing } from './app.routing';
 
 import * as firebase from 'firebase';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
@@ -23,6 +23,7 @@ import { MeComponent } from './components/me/me.component';
 import { GameComponent } from './components/game/game.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { TileComponent } from './components/tile/tile.component';
+import { TitleCasePipe } from './pipes/title-case.pipe';
 
 // Must export the config
 export const firebaseConfig = {
@@ -44,7 +45,8 @@ export const firebaseAuthConfig = {
     MeComponent,
     GameComponent,
     PageNotFoundComponent,
-    TileComponent
+    TileComponent,
+    TitleCasePipe
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,7 @@ export const firebaseAuthConfig = {
 
     routing
   ],
-  providers: [MdIconRegistry, appRoutingProviders, services],
+  providers: [MdIconRegistry, services],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
