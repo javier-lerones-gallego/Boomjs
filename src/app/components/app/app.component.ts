@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GamesService } from '../../services/games.service';
-import { Router }   from '@angular/router';
+import { Router, ActivatedRoute }   from '@angular/router';
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 
 @Component({
@@ -9,15 +9,22 @@ import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  private photoURL: string = '';
+
   constructor(
     private ngFire: AngularFire,
     private gamesService: GamesService,
-    private router: Router) { }
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.ngFire.auth.subscribe(auth => console.log(auth));
+    this.ngFire.auth.subscribe(auth => {
+      console.log(auth);
+      this.photoURL = auth.google.photoURL;
+    });
   }
 
+  get photo(): string { return this.photoURL; }
   login() {
     this.ngFire.auth.login({
       provider: AuthProviders.Google,

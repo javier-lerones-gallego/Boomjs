@@ -5,3 +5,13 @@ md-card {
 md-sidenav {
     width: 250px;
 }
+
+.fill {
+    flex: 1 1 auto;
+}
+
+.avatar {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}

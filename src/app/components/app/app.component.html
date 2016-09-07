@@ -44,10 +44,11 @@
     <button md-icon-button #menubutton (click)="sidenav.open()">
       <md-icon class="md-24">menu</md-icon>
     </button>
-    <span>Boomjs</span>
-      <button md-icon-button #loginbutton (click)="login()">
-        <md-icon class="md-24">account_box</md-icon>
-      </button>
+    <span class="fill">[route title]</span>
+    <button *ngIf="!photo" md-icon-button #loginbutton (click)="login()">
+      <md-icon class="md-24">account_box</md-icon>
+    </button>
+    <img *ngIf="photo" class="avatar" [src]="photo" />
   </md-toolbar>
 
   <!-- The content of the app -->
