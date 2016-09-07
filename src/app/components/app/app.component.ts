@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
   }
 
   get photo(): string { return this.photoURL; }
+
   login() {
     this.ngFire.auth.login({
       provider: AuthProviders.Google,
