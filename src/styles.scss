@@ -9,7 +9,16 @@ html, body {
 }
 
 app-root {
-    display: block;
+    display: flex;
+    flex-flow: column;
     height: 100%;
     width: 100%;
+    background-color: #ECEEF1;
+}
+
+my-games {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    overflow-y: auto;
 }

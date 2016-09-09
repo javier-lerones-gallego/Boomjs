@@ -10,11 +10,15 @@ import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
 import services from './services';
 
+import { MdCoreModule } from '@angular2-material/core';
+import { OverlayModule } from '@angular2-material/core/overlay/overlay-directives';
+import { OVERLAY_PROVIDERS } from '@angular2-material/core/overlay/overlay';
 import { MdCardModule } from '@angular2-material/card';
 import { MdButtonModule } from '@angular2-material/button';
 import { MdIconModule, MdIconRegistry } from '@angular2-material/icon';
 import { MdToolbarModule } from '@angular2-material/toolbar';
-import { MdSidenavModule } from '@angular2-material/sidenav';
+import { MdTooltipModule } from '@angular2-material/tooltip';
+import { MdMenuModule } from '@angular2-material/menu';
 import { MdListModule } from '@angular2-material/list/list';
 
 import { AppComponent } from './components/app/app.component';
@@ -54,11 +58,11 @@ export const firebaseAuthConfig = {
     HttpModule,
 
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
-    MdButtonModule, MdCardModule, MdIconModule, MdToolbarModule, MdSidenavModule, MdListModule,
+    MdCoreModule, OverlayModule, MdButtonModule, MdCardModule, MdIconModule, MdToolbarModule, MdTooltipModule, MdMenuModule, MdListModule,
 
     routing
   ],
-  providers: [MdIconRegistry, services],
+  providers: [MdIconRegistry, services, OVERLAY_PROVIDERS],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

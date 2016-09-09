@@ -1,0 +1,17 @@
+.easy {
+    width: 460px;
+    height: auto;
+    margin: 20px auto;
+    display: Flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+
+    .tile-button {
+        margin: 3px;
+        min-width: 45px;
+        max-width: 45px;
+        min-height: 45px;
+        display: flex;
+        justify-content: center;
+    }
+}

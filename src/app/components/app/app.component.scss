@@ -2,12 +2,52 @@ md-card {
     margin: 20px;
 }
 
-md-sidenav {
-    width: 250px;
+.fab-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 100;
+    display: flex;
+    flex-flow: column;
 }
 
-md-sidenav-layout {
-    background-color: #ECEEF1;
+.fab-add {
+    position: relative;
+    bottom: 0px;
+
+    .fab-add-icon {
+        transform: rotateZ(0deg);
+        transition: transform 0.25s ease;
+    }
+
+    &:hover {
+        .fab-add-icon {
+            transform: rotateZ(180deg);
+            transition: transform 0.25s ease;
+        }
+    }
+}
+
+.fab-add-mini {
+    position: relative;
+    left: 8px;
+    margin-bottom: 10px;
+    opacity: 0;
+    transition: opacity 0.1s ease 0s;
+    z-index: -1;
+
+    &.visible {
+        opacity: 1;
+        z-index: 101;
+        transition: opacity 0.2s ease 0s;
+    }
+
+    &.medium {
+        transition: opacity 0.15s ease 0.025s;
+    }
+    &.expert {
+        transition: opacity 0.15s ease 0.05s;
+    }
 }
 
 .fill {
@@ -19,3 +59,4 @@ md-sidenav-layout {
     width: 30px;
     height: 30px;
 }
+

@@ -1,57 +1,44 @@
-<!-- NGRX dev tools -->
-<ngrx-store-log-monitor toggleCommand="ctrl-h" positionCommand="ctrl-m"></ngrx-store-log-monitor>
-
-<md-sidenav-layout fullscreen>
-  <!-- The sidenav -->
-  <md-sidenav #sidenav mode="over">
-    <!-- The sidenavs toolbar -->
-    <md-toolbar color="warn">
-      <button md-icon-button #menubutton (click)="sidenav.close()">
-        <md-icon class="md-24">arrow_back</md-icon>
-      </button>
-      <span>Menu</span>
-    </md-toolbar>
-    <!-- The sidenav list -->
-    <md-nav-list class="side">
-      <h3 md-subheader>Places</h3>
-        <a md-list-item routerLink="/" routerLinkActive="active" (click)="sidenav.close()">
-          <md-icon md-list-icon>home</md-icon>
-          <span md-line>Home</span>
-        </a>
-        <a md-list-item routerLink="/me" routerLinkActive="active" (click)="sidenav.close()">
-          <md-icon md-list-icon>person</md-icon>
-          <span md-line>Me</span>
-        </a>
-      <md-divider></md-divider>
-      <h3 md-subheader>New Game</h3>
-      <a md-list-item (click)="easy();sidenav.close()">
-        <md-icon md-list-icon>extension</md-icon>
-        <span md-line>Easy</span>
-      </a>
-      <a md-list-item (click)="medium();sidenav.close()">
-        <md-icon md-list-icon>extension</md-icon>
-        <span md-line>Medium</span>
-      </a>
-      <a md-list-item (click)="expert();sidenav.close()">
-        <md-icon md-list-icon>extension</md-icon>
-        <span md-line>Expert</span>
-      </a>
-    </md-nav-list>
-  </md-sidenav>
 
   <!-- The main content toolbar -->
   <md-toolbar color="warn">
-    <button md-icon-button #menubutton (click)="sidenav.open()">
-      <md-icon class="md-24">menu</md-icon>
+    <button md-icon-button #menubutton (click)="home()">
+      <md-icon class="md-24">home</md-icon>
     </button>
     <span class="fill">[route title]</span>
     <button *ngIf="!photo" md-icon-button #loginbutton (click)="login()">
       <md-icon class="md-24">account_box</md-icon>
     </button>
-    <img *ngIf="photo" class="avatar" [src]="photo" />
+    <img *ngIf="photo" class="avatar" [src]="photo" [md-menu-trigger-for]="menu" />
   </md-toolbar>
+
+  <!-- this menu starts as hidden by default -->
+  <md-menu #menu="mdMenu" x-position="before">
+      <button md-menu-item (click)="me()"> My Profile </button>
+      <button md-menu-item (click)="signout()"> Sign Out </button>
+  </md-menu>
+
+  <div class="fab-container" (mouseover)="onFabMouseover()" (mouseout)="onFabMouseout()">
+    <button md-mini-fab
+      md-tooltip="Expert (16x30)" tooltip-position="below"
+      class="fab-add-mini expert" [ngClass]="miniFabsCss" color="warn" (click)="expert()">
+      <md-icon class="md-24">more_vert</md-icon>
+    </button>
+    <button md-mini-fab
+      md-tooltip="Medium (16x15)" tooltip-position="below"
+      class="fab-add-mini medium" [ngClass]="miniFabsCss" color="warn" (click)="medium()">
+      <md-icon class="md-24">more_vert</md-icon>
+    </button>
+    <button md-mini-fab
+      md-tooltip="Easy (9x9)" tooltip-position="below"
+      class="fab-add-mini easy" [ngClass]="miniFabsCss" color="warn" (click)="easy()">
+      <md-icon class="md-24">more_vert</md-icon>
+    </button>
+
+    <button md-fab class="fab-add" color="warn">
+      <md-icon class="md-24 fab-add-icon">add</md-icon>
+    </button>
+  </div>
 
   <!-- The content of the app -->
   <router-outlet></router-outlet>
 
-</md-sidenav-layout>

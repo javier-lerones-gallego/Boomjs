@@ -15,7 +15,8 @@
       "prefix": "",
       "mobile": false,
       "styles": [
-        "styles.scss"
+        "styles.scss",
+        "../node_modules/@angular2-material/core/overlay/overlay.css"
       ],
       "scripts": [],
       "environments": {

@@ -10,6 +10,7 @@ import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 })
 export class AppComponent implements OnInit {
   private photoURL: string = '';
+  private fabs: boolean = false;
 
   constructor(
     private ngFire: AngularFire,
@@ -19,12 +20,34 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.ngFire.auth.subscribe(auth => {
-      console.log(auth);
+      // console.log(auth);
       this.photoURL = auth.google.photoURL;
+    });
+
+    // BUG: This doesn't seem to work yet. data is empty.
+    this.route.data.subscribe(data => {
+      // console.log('data route updated', data);
     });
   }
 
   get photo(): string { return this.photoURL; }
+  get miniFabsCss(): string { return this.fabs ? 'visible' : ''; }
+
+  home(): void {
+    this.router.navigate(['/']);
+  }
+
+  me(): void {
+    this.router.navigate(['/me']);
+  }
+
+  onFabMouseover(): void {
+    this.fabs = true;
+  }
+
+  onFabMouseout(): void {
+    this.fabs = false;
+  }
 
   login() {
     this.ngFire.auth.login({
