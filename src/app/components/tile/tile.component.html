@@ -1,1 +1,16 @@
-<!--<button md-button md-raised (click)="" (dblclick)=""></button>-->
+<button md-raised-button *ngIf="state !== 'REVEALED'"
+  [color]="color" class="tile-button"
+  (click)="click($event)"
+  (contextmenu)="rightClick($event)">
+      <span *ngIf="state === 'ACTIVE'">&nbsp;</span>
+      <md-icon class="md-24" *ngIf="state === 'FLAG'">flag</md-icon>
+      <md-icon class="md-24" *ngIf="state === 'UNKNOWN'">help_outline</md-icon>
+      <md-icon class="md-24" *ngIf="state === 'DETONATED'">star</md-icon>
+    </button>
+<button md-button *ngIf="state === 'REVEALED'"
+  class="tile-button">
+  <span *ngIf="count > 0"
+      class="tile-count"
+      [ngClass]="'_' + count">{{ count }}</span>
+  <span *ngIf="count === 0">&nbsp;</span>
+</button>

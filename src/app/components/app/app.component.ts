@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { GamesService } from '../../services/games.service';
 import { Router, ActivatedRoute }   from '@angular/router';
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 
@@ -10,17 +9,16 @@ import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 })
 export class AppComponent implements OnInit {
   private photoURL: string = '';
-  private fabs: boolean = false;
 
   constructor(
     private ngFire: AngularFire,
-    private gamesService: GamesService,
     private router: Router,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
+    // Subscribe to Firebase auth to get the google profile
     this.ngFire.auth.subscribe(auth => {
-      // console.log(auth);
+      // Change the icon in the header with the google photo
       this.photoURL = auth.google.photoURL;
     });
 
@@ -31,7 +29,6 @@ export class AppComponent implements OnInit {
   }
 
   get photo(): string { return this.photoURL; }
-  get miniFabsCss(): string { return this.fabs ? 'visible' : ''; }
 
   home(): void {
     this.router.navigate(['/']);
@@ -41,14 +38,6 @@ export class AppComponent implements OnInit {
     this.router.navigate(['/me']);
   }
 
-  onFabMouseover(): void {
-    this.fabs = true;
-  }
-
-  onFabMouseout(): void {
-    this.fabs = false;
-  }
-
   login() {
     this.ngFire.auth.login({
       provider: AuthProviders.Google,
@@ -56,30 +45,4 @@ export class AppComponent implements OnInit {
     });
   }
 
-  easy() {
-    // Create a new Easy game
-    this.gamesService.easy()
-      .then(game => {
-        // After creating the game, go to it
-        this.router.navigate(['/game', game.key]);
-      });
-  }
-
-  medium() {
-    // Create a new Medium game
-    this.gamesService.medium()
-      .then(game => {
-        // After creating the game, go to it
-        this.router.navigate(['/game', game.key]);
-      });
-  }
-
-  expert() {
-    // Create a new Expert game
-    this.gamesService.expert()
-      .then(game => {
-        // After creating the game, go to it
-        this.router.navigate(['/game', game.key]);
-      });
-  }
 }

@@ -1,0 +1,50 @@
+
+$tile1: #26BCDA;
+$tile2: #73912E;
+$tile3: #F02A74;
+$tile4: #2B7EC8;
+$tile5: #CA2121;
+$tile6: #FFDC00;
+$tile7: #005403;
+$tile8: #763F05;
+
+.tile-button {
+    margin: 3px;
+    min-width: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    display: flex;
+    justify-content: center;
+    line-height: normal;
+    md-icon {
+        color: #FFF;
+    }
+    span.tile-count {
+        font-size: 1.2em;
+        font-weight: 700;
+        &._1 {
+            color: $tile1;
+        }
+        &._2 {
+            color: $tile2;
+        }
+        &._3 {
+            color: $tile3;
+        }
+        &._4 {
+            color: $tile4;
+        }
+        &._5 {
+            color: $tile5;
+        }
+        &._6 {
+            color: $tile6;
+        }
+        &._7 {
+            color: $tile7;
+        }
+        &._8 {
+            color: $tile8;
+        }
+    }
+}

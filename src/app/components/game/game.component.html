@@ -1,6 +1,14 @@
-<div class="easy">
-  <button md-raised-button
-    color="primary"
-    class="tile-button"
-    *ngFor="let tile of tiles">&nbsp;</button>
+<div class="board" [ngClass]="game?.difficulty | lowercase">
+  <tile *ngFor="let tile of tiles"
+    [key]="tile.$key"
+    [x]="tile.x"
+    [y]="tile.y"
+    [mine]="tile.mine"
+    [count]="tile.count"
+    [state]="tile.state"
+    (pressed)="tilePressed($event)"
+    (change)="tileStateChange($event)"
+    (reveal)="tileReveal($event)"
+    (detonate)="tileDetonate($event)"
+    ></tile>
 </div>

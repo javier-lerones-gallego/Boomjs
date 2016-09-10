@@ -1,17 +1,23 @@
-.easy {
-    width: 460px;
+
+.board {
     height: auto;
     margin: 20px auto;
+    padding: 5px;
     display: Flex;
     flex-flow: row;
     flex-wrap: wrap;
+    background-color: #FFF;
+    border-radius: 3px;
+}
 
-    .tile-button {
-        margin: 3px;
-        min-width: 45px;
-        max-width: 45px;
-        min-height: 45px;
-        display: flex;
-        justify-content: center;
-    }
+.easy {
+    width: 414px;
+}
+
+.medium {
+    width: 736px;
+}
+
+.expert {
+    width: 1380px;
 }

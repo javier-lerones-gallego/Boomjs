@@ -6,7 +6,7 @@
 // Person creating a theme writes variables like this:
 $md-is-dark-theme: false;
 
-$md-primary: md-palette($md-blue, 500, 100, 700, $md-contrast-palettes);
+$md-primary: md-palette($md-blue, 400, 100, 700, $md-contrast-palettes);
 $md-accent: md-palette($md-red, A200, A100, A400, $md-contrast-palettes);
 $md-warn: md-palette($md-orange, 500, 300, 800, $md-contrast-palettes);
 $md-foreground: if($md-is-dark-theme, $md-dark-theme-foreground, $md-light-theme-foreground);
@@ -33,12 +33,39 @@ my-games {
     display: flex;
     flex-flow: row;
     flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
     overflow-y: auto;
 }
 
-app-root {
-  .md-primary[md-raised-button] {
-    color: md-color($md-foreground, text);
-    background-color: md-color($md-primary, 700, 0.7); // Use a specific hue and opacity
-  }
+game {
+    overflow: auto;
 }
+
+app-root {
+    // Buttons and Tiles
+    .md-primary[md-raised-button] {
+        color: md-color($md-foreground, text);
+        background-color: md-color($md-primary, 700, 1);
+    }
+    .md-warn[md-raised-button] {
+        background-color: md-color($md-warn, 500, 1);
+    }
+    .md-accent[md-raised-button] {
+        background-color: md-color($md-accent, 500, 1);
+    }
+
+    // Toolbar
+    md-toolbar.md-primary {
+        background-color: md-color($md-primary, 700, 1);
+    }
+
+}
+
+$white: #FFF;
+
+$sidebaricons: #A7A7A7;
+
+$avatarEasy: #2B880F;
+$avatarMedium: #1588C1;
+$avatarExpert: #BF0D0D;

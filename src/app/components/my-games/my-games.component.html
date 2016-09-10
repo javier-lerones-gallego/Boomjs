@@ -5,7 +5,9 @@
       <md-card-subtitle>({{ game.rows}}x{{ game.columns}})</md-card-subtitle>
   </md-card-title-group>
   <md-card-actions>
-        <button md-button (click)="go(game)">PLAY/RESUME</button>
+        <button md-button
+          (click)="go(game)"
+          *ngIf="game.state !== 'WON' && game.state !== 'LOSS'">{{ game.state === 'STARTED' ? 'RESUME' : 'PLAY' }}</button>
         <button md-button>DELETE</button>
    </md-card-actions>
 </md-card>

@@ -1,6 +1,6 @@
 
   <!-- The main content toolbar -->
-  <md-toolbar color="warn">
+  <md-toolbar color="primary">
     <button md-icon-button #menubutton (click)="home()">
       <md-icon class="md-24">home</md-icon>
     </button>
@@ -17,27 +17,8 @@
       <button md-menu-item (click)="signout()"> Sign Out </button>
   </md-menu>
 
-  <div class="fab-container" (mouseover)="onFabMouseover()" (mouseout)="onFabMouseout()">
-    <button md-mini-fab
-      md-tooltip="Expert (16x30)" tooltip-position="below"
-      class="fab-add-mini expert" [ngClass]="miniFabsCss" color="warn" (click)="expert()">
-      <md-icon class="md-24">more_vert</md-icon>
-    </button>
-    <button md-mini-fab
-      md-tooltip="Medium (16x15)" tooltip-position="below"
-      class="fab-add-mini medium" [ngClass]="miniFabsCss" color="warn" (click)="medium()">
-      <md-icon class="md-24">more_vert</md-icon>
-    </button>
-    <button md-mini-fab
-      md-tooltip="Easy (9x9)" tooltip-position="below"
-      class="fab-add-mini easy" [ngClass]="miniFabsCss" color="warn" (click)="easy()">
-      <md-icon class="md-24">more_vert</md-icon>
-    </button>
-
-    <button md-fab class="fab-add" color="warn">
-      <md-icon class="md-24 fab-add-icon">add</md-icon>
-    </button>
-  </div>
+  <!-- the new game fab at the bottom right -->
+  <new-game-fab></new-game-fab>
 
   <!-- The content of the app -->
   <router-outlet></router-outlet>
