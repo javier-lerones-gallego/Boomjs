@@ -1,6 +1,6 @@
 <div class="board" [ngClass]="game?.difficulty | lowercase">
-  <tile *ngFor="let tile of tiles"
-    [key]="tile.$key"
+  <tile *ngFor="let tile of game?.tiles; let i = index"
+    [key]="i"
     [x]="tile.x"
     [y]="tile.y"
     [mine]="tile.mine"
