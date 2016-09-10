@@ -30,14 +30,6 @@ export class AppComponent implements OnInit {
 
   get photo(): string { return this.photoURL; }
 
-  home(): void {
-    this.router.navigate(['/']);
-  }
-
-  me(): void {
-    this.router.navigate(['/me']);
-  }
-
   login() {
     this.ngFire.auth.login({
       provider: AuthProviders.Google,

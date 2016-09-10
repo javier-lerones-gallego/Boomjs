@@ -18,8 +18,8 @@ import { MdButtonModule } from '@angular2-material/button';
 import { MdIconModule, MdIconRegistry } from '@angular2-material/icon';
 import { MdToolbarModule } from '@angular2-material/toolbar';
 import { MdTooltipModule } from '@angular2-material/tooltip';
-import { MdMenuModule } from '@angular2-material/menu';
 import { MdListModule } from '@angular2-material/list/list';
+import { MdSidenavModule } from '@angular2-material/sidenav';
 
 import { AppComponent } from './components/app/app.component';
 import { MyGamesComponent } from './components/my-games/my-games.component';
@@ -60,7 +60,15 @@ export const firebaseAuthConfig = {
     HttpModule,
 
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
-    MdCoreModule, OverlayModule, MdButtonModule, MdCardModule, MdIconModule, MdToolbarModule, MdTooltipModule, MdMenuModule, MdListModule,
+    MdCoreModule,
+    OverlayModule,
+    MdButtonModule,
+    MdCardModule,
+    MdIconModule,
+    MdToolbarModule,
+    MdTooltipModule,
+    MdListModule,
+    MdSidenavModule,
 
     routing
   ],
