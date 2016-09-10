@@ -15,9 +15,14 @@ export class MyGamesComponent implements OnInit {
   games: FirebaseListObservable<Game[]>;
 
   ngOnInit() {
-    this.games = this.ngFire.database.list('games', {
-      query: { orderByChild: 'created' }
+    // Subscribe to Firebase auth to get the google profile
+    this.ngFire.auth.subscribe(auth => {
+      // Get the auth id
+      this.games = this.ngFire.database.list('games'.concat('/', auth.uid), {
+        query: { orderByChild: 'created' }
+      });
     });
+
   }
 
   go(game: any): void {

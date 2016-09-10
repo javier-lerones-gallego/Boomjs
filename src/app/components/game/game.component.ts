@@ -26,15 +26,19 @@ export class GameComponent implements OnInit {
     // If the params in the url change, refresh the component
     // The router only reloads the component if both route and params change
     this.route.params.subscribe(params => {
-      const gameRef = 'games/'.concat(params['id']);
+      // Subscribe to Firebase auth to get the google profile
+      this.ngFire.auth.subscribe(auth => {
+        const gameRef = 'games'.concat('/', auth.uid, '/', params['id']);
+        const tilesRef = gameRef.concat('/tiles');
 
-      // Get the game and the tiles observables
-      this.gameObservable = this.ngFire.database.object(gameRef);
-      this.tilesObservable = this.ngFire.database.list(gameRef.concat('/tiles'));
+        // Get the game and the tiles observables
+        this.gameObservable = this.ngFire.database.object(gameRef);
+        this.tilesObservable = this.ngFire.database.list(tilesRef);
 
-      // Store the data in the component
-      this.gameObservable.subscribe(game => { this.game = game; });
-      this.tilesObservable.subscribe(tiles => { this.tiles = tiles; });
+        // Store the data in the component
+        this.gameObservable.subscribe(game => { this.game = game; });
+        this.tilesObservable.subscribe(tiles => { this.tiles = tiles; });
+      });
     });
   }
 

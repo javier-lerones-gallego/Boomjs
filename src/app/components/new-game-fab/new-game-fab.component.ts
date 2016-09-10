@@ -19,7 +19,10 @@ export class NewGameFabComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.games = this.ngFire.database.list('games');
+    // Subscribe to Firebase auth to get the google profile
+    this.ngFire.auth.subscribe(auth => {
+      this.games = this.ngFire.database.list('games'.concat('/', auth.uid));
+    });
   }
 
   get miniFabsCss(): string { return this.fabs ? 'visible' : ''; }
