@@ -11,7 +11,6 @@ import { Game, Tile } from '../../models';
 })
 export class NewGameFabComponent implements OnInit {
   private games: FirebaseListObservable<Game[]>;
-  private fabs: boolean = false;
 
   constructor(
     private ngFire: AngularFire,
@@ -23,16 +22,6 @@ export class NewGameFabComponent implements OnInit {
     this.ngFire.auth.subscribe(auth => {
       this.games = this.ngFire.database.list('games'.concat('/', auth.uid));
     });
-  }
-
-  get miniFabsCss(): string { return this.fabs ? 'visible' : ''; }
-
-  onFabMouseover(): void {
-    this.fabs = true;
-  }
-
-  onFabMouseout(): void {
-    this.fabs = false;
   }
 
   easy() {

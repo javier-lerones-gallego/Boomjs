@@ -1,14 +1,14 @@
-  <div class="fab-container" (mouseover)="onFabMouseover()" (mouseout)="onFabMouseout()">
+  <div class="fab-container">
     <button md-mini-fab
-      class="fab-add-mini expert" [ngClass]="miniFabsCss" color="warn" (click)="expert()">
+      class="fab-add-mini expert" color="warn" (click)="expert()">
       <md-icon class="md-24">more_vert</md-icon>
     </button>
     <button md-mini-fab
-      class="fab-add-mini medium" [ngClass]="miniFabsCss" color="warn" (click)="medium()">
+      class="fab-add-mini medium" color="warn" (click)="medium()">
       <md-icon class="md-24">more_vert</md-icon>
     </button>
     <button md-mini-fab
-      class="fab-add-mini easy" [ngClass]="miniFabsCss" color="warn" (click)="easy()">
+      class="fab-add-mini easy" color="warn" (click)="easy()">
       <md-icon class="md-24">more_vert</md-icon>
     </button>
 
@@ -16,4 +16,3 @@
       <md-icon class="md-24 fab-add-icon">add</md-icon>
     </button>
   </div>
-
