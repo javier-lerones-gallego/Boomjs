@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
-import { RouteNameService } from '../../services';
+import { RouteNameService, GamesFilterService } from '../../services';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private routeNameService: RouteNameService,
+    private gamesFilterService: GamesFilterService,
     private ngFire: AngularFire,
     private router: Router) { }
 
@@ -34,6 +35,18 @@ export class AppComponent implements OnInit {
       provider: AuthProviders.Google,
       method: AuthMethods.Popup
     });
+  }
+
+  active() {
+    this.gamesFilterService.filter.next();
+  }
+
+  won() {
+    this.gamesFilterService.filter.next('WON');
+  }
+
+  loss() {
+    this.gamesFilterService.filter.next('LOSS');
   }
 
 }

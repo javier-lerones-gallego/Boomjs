@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { Game } from '../../models';
 import { Router, ActivatedRoute }   from '@angular/router';
-import { RouteNameService } from '../../services';
+import { RouteNameService, GamesFilterService } from '../../services';
 
 @Component({
   selector: 'my-games',
@@ -12,6 +12,7 @@ import { RouteNameService } from '../../services';
 export class MyGamesComponent implements OnInit {
   constructor(private ngFire: AngularFire,
     private routeNameService: RouteNameService,
+    private gamesFilterService: GamesFilterService,
     private router: Router,
     private route: ActivatedRoute) { }
 
@@ -22,7 +23,10 @@ export class MyGamesComponent implements OnInit {
     this.ngFire.auth.subscribe(auth => {
       // Get the auth id
       this.games = this.ngFire.database.list('games'.concat('/', auth.uid), {
-        query: { orderByChild: 'created' }
+        query: {
+          orderByChild: 'state',
+          equalTo: this.gamesFilterService.filter,
+        },
       });
     });
 
