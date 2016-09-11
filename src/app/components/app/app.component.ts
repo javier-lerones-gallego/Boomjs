@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute }   from '@angular/router';
+import { Router } from '@angular/router';
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
+import { RouteNameService } from '../../services';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +10,12 @@ import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 })
 export class AppComponent implements OnInit {
   private photoURL: string = '';
+  private routeTitle: string = '';
 
   constructor(
+    private routeNameService: RouteNameService,
     private ngFire: AngularFire,
-    private router: Router,
-    private route: ActivatedRoute) { }
+    private router: Router) { }
 
   ngOnInit() {
     // Subscribe to Firebase auth to get the google profile
@@ -22,10 +24,7 @@ export class AppComponent implements OnInit {
       this.photoURL = auth.google.photoURL;
     });
 
-    // BUG: This doesn't seem to work yet. data is empty.
-    this.route.data.subscribe(data => {
-      // console.log('data route updated', data);
-    });
+    this.routeNameService.name.subscribe(n => this.routeTitle = n);
   }
 
   get photo(): string { return this.photoURL; }

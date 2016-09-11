@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute }   from '@angular/router';
+import { RouteNameService } from '../../services';
 
 @Component({
   selector: 'me',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private routeNameService: RouteNameService,
+    private route: ActivatedRoute,
+  ) { }
 
   ngOnInit() {
+    // Change the header title
+    this.route.data.forEach(data => {
+      this.routeNameService.name.next(data['title']);
+    });
   }
 
 }

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 import { Game, Tile } from '../../models';
 import { TileComponent } from '../tile/tile.component';
+import { RouteNameService } from '../../services';
 
 @Component({
   selector: 'game',
@@ -22,7 +23,8 @@ export class GameComponent implements OnInit {
   constructor(
     private ngFire: AngularFire,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private routeNameService: RouteNameService) { }
 
   ngOnInit() {
     // If the params in the url change, refresh the component
@@ -40,6 +42,11 @@ export class GameComponent implements OnInit {
         // Store the data in the component
         this.gameObservable.subscribe(game => { this.game = game; });
       });
+    });
+
+    // Change the header title, data is observable and only has one value
+    this.route.data.forEach(data => {
+      this.routeNameService.name.next(data['title']);
     });
   }
 

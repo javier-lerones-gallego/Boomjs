@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { Game } from '../../models';
-import { Router }   from '@angular/router';
+import { Router, ActivatedRoute }   from '@angular/router';
+import { RouteNameService } from '../../services';
 
 @Component({
   selector: 'my-games',
@@ -10,7 +11,9 @@ import { Router }   from '@angular/router';
 })
 export class MyGamesComponent implements OnInit {
   constructor(private ngFire: AngularFire,
-    private router: Router) { }
+    private routeNameService: RouteNameService,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   games: FirebaseListObservable<Game[]>;
 
@@ -23,6 +26,10 @@ export class MyGamesComponent implements OnInit {
       });
     });
 
+    // Change the header title
+    this.route.data.forEach(data => {
+      this.routeNameService.name.next(data['title']);
+    });
   }
 
   go(game: any): void {

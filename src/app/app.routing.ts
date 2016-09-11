@@ -6,9 +6,9 @@ import { GameComponent } from './components/game/game.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
-  { path: '', component: MyGamesComponent, data: { title: 'BoomJS'} },
+  { path: '', component: MyGamesComponent, data: { title: 'My Games'} },
   { path: 'game/:id', component: GameComponent, data: { title: 'Game' }  },
-  { path: 'me', component: MeComponent, data: { title: 'Me' }  },
+  { path: 'me', component: MeComponent, data: { title: 'Profile' }  },
   { path: '**', component: PageNotFoundComponent, data: { title: 'Not Found' }  }
 ];
 
