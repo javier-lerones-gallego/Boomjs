@@ -1,28 +1,12 @@
-md-card {
-    margin: 20px;
+
+game {
+    overflow: auto;
 }
 
-md-sidenav {
-    width: 250px;
+toolbar {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    padding: 30px 0;
+    line-height: 40px;
 }
-
-md-toolbar:before {
-    box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
-    content: "";
-    height: 64px;
-    left: -2%;
-    position: fixed;
-    width: 104%;
-}
-
-.fill {
-    flex: 1 1 auto;
-    padding: 0 10px;
-}
-
-.avatar {
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-}
-

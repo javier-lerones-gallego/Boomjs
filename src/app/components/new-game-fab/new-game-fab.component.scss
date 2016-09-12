@@ -7,17 +7,17 @@
     display: flex;
     flex-flow: column;
 
-    .fab-add {
+    .fab {
         position: relative;
         bottom: 0px;
 
-        .fab-add-icon {
+        .fab-icon {
             transform: rotateZ(0deg);
             transition: transform 0.25s ease;
         }
     }
 
-    .fab-add-mini {
+    .fab-mini {
         position: relative;
         left: 8px;
         margin-bottom: 10px;
@@ -34,14 +34,14 @@
     }
 
     &:hover {
-        .fab-add {
-            .fab-add-icon {
+        .fab {
+            .fab-icon {
                 transform: rotateZ(180deg);
                 transition: transform 0.25s ease;
             }
         }
 
-        .fab-add-mini {
+        .fab-mini {
             opacity: 1;
             z-index: 101;
             transition: opacity 0.2s ease 0s;

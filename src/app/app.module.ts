@@ -1,33 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 
-import { routing } from './app.routing';
-
-import * as firebase from 'firebase';
-import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
-
+import routing from './app.routing';
 import services from './services';
 
-import { MdCoreModule } from '@angular2-material/core';
-import { OverlayModule } from '@angular2-material/core/overlay/overlay-directives';
-import { OVERLAY_PROVIDERS } from '@angular2-material/core/overlay/overlay';
-import { MdCardModule } from '@angular2-material/card';
-import { MdButtonModule } from '@angular2-material/button';
-import { MdIconModule, MdIconRegistry } from '@angular2-material/icon';
-import { MdToolbarModule } from '@angular2-material/toolbar';
-import { MdTooltipModule } from '@angular2-material/tooltip';
-import { MdListModule } from '@angular2-material/list/list';
-import { MdSidenavModule } from '@angular2-material/sidenav';
+/* tslint:disable */
+import * as firebase from 'firebase';
+/* tslint:enable */
+
+import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
 import { AppComponent } from './components/app/app.component';
-import { MyGamesComponent } from './components/my-games/my-games.component';
+import { GamesComponent } from './components/games/games.component';
 import { MeComponent } from './components/me/me.component';
 import { GameComponent } from './components/game/game.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { TileComponent } from './components/tile/tile.component';
 import { NewGameFabComponent } from './components/new-game-fab/new-game-fab.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { TitleCasePipe } from './pipes/title-case.pipe';
 
 // Must export the config
@@ -46,33 +36,21 @@ export const firebaseAuthConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    MyGamesComponent,
+    GamesComponent,
     MeComponent,
     GameComponent,
     PageNotFoundComponent,
     TileComponent,
     TitleCasePipe,
-    NewGameFabComponent
+    NewGameFabComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    HttpModule,
-
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
-    MdCoreModule,
-    OverlayModule,
-    MdButtonModule,
-    MdCardModule,
-    MdIconModule,
-    MdToolbarModule,
-    MdTooltipModule,
-    MdListModule,
-    MdSidenavModule,
-
     routing
   ],
-  providers: [MdIconRegistry, services, OVERLAY_PROVIDERS],
+  providers: [services],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

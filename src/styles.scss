@@ -1,16 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
-@import '~@angular2-material/core/style/theme-functions';
-@import '~@angular2-material/core/style/palette';
-
-// Person creating a theme writes variables like this:
-$md-is-dark-theme: false;
-
-$md-primary: md-palette($md-blue, 400, 100, 700, $md-contrast-palettes);
-$md-accent: md-palette($md-red, A200, A100, A400, $md-contrast-palettes);
-$md-warn: md-palette($md-orange, 500, 300, 800, $md-contrast-palettes);
-$md-foreground: if($md-is-dark-theme, $md-dark-theme-foreground, $md-light-theme-foreground);
-$md-background: if($md-is-dark-theme, $md-dark-theme-background, $md-light-theme-background);
+@import './app/shared/color';
 
 html, body {
     margin: 0;
@@ -18,54 +7,17 @@ html, body {
 
     height: 100%;
 
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: $app-root-background;
 }
 
 app-root {
     display: flex;
     flex-flow: column;
     height: 100%;
-    width: 100%;
-    background-color: #ECEEF1;
+    width: calc(100% - 100px);
+    margin: 0 auto;
+    background-color: $app-root-background;
+    color: $white;
+    font-family: Lato, "Helvetica Neue", sans-serif;
+    font-weight: 300;
 }
-
-my-games {
-    display: flex;
-    flex-flow: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: flex-start;
-    overflow-y: auto;
-}
-
-game {
-    overflow: auto;
-}
-
-app-root {
-    // Buttons and Tiles
-    .md-primary[md-raised-button] {
-        color: md-color($md-foreground, text);
-        background-color: md-color($md-primary, 700, 1);
-    }
-    .md-warn[md-raised-button] {
-        background-color: md-color($md-warn, 500, 1);
-    }
-    .md-accent[md-raised-button] {
-        background-color: md-color($md-accent, 500, 1);
-    }
-
-    // Toolbar
-    md-toolbar.md-primary {
-        background-color: md-color($md-primary, 700, 1);
-    }
-
-}
-
-$white: #FFF;
-
-$sidebaricons: #A7A7A7;
-
-$avatarEasy: #2B880F;
-$avatarMedium: #1588C1;
-$avatarExpert: #BF0D0D;

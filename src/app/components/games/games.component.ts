@@ -5,11 +5,11 @@ import { Router, ActivatedRoute }   from '@angular/router';
 import { RouteNameService, GamesFilterService } from '../../services';
 
 @Component({
-  selector: 'my-games',
-  templateUrl: './my-games.component.html',
-  styleUrls: ['./my-games.component.scss']
+  selector: 'games',
+  templateUrl: './games.component.html',
+  styleUrls: ['./games.component.scss']
 })
-export class MyGamesComponent implements OnInit {
+export class GamesComponent implements OnInit {
   constructor(private ngFire: AngularFire,
     private routeNameService: RouteNameService,
     private gamesFilterService: GamesFilterService,

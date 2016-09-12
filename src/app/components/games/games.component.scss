@@ -1,0 +1,34 @@
+
+.games {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-content: flex-start;
+}
+
+.filters {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 40px;
+
+    li {
+        padding: 10px 0;
+    }
+}
+
+.my-games {
+    display: flex;
+    flex: 1;
+}
+
+.new-game {
+    display: flex;
+    width: 200px;
+}

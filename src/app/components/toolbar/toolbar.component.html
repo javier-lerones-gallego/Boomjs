@@ -1,0 +1,11 @@
+<div class="profile">
+  <img *ngIf="photo" class="avatar" [src]="photo" />
+  <span class="name">{{ name }}</span>
+</div>
+<div class="menu">
+  <ul>
+    <li routerLinkActive="active" routerLinkActiveOptions="{ exact: false }"><a routerLink="/games">My Games</a></li>
+    <li routerLinkActive="active" routerLinkActiveOptions="{ exact: false }"><a routerLink="/me">Profile</a></li>
+  </ul>
+</div>
+<div class="info">{{ now }}</div>
