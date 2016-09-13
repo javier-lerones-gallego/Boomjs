@@ -1,3 +1,4 @@
+@import '../../shared/colors';
 
 .games {
     display: flex;
@@ -13,12 +14,13 @@
 
     display: flex;
     flex-flow: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 
     width: 40px;
 
     li {
+        color: $menu-inactive;
         padding: 10px 0;
     }
 }
@@ -30,5 +32,52 @@
 
 .new-game {
     display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+
     width: 200px;
+
+    .new-game-button {
+        padding: 20px;
+        border-radius: 3px;
+        cursor: pointer;
+
+        color: $new-game-button-color;
+        background-color: $new-game-button-bg;
+
+        transition: color 0.15s ease, background-color 0.15s ease;
+
+        &:not(:last-child) {
+            margin-bottom: 10px;
+        }
+
+        &:hover {
+            color: $new-game-button-color-hover;
+            background-color: $new-game-button-bg-hover;
+            transition: color 0.15s ease, background-color 0.15s ease;
+        }
+
+        span {
+            display: inline-block;
+            line-height: 25px;
+
+            &.desc {
+                color: $menu-inactive;
+                font-size: 0.9em;
+            }
+        }
+
+        &.easy {
+            border-bottom: solid 1px $avatarEasy;
+        }
+
+        &.medium {
+            border-bottom: solid 1px $avatarMedium;
+        }
+
+        &.expert {
+            border-bottom: solid 1px $avatarExpert;
+        }
+    }
 }

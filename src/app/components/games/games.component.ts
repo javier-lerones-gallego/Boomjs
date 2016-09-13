@@ -36,7 +36,7 @@ export class GamesComponent implements OnInit {
     });
   }
 
-  go(game: any): void {
-    this.router.navigate(['/game', game.$key]);
+  go(game: Game): void {
+    this.router.navigate(['/game', game['$key']]);
   }
 }

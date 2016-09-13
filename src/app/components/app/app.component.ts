@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GamesFilterService } from '../../services';
 
@@ -7,7 +7,7 @@ import { GamesFilterService } from '../../services';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
 
   constructor(
     private gamesFilterService: GamesFilterService,
@@ -15,6 +15,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  ngAfterViewInit() {
+    // Remove 'loading' class from app-root after init
+    document.querySelector('app-root').classList.remove('loading');
   }
 
   active() {

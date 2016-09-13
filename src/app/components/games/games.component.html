@@ -11,8 +11,29 @@
   </div>
 
   <div class="new-game">
-    <div class="easy"></div>
-    <div class="medium"></div>
-    <div class="expert"></div>
+    <div class="new-game-button easy" (click)="easy()">
+      <span>
+        New Easy Game
+      </span>
+      <span class="desc">
+        9x9 - 10 Bombs
+      </span>
+    </div>
+    <div class="new-game-button medium" (click)="medium()">
+      <span>
+        New Medium Game
+      </span>
+      <span class="desc">
+        16x15 - 40 Bombs
+      </span>
+    </div>
+    <div class="new-game-button expert" (click)="expert()">
+      <span>
+        New Expert Game
+      </span>
+      <span class="desc">
+        30x15 - 99 Bombs
+      </span>
+    </div>
   </div>
 </div>
