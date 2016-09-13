@@ -5,6 +5,7 @@
     flex-flow: row;
     justify-content: center;
     align-content: flex-start;
+    height: 100%;
 }
 
 .filters {
@@ -15,7 +16,7 @@
     display: flex;
     flex-flow: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
 
     width: 40px;
 
@@ -26,8 +27,66 @@
 }
 
 .my-games {
-    display: flex;
     flex: 1;
+
+    column-count: 3;
+    column-gap: 0;
+
+    overflow-y: auto;
+
+    .game-container {
+        break-inside: avoid;
+
+        padding-right: 10px;
+        padding-bottom: 10px;
+
+        .game {
+            padding: 20px;
+            cursor: pointer;
+
+            color: $new-game-button-color;
+            background-color: $new-game-button-bg;
+
+            border-radius: 3px;
+
+            min-height: 95px;
+
+            &.easy {
+                border-bottom: solid 2px $avatarEasy;
+                &.started {
+                    background-color: #0e2f03;
+                }
+            }
+
+            &.medium {
+                border-bottom: solid 2px $avatarMedium;
+                &.started {
+                    background-color: #062342;
+                }
+            }
+
+            &.expert {
+                border-bottom: solid 2px $avatarExpert;
+                &.started {
+                    background-color: #3a0a0a;
+                }
+            }
+
+            .field {
+                display: block;
+                line-height: 24px;
+            }
+
+            .difficulty {
+                font-weight: 500;
+            }
+
+            .info {
+                color: $menu-inactive;
+                font-size: 0.9em;
+            }
+        }
+    }
 }
 
 .new-game {
@@ -37,6 +96,7 @@
     align-items: center;
 
     width: 200px;
+    max-width: 200px;
 
     .new-game-button {
         padding: 20px;

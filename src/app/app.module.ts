@@ -8,6 +8,8 @@ import services from './services';
 import * as firebase from 'firebase';
 /* tslint:enable */
 
+import { SlimLoadingBarService, SlimLoadingBarComponent } from 'ng2-slim-loading-bar';
+
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
 import { AppComponent } from './components/app/app.component';
@@ -43,14 +45,15 @@ export const firebaseAuthConfig = {
     TileComponent,
     TitleCasePipe,
     NewGameFabComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    SlimLoadingBarComponent
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
     routing
   ],
-  providers: [services],
+  providers: [services, SlimLoadingBarService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

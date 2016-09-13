@@ -1,3 +1,4 @@
+@import '../../shared/colors';
 
 .board {
     height: auto;
@@ -6,7 +7,7 @@
     display: Flex;
     flex-flow: row;
     flex-wrap: wrap;
-    background-color: #FFF;
+    background-color: $board-bg;
     border-radius: 3px;
 }
 

@@ -28,11 +28,11 @@ export class TileComponent implements OnInit {
     switch (this.state) {
       case 'FLAG':
       case 'DETONATED':
-        return 'accent';
+        return 'flagged';
       case 'UNKNOWN':
-        return 'warn';
+        return 'unknown';
       default:
-        return 'primary';
+        return 'active';
     }
   }
 

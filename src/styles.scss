@@ -14,15 +14,24 @@ app-root {
     display: flex;
     flex-flow: column;
     height: 100%;
-    width: calc(100% - 100px);
-    margin: 0 auto;
     background-color: $app-root-background;
     color: $white;
     font-family: Lato, "Helvetica Neue", sans-serif;
     font-weight: 300;
 
+    .content {
+        margin: 0 auto;
+        width: calc(100% - 100px);
+    }
+
     &.loading {
         justify-content: center;
         align-items: center;
     }
+
+    games {
+        height: calc(100% - 60px);
+        overflow: hidden;
+    }
+
 }

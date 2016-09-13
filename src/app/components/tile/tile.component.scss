@@ -16,6 +16,24 @@ $tile8: #763F05;
     display: flex;
     justify-content: center;
     line-height: normal;
+
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+    border-radius: 3px;
+
+    &.revealed {
+        box-shadow: none;
+    }
+
+    &.flagged {
+        background-color: $tile5;
+    }
+    &.unknown {
+        background-color: $tile6;
+    }
+    &.active {
+        background-color: $tile4;
+    }
+
     i {
         color: #FFF;
     }

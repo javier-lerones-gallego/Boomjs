@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 import { RouteNameService } from '../../services';
 
@@ -18,7 +18,8 @@ export class ToolbarComponent implements OnInit {
   constructor(
     private routeNameService: RouteNameService,
     private ngFire: AngularFire,
-    private router: Router) { }
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     // Subscribe to Firebase auth to get the google profile

@@ -5,8 +5,13 @@
   </ul>
 
   <div class="my-games">
-    <div class="game" *ngFor="let game of games | async">
-      {{ game.difficulty }}
+    <div class="game-container" *ngFor="let game of games | async"
+      (click)="go(game)">
+      <div class="game"
+        [ngClass]="game.difficulty + ' ' + game.state | lowercase">
+        <span class="field difficulty">{{ game.difficulty }}</span>
+        <span class="field info">{{ game.rows }}x{{ game.columns }} - {{ game.mines }} Bombs</span>
+      </div>
     </div>
   </div>
 
