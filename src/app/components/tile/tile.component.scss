@@ -13,15 +13,19 @@ $tile8: #763F05;
     min-width: 40px;
     max-width: 40px;
     min-height: 40px;
+
+    cursor: pointer;
+
     display: flex;
     justify-content: center;
-    line-height: normal;
+    align-items: center;
 
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,1);
     border-radius: 3px;
 
     &.revealed {
         box-shadow: none;
+        cursor: default;
     }
 
     &.flagged {
@@ -32,14 +36,18 @@ $tile8: #763F05;
     }
     &.active {
         background-color: $tile4;
+
+        &:hover {
+            background-color: #1E73BE;
+        }
     }
 
     i {
         color: #FFF;
     }
     span.tile-count {
-        font-size: 1.2em;
-        font-weight: 700;
+        font-size: 1.1em;
+        font-weight: 500;
         &._1 {
             color: $tile1;
         }
