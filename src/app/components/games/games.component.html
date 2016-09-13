@@ -1,16 +1,20 @@
 <div class="games">
   <ul class="filters">
-    <li><a><i class="material-icons">games</i></a></li>
-    <li><a><i class="material-icons">games</i></a></li>
+    <li class="active"><a><i class="material-icons">games</i></a></li>
+    <li><a><i class="material-icons">filter_list</i></a></li>
   </ul>
 
-  <div class="my-games">
-    <div class="game-container" *ngFor="let game of games | async"
-      (click)="go(game)">
-      <div class="game"
-        [ngClass]="game.difficulty + ' ' + game.state | lowercase">
-        <span class="field difficulty">{{ game.difficulty }}</span>
-        <span class="field info">{{ game.rows }}x{{ game.columns }} - {{ game.mines }} Bombs</span>
+  <div class="games-list-container">
+    <div class="games-header">All Games</div>
+    <div class="games-list">
+      <div class="game-container" *ngFor="let game of games | async"
+        (click)="go(game)">
+        <div class="game"
+          [ngClass]="game.difficulty + ' ' + game.state | lowercase">
+          <span class="field difficulty">{{ game.difficulty }}</span>
+          <span class="field info">{{ game.rows }}x{{ game.columns }} - {{ game.mines }} Bombs</span>
+          <span class="field state">{{ game.state | titleCase }}</span>
+        </div>
       </div>
     </div>
   </div>

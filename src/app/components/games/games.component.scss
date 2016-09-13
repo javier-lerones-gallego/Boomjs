@@ -23,67 +23,88 @@
     li {
         color: $menu-inactive;
         padding: 10px 0;
+
+        &.active {
+            color: $menu-active;
+        }
     }
 }
 
-.my-games {
+.games-list-container {
     flex: 1;
-
-    column-count: 3;
-    column-gap: 0;
-
     overflow-y: auto;
 
-    .game-container {
-        break-inside: avoid;
+    .games-header {
+        padding: 10px 20px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        border-radius: 3px;
+        border-bottom: solid 1px $menu-active;
+        font-weight: 500;
+    }
 
-        padding-right: 10px;
-        padding-bottom: 10px;
+    .games-list {
+        column-count: 3;
+        column-gap: 0;
 
-        .game {
-            padding: 20px;
-            cursor: pointer;
+        .game-container {
+            break-inside: avoid;
 
-            color: $new-game-button-color;
-            background-color: $new-game-button-bg;
+            padding-right: 10px;
+            padding-bottom: 10px;
 
-            border-radius: 3px;
+            .game {
+                padding: 20px;
+                cursor: pointer;
 
-            min-height: 95px;
+                color: $new-game-button-color;
+                background-color: $new-game-button-bg;
+                transition: color 0.15s ease, background-color 0.15s ease;
 
-            &.easy {
-                border-bottom: solid 2px $avatarEasy;
-                &.started {
-                    background-color: #0e2f03;
+                border-radius: 3px;
+
+                min-height: 95px;
+
+                &:hover {
+                    color: $new-game-button-color-hover;
+                    background-color: $new-game-button-bg-hover;
+                    transition: color 0.15s ease, background-color 0.15s ease;
                 }
-            }
 
-            &.medium {
-                border-bottom: solid 2px $avatarMedium;
-                &.started {
-                    background-color: #062342;
+                &.easy {
+                    border-bottom: solid 2px $avatarEasy;
+                    &.started {
+                        background-color: #0e2f03;
+                    }
                 }
-            }
 
-            &.expert {
-                border-bottom: solid 2px $avatarExpert;
-                &.started {
-                    background-color: #3a0a0a;
+                &.medium {
+                    border-bottom: solid 2px $avatarMedium;
+                    &.started {
+                        background-color: #062342;
+                    }
                 }
-            }
 
-            .field {
-                display: block;
-                line-height: 24px;
-            }
+                &.expert {
+                    border-bottom: solid 2px $avatarExpert;
+                    &.started {
+                        background-color: #3a0a0a;
+                    }
+                }
 
-            .difficulty {
-                font-weight: 500;
-            }
+                .field {
+                    display: block;
+                    line-height: 24px;
+                }
 
-            .info {
-                color: $menu-inactive;
-                font-size: 0.9em;
+                .difficulty {
+                    font-weight: 500;
+                }
+
+                .info {
+                    color: $menu-inactive;
+                    font-size: 0.9em;
+                }
             }
         }
     }

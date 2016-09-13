@@ -2,7 +2,7 @@
 
 .board {
     height: auto;
-    margin: 20px auto;
+    margin: 0 auto;
     padding: 5px;
     display: Flex;
     flex-flow: row;
@@ -12,13 +12,13 @@
 }
 
 .easy {
-    width: 414px;
+    width: 369px;
 }
 
 .medium {
-    width: 736px;
+    width: 656px;
 }
 
 .expert {
-    width: 1380px;
+    width: 1230px;
 }

@@ -22,6 +22,8 @@ app-root {
     .content {
         margin: 0 auto;
         width: calc(100% - 100px);
+        height: 100%;
+        overflow: hidden;
     }
 
     &.loading {
@@ -29,9 +31,10 @@ app-root {
         align-items: center;
     }
 
-    games {
-        height: calc(100% - 60px);
-        overflow: hidden;
-    }
+}
 
+games {
+    height: calc(100% - 100px);
+    overflow: hidden;
+    display: block;
 }
