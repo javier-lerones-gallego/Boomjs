@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import routing from './app.routing';
 import services from './services';
+import guards from './guards';
 
 /* tslint:disable */
 import * as firebase from 'firebase';
@@ -21,6 +22,7 @@ import { TileComponent } from './components/tile/tile.component';
 import { NewGameFabComponent } from './components/new-game-fab/new-game-fab.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { TitleCasePipe } from './pipes/title-case.pipe';
+
 
 // Must export the config
 export const firebaseConfig = {
@@ -53,7 +55,7 @@ export const firebaseAuthConfig = {
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
     routing
   ],
-  providers: [services, SlimLoadingBarService],
+  providers: [services, SlimLoadingBarService, guards],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
