@@ -1,4 +1,4 @@
-<div class="board" [ngClass]="(game | async)?.difficulty">
+<div class="board" [ngClass]="(game | async)?.difficulty | lowercase">
   <boom-tile *ngFor="let tile of tiles | async"
     [key]="tile.$key"
     [x]="tile.x"
