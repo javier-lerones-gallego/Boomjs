@@ -57,7 +57,7 @@ export class GameComponent implements OnInit {
         this.tiles = this.ngFire.database.list(this.tilesRef);
 
         this.game.subscribe(g => { this._game = g; console.log('Game subscribe triggered.'); });
-        this.tiles.subscribe(t => { this._tiles = t; });
+        this.tiles.subscribe(t => { this._tiles = t; console.log('Tiles subscribe triggered.'); });
       });
     });
 
@@ -88,8 +88,8 @@ export class GameComponent implements OnInit {
 
   tileStateChange(event) {
     // Update firebase
-    this.ngFire.database.object(this.gameRef.concat('/tiles/', event.key))
-      .update({ state: event.value });
+    this.ngFire.database.list(this.tilesRef)
+      .update(event.key, { state: event.value });
 
     if (this.completed) {
       // Set the game as won
@@ -100,8 +100,8 @@ export class GameComponent implements OnInit {
 
   tileReveal(event) {
     // Update firebase
-    this.ngFire.database.object(this.gameRef.concat('/tiles/', event.key))
-      .update({ state: 'REVEALED' });
+    this.ngFire.database.list(this.tilesRef)
+      .update(event.key, { state: 'REVEALED' });
 
     // Spread the reveal if possible
     this.reveal(event.coordinates.x, event.coordinates.y);
@@ -117,11 +117,11 @@ export class GameComponent implements OnInit {
   tileDetonate(event) {
     this._tiles.forEach(tile => {
       if (tile.mine) {
-        this.ngFire.database.object(this.gameRef.concat('/tiles/', this.getTileKey(tile.x, tile.y).toString()))
-          .update({ state: 'DETONATED' });
+        this.ngFire.database.list(this.tilesRef)
+          .update(this.getTileKey(tile.x, tile.y).toString(), { state: 'DETONATED' });
       } else {
-        this.ngFire.database.object(this.gameRef.concat('/tiles/', this.getTileKey(tile.x, tile.y).toString()))
-          .update({ state: 'REVEALED' });
+        this.ngFire.database.list(this.tilesRef)
+          .update(this.getTileKey(tile.x, tile.y).toString(), { state: 'REVEALED' });
       }
     });
     // Set the game as loss
@@ -159,15 +159,15 @@ export class GameComponent implements OnInit {
     const tileIndex = this.getTileKey(x, y);
 
     // Update the firebase
-    this.ngFire.database.object(this.gameRef.concat('/tiles/', tileIndex.toString()))
-      .update({ mine: true, count: 0 });
+    this.ngFire.database.list(this.tilesRef)
+      .update(tileIndex.toString(), { mine: true, count: 0 });
 
     // Increase the count of each neighbour by 1
     this.getNeighbours(x, y)
       .forEach(n => {
         if (!n.mine) {
-          this.ngFire.database.object(this.gameRef.concat('/tiles/', this.getTileKey(n.x, n.y).toString()))
-            .update({ count: n.count + 1 });
+          this.ngFire.database.list(this.tilesRef)
+            .update(this.getTileKey(n.x, n.y).toString(), { count: n.count + 1 });
         }
       });
   }
@@ -188,15 +188,15 @@ export class GameComponent implements OnInit {
 
     // Reveal the end Tiles
     endTiles.forEach(t => {
-      this.ngFire.database.object(this.gameRef.concat('/tiles/', this.getTileKey(t.x, t.y).toString()))
-        .update({ state: 'REVEALED' });
+      this.ngFire.database.list(this.tilesRef)
+        .update(this.getTileKey(t.x, t.y).toString(), { state: 'REVEALED' });
     });
 
     // Spread to the other tiles
     spreadTiles.forEach(t => {
       // First reveal the actual neighbour
-      this.ngFire.database.object(this.gameRef.concat('/tiles/', this.getTileKey(t.x, t.y).toString()))
-        .update({ state: 'REVEALED' });
+      this.ngFire.database.list(this.tilesRef)
+        .update(this.getTileKey(t.x, t.y).toString(), { state: 'REVEALED' });
       // Then tell its neighbours to spread
       this.revealAround(t);
     });
