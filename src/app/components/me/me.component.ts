@@ -3,7 +3,7 @@ import { ActivatedRoute }   from '@angular/router';
 import { RouteNameService } from '../../services';
 
 @Component({
-  selector: 'me',
+  selector: 'boom-me',
   templateUrl: './me.component.html',
   styleUrls: ['./me.component.scss']
 })

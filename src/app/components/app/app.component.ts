@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { GamesFilterService } from '../../services';
 
 @Component({
-  selector: 'app-root',
+  selector: 'boom-app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     // Remove 'loading' class from app-root after init
-    document.querySelector('app-root').classList.remove('loading');
+    document.querySelector('boom-app-root').classList.remove('loading');
   }
 
   active() {

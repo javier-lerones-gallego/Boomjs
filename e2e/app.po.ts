@@ -6,6 +6,6 @@ export class BoomjsPage {
   }
 
   getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+    return element(by.css('boom-app-root h1')).getText();
   }
 }

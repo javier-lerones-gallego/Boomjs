@@ -6,7 +6,7 @@ import { RouteNameService } from '../../services';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'toolbar',
+  selector: 'boom-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })

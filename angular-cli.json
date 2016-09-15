@@ -1,6 +1,6 @@
 {
   "project": {
-    "version": "1.0.0-beta.11-webpack.8",
+    "version": "1.0.0-beta.14",
     "name": "boomjs"
   },
   "apps": [
@@ -12,7 +12,7 @@
       "main": "main.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.json",
-      "prefix": "",
+      "prefix": "boom",
       "mobile": false,
       "styles": [
         "styles.scss"
@@ -21,7 +21,7 @@
       "environments": {
         "source": "environments/environment.ts",
         "prod": "environments/environment.prod.ts",
-        "dev": "environments/environment.dev.ts"
+        "dev": "environments/environment.ts"
       }
     }
   ],
@@ -39,7 +39,6 @@
   },
   "defaults": {
     "styleExt": "scss",
-    "prefixInterfaces": false,
-    "lazyRoutePrefix": "+"
+    "prefixInterfaces": false
   }
 }

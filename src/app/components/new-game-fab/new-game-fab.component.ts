@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { Game, Tile } from '../../models';
 
 @Component({
-  selector: 'new-game-fab',
+  selector: 'boom-new-game-fab',
   templateUrl: './new-game-fab.component.html',
   styleUrls: ['./new-game-fab.component.scss']
 })

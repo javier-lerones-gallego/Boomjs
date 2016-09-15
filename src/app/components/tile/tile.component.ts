@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TILE_STATE } from '../../models';
 
 @Component({
-  selector: 'tile',
+  selector: 'boom-tile',
   templateUrl: './tile.component.html',
   styleUrls: ['./tile.component.scss']
 })
