@@ -10,7 +10,7 @@ html, body {
     background-color: $app-root-background;
 }
 
-app-root {
+boom-app-root {
     display: flex;
     flex-flow: column;
     height: 100%;
@@ -33,7 +33,7 @@ app-root {
 
 }
 
-games {
+boom-games {
     height: calc(100% - 100px);
     overflow: hidden;
     display: block;
