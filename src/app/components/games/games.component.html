@@ -7,13 +7,13 @@
   <div class="games-list-container">
     <div class="games-header">All Games</div>
     <div class="games-list">
-      <div class="game-container" *ngFor="let game of games | async"
-        (click)="go(game)">
+      <div class="game-container" *ngFor="let game of games | async" (click)="go(game)">
         <div class="game"
-          [ngClass]="game.difficulty + ' ' + game.state | lowercase">
-          <span class="field difficulty">{{ game.difficulty }}</span>
-          <span class="field info">{{ game.rows }}x{{ game.columns }} - {{ game.mines }} Bombs</span>
-          <span class="field state">{{ game.state | titleCase }}</span>
+          [ngClass]="css(game)">
+          <span class="field difficulty">{{ game.rows }} x {{ game.columns }}</span>
+          <span class="field info">{{ game.count }} Bombs</span>
+          <span class="field created">Created {{ ago(game.created) }}</span>
+          <span class="field started" *ngIf="!!game.started">Started {{ ago(game.started) }}</span>
         </div>
       </div>
     </div>
@@ -42,6 +42,14 @@
       </span>
       <span class="desc">
         30x15 - 99 Bombs
+      </span>
+    </div>
+    <div class="new-game-button custom" (click)="custom()">
+      <span>
+        New Custom Game
+      </span>
+      <span class="desc">
+        (comming soon)
       </span>
     </div>
   </div>

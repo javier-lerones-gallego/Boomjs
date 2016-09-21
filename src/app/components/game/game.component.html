@@ -1,11 +1,10 @@
-<div class="board" [ngClass]="(game | async)?.difficulty | lowercase">
+<div class="board" [ngClass]="boardCss(game | async)">
   <boom-tile *ngFor="let tile of tiles | async"
     [key]="tile.$key"
     [x]="tile.x"
     [y]="tile.y"
     [mine]="tile.mine"
     [count]="tile.count"
-    [state]="tile.state"
     (pressed)="tilePressed($event)"
     (change)="tileStateChange($event)"
     (reveal)="tileReveal($event)"

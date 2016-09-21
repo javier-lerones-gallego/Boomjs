@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
-import { Game, Tile } from '../../models';
+import { Game, Bomb, Action } from '../../models';
 import { RouteNameService } from '../../services';
-
-import { Observable } from 'rxjs';
 
 /*
   The observables are being triggered too many times because tiles are inside game,
@@ -26,14 +24,18 @@ import { Observable } from 'rxjs';
 })
 export class GameComponent implements OnInit {
   game: FirebaseObjectObservable<Game>;
-  tiles: FirebaseListObservable<Tile[]>;
+  bombs: FirebaseListObservable<Bomb[]>;
+  actions: FirebaseListObservable<Action[]>;
 
   private _game: Game;
-  private _tiles: Tile[];
+  private _bombs: Bomb[];
+  private _actions: Action[];
+  private _tiles: any[];
 
   private uid: string;
   private gameRef: string = '';
-  private tilesRef: string = '';
+  private bombsRef: string = '';
+  private actionsRef: string = '';
 
   constructor(
     private ngFire: AngularFire,
@@ -50,14 +52,17 @@ export class GameComponent implements OnInit {
         this.uid = auth.uid;
 
         this.gameRef = 'games'.concat('/', auth.uid, '/', params['id']);
-        this.tilesRef = 'tiles'.concat('/', auth.uid, '/', params['id']);
+        this.bombsRef = 'bombs'.concat('/', auth.uid, '/', params['id']);
+        this.actionsRef = 'actions'.concat('/', auth.uid, '/', params['id']);
 
         // Get the game and the tiles observables
         this.game = this.ngFire.database.object(this.gameRef);
-        this.tiles = this.ngFire.database.list(this.tilesRef);
+        this.bombs = this.ngFire.database.list(this.bombsRef);
+        this.actions = this.ngFire.database.list(this.actionsRef);
 
         this.game.subscribe(g => { this._game = g; console.log('Game subscribe triggered.'); });
-        this.tiles.subscribe(t => { this._tiles = t; console.log('Tiles subscribe triggered.'); });
+        this.bombs.subscribe(b => { this._bombs = b; console.log('Bombs subscribe triggered.'); });
+        this.actions.subscribe(a => { this._actions = a; console.log('Actions subscribe triggered.'); });
       });
     });
 
@@ -67,140 +72,152 @@ export class GameComponent implements OnInit {
     });
   }
 
-  get revealed(): number { return this._tiles.filter(t => t.state === 'REVEALED').length; }
-  get first(): boolean { return this.revealed === 0; }
-  get flags(): number { return this._tiles.filter(t => t.state === 'FLAG').length; }
-  get left(): number { return this._game.mines - this.flags; }
-  get completed() {
-    return this._tiles.filter(t => t.state === 'FLAG' && t.mine).length === this._game.mines
-      && this.revealed === this._tiles.length - this._game.mines;
+  boardCss(game: Game): string {
+    if (game.rows === 9 && game.columns === 9) {
+      return 'easy';
+    } else if (game.rows === 15 && game.columns === 16) {
+      return 'medium';
+    } else if (game.rows === 15 && game.columns === 30) {
+      return 'expert';
+    } else {
+      return 'custom';
+    }
   }
+
+  // get revealed(): number { return this._tiles.filter(t => t.state === 'REVEALED').length; }
+  // get first(): boolean { return this.revealed === 0; }
+  // get flags(): number { return this._tiles.filter(t => t.state === 'FLAG').length; }
+  // get left(): number { return this._game.mines - this.flags; }
+  // get completed() {
+  //   return this._tiles.filter(t => t.state === 'FLAG' && t.mine).length === this._game.mines
+  //     && this.revealed === this._tiles.length - this._game.mines;
+  // }
 
   tilePressed(event) {
     // If it is the first click, randomize the mines
-    if (this.first) {
-      // Randomize the mines on first click
-      this.randomize(event.coordinates);
-      // Set the game as started
-      this.game.update({ state: 'STARTED' });
-    }
+    // if (this.first) {
+    //   // Randomize the mines on first click
+    //   this.randomize(event.coordinates);
+    //   // Set the game as started
+    //   this.game.update({ state: 'STARTED' });
+    // }
   }
 
   tileStateChange(event) {
     // Update firebase
-    this.ngFire.database.list(this.tilesRef)
-      .update(event.key, { state: event.value });
+    // this.ngFire.database.list(this.tilesRef)
+    //   .update(event.key, { state: event.value });
 
-    if (this.completed) {
-      // Set the game as won
-      this.game.update({ state: 'WON' });
-      // TODO: victory something?
-    }
+    // if (this.completed) {
+    //   // Set the game as won
+    //   this.game.update({ state: 'WON' });
+    //   // TODO: victory something?
+    // }
   }
 
   tileReveal(event) {
     // Update firebase
-    this.ngFire.database.list(this.tilesRef)
-      .update(event.key, { state: 'REVEALED' });
+    // this.ngFire.database.list(this.tilesRef)
+    //   .update(event.key, { state: 'REVEALED' });
 
-    // Spread the reveal if possible
-    this.reveal(event.coordinates.x, event.coordinates.y);
+    // // Spread the reveal if possible
+    // this.reveal(event.coordinates.x, event.coordinates.y);
 
-    // Check for victory
-    if (this.completed) {
-      // Set the game as won
-      this.game.update({ state: 'WON' });
-      // TODO: victory something?
-    }
+    // // Check for victory
+    // if (this.completed) {
+    //   // Set the game as won
+    //   this.game.update({ state: 'WON' });
+    //   // TODO: victory something?
+    // }
   }
 
   tileDetonate(event) {
-    this._tiles.forEach(tile => {
-      if (tile.mine) {
-        this.ngFire.database.list(this.tilesRef)
-          .update(this.getTileKey(tile.x, tile.y).toString(), { state: 'DETONATED' });
-      } else {
-        this.ngFire.database.list(this.tilesRef)
-          .update(this.getTileKey(tile.x, tile.y).toString(), { state: 'REVEALED' });
-      }
-    });
-    // Set the game as loss
-    this.game.update({ state: 'LOSS' });
+    // this._tiles.forEach(tile => {
+    //   if (tile.mine) {
+    //     this.ngFire.database.list(this.tilesRef)
+    //       .update(this.getTileKey(tile.x, tile.y).toString(), { state: 'DETONATED' });
+    //   } else {
+    //     this.ngFire.database.list(this.tilesRef)
+    //       .update(this.getTileKey(tile.x, tile.y).toString(), { state: 'REVEALED' });
+    //   }
+    // });
+    // // Set the game as loss
+    // this.game.update({ state: 'LOSS' });
   }
 
-  private hasMine(x: number, y: number): boolean {
-    return this._tiles.some(tile => tile.x === x && tile.y === y && tile.mine);
-  }
+  // private hasMine(x: number, y: number): boolean {
+  //   return this._tiles.some(tile => tile.x === x && tile.y === y && tile.mine);
+  // }
 
-  private getTile(x: number, y: number): Tile {
-    return this._tiles.filter((tile, index) => tile.x === x && tile.y === y)[0];
-  }
+  // private getTile(x: number, y: number): Tile {
+  //   return this._tiles.filter((tile, index) => tile.x === x && tile.y === y)[0];
+  // }
 
-  private getTileKey(x: number, y: number): number {
-    return this._tiles.findIndex(tile => tile.x === x && tile.y === y);
-  }
+  // private getTileKey(x: number, y: number): number {
+  //  return this._tiles.findIndex(tile => tile.x === x && tile.y === y);
+  // }
 
-  private getNeighbours(i: number, j: number): Tile[] {
-    const neighbours: Tile[] = [];
+  // private getNeighbours(i: number, j: number): Tile[] {
+  //   const neighbours: Tile[] = [];
 
-    for (let x = Math.max(0, i - 1); x <= Math.min(i + 1, this._game.rows - 1); x++) {
-      for (let y = Math.max(0, j - 1); y <= Math.min(j + 1, this._game.columns - 1); y++) {
-        if (x !== i || y !== j) {
-          neighbours.push(this.getTile(x, y));
-        }
-      }
-    }
+  //   for (let x = Math.max(0, i - 1); x <= Math.min(i + 1, this._game.rows - 1); x++) {
+  //     for (let y = Math.max(0, j - 1); y <= Math.min(j + 1, this._game.columns - 1); y++) {
+  //       if (x !== i || y !== j) {
+  //         neighbours.push(this.getTile(x, y));
+  //       }
+  //     }
+  //   }
 
-    return neighbours;
-  }
+  //   return neighbours;
+  // }
 
   private addMine(x: number, y: number): void {
-    // Switch the tile to be a mine
-    const tileIndex = this.getTileKey(x, y);
+    // // Switch the tile to be a mine
+    // const tileIndex = this.getTileKey(x, y);
 
-    // Update the firebase
-    this.ngFire.database.list(this.tilesRef)
-      .update(tileIndex.toString(), { mine: true, count: 0 });
+    // // Update the firebase
+    // this.ngFire.database.list(this.tilesRef)
+    //   .update(tileIndex.toString(), { mine: true, count: 0 });
 
-    // Increase the count of each neighbour by 1
-    this.getNeighbours(x, y)
-      .forEach(n => {
-        if (!n.mine) {
-          this.ngFire.database.list(this.tilesRef)
-            .update(this.getTileKey(n.x, n.y).toString(), { count: n.count + 1 });
-        }
-      });
+    // // Increase the count of each neighbour by 1
+    // this.getNeighbours(x, y)
+    //   .forEach(n => {
+    //     if (!n.mine) {
+    //       this.ngFire.database.list(this.tilesRef)
+    //         .update(this.getTileKey(n.x, n.y).toString(), { count: n.count + 1 });
+    //     }
+    //   });
   }
 
   private reveal(x: number, y: number): void {
-    const tile = this.getTile(x, y);
+    // const tile = this.getTile(x, y);
 
-    if (tile.count === 0) {
-      this.revealAround(tile);
-    }
+    // if (tile.count === 0) {
+    //   this.revealAround(tile);
+    // }
   }
 
-  private revealAround(tile: Tile): void {
-    const neighbours = this.getNeighbours(tile.x, tile.y);
+  // private revealAround(tile: Tile): void {
+  //   const neighbours = this.getNeighbours(tile.x, tile.y);
 
-    const spreadTiles = neighbours.filter(n => n.count === 0 && n.state === 'ACTIVE');
-    const endTiles = neighbours.filter(n => n.count !== 0 && n.state === 'ACTIVE');
+  //   const spreadTiles = neighbours.filter(n => n.count === 0 && n.state === 'ACTIVE');
+  //   const endTiles = neighbours.filter(n => n.count !== 0 && n.state === 'ACTIVE');
 
-    // Reveal the end Tiles
-    endTiles.forEach(t => {
-      this.ngFire.database.list(this.tilesRef)
-        .update(this.getTileKey(t.x, t.y).toString(), { state: 'REVEALED' });
-    });
+  //   // Reveal the end Tiles
+  //   endTiles.forEach(t => {
+  //     this.ngFire.database.list(this.tilesRef)
+  //       .update(this.getTileKey(t.x, t.y).toString(), { state: 'REVEALED' });
+  //   });
 
-    // Spread to the other tiles
-    spreadTiles.forEach(t => {
-      // First reveal the actual neighbour
-      this.ngFire.database.list(this.tilesRef)
-        .update(this.getTileKey(t.x, t.y).toString(), { state: 'REVEALED' });
-      // Then tell its neighbours to spread
-      this.revealAround(t);
-    });
-  }
+  //   // Spread to the other tiles
+  //   spreadTiles.forEach(t => {
+  //     // First reveal the actual neighbour
+  //     this.ngFire.database.list(this.tilesRef)
+  //       .update(this.getTileKey(t.x, t.y).toString(), { state: 'REVEALED' });
+  //     // Then tell its neighbours to spread
+  //     this.revealAround(t);
+  //   });
+  // }
 
   private randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -208,13 +225,13 @@ export class GameComponent implements OnInit {
 
   private randomize(coordinates: any): void {
     // Randomize the mine locations, avoid the tile we just clicked on
-    for (let mines = 0; mines < this._game.mines; mines++) {
+    for (let mines = 0; mines < this._game.count; mines++) {
       let foundEmptySpot = false;
       while (!foundEmptySpot) {
         const x = this.randomNumber(0, this._game.rows - 1);
         const y = this.randomNumber(0, this._game.columns - 1);
 
-        if (coordinates.x !== x && coordinates.y !== y && !this.hasMine(x, y)) {
+        if (coordinates.x !== x && coordinates.y !== y /* && !this.hasMine(x, y) */) {
           // Add the mine to the board
           this.addMine(x, y);
           foundEmptySpot = true;
