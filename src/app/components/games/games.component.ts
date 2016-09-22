@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFire, FirebaseListObservable, FirebaseAuthState } from 'angularfire2';
 import { Game, Tile } from '../../models';
 import { Router, ActivatedRoute }   from '@angular/router';
 import { RouteNameService, GamesFilterService } from '../../services';
-
+import { Subscription } from 'rxjs';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import * as moment from 'moment';
 
@@ -13,9 +13,12 @@ import * as moment from 'moment';
   templateUrl: './games.component.html',
   styleUrls: ['./games.component.scss']
 })
-export class GamesComponent implements OnInit {
+export class GamesComponent implements OnInit, OnDestroy {
   games: FirebaseListObservable<Game[]>;
   private auth: FirebaseAuthState;
+
+  private _authSubscription: Subscription;
+  private _gamesSubscription: Subscription;
 
   constructor(private ngFire: AngularFire,
     private routeNameService: RouteNameService,
@@ -32,7 +35,7 @@ export class GamesComponent implements OnInit {
     this.slimLoadingBarService.start();
 
     // Subscribe to Firebase auth to get the google profile
-    this.ngFire.auth.subscribe(auth => {
+    this._authSubscription = this.ngFire.auth.subscribe(auth => {
       // Store auth object state
       this.auth = auth;
       // Get the auth id
@@ -42,7 +45,7 @@ export class GamesComponent implements OnInit {
         },
       });
 
-      this.games.subscribe(x => {
+      this._gamesSubscription = this.games.subscribe(x => {
         // stop the loader
         this.slimLoadingBarService.complete();
       });
@@ -52,6 +55,11 @@ export class GamesComponent implements OnInit {
     this.route.data.forEach(data => {
       this.routeNameService.name.next(data['title']);
     });
+  }
+
+  ngOnDestroy() {
+      this._authSubscription.unsubscribe();
+      this._gamesSubscription.unsubscribe();
   }
 
   go(game: Game): void {

@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
 import { Game, Tile } from '../../models';
 import { RouteNameService } from '../../services';
 
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 /*
   The observables are being triggered too many times because tiles are inside game,
@@ -24,12 +24,17 @@ import { Observable } from 'rxjs';
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnDestroy {
   game: FirebaseObjectObservable<Game>;
   tiles: FirebaseListObservable<Tile[]>;
 
   private _game: Game;
   private _tiles: Tile[];
+
+  private _gameSubscription: Subscription;
+  private _tileSubscription: Subscription;
+  private _routeSubscription: Subscription;
+  private _authSubscription: Subscription;
 
   private uid: string;
   private gameRef: string = '';
@@ -44,9 +49,9 @@ export class GameComponent implements OnInit {
   ngOnInit() {
     // If the params in the url change, refresh the component
     // The router only reloads the component if both route and params change
-    this.route.params.subscribe(params => {
+    this._routeSubscription = this.route.params.subscribe(params => {
       // Subscribe to Firebase auth to get the google profile
-      this.ngFire.auth.subscribe(auth => {
+      this._authSubscription = this.ngFire.auth.subscribe(auth => {
         this.uid = auth.uid;
 
         this.gameRef = 'games'.concat('/', auth.uid, '/', params['id']);
@@ -56,8 +61,19 @@ export class GameComponent implements OnInit {
         this.game = this.ngFire.database.object(this.gameRef);
         this.tiles = this.ngFire.database.list(this.tilesRef);
 
-        this.game.subscribe(g => { this._game = g; console.log('Game subscribe triggered.'); });
-        this.tiles.subscribe(t => { this._tiles = t; console.log('Tiles subscribe triggered.'); });
+        this._gameSubscription = this.game.subscribe(g => { this._game = g; console.log('Game subscribe triggered.'); });
+
+        /*
+            Instead of subscribing to the entire list of tiles, which will
+            trigger this subscribe every time each individual tile is changed. This is very noticeable on randomizing
+            the bombs, where tens of thousands of events are triggered and this handler is ran so many times
+            the browser slows down visibly.
+
+            I should do a forEach() without subscription here to have the tile keys into an array, then pass each tile key
+            to the tile component, and each tile component should get an individual object observable
+        */
+
+        this._tileSubscription = this.tiles.subscribe(t => { this._tiles = t; console.log('Tiles subscribe triggered.', t.length); });
       });
     });
 
@@ -65,6 +81,13 @@ export class GameComponent implements OnInit {
     this.route.data.forEach(data => {
       this.routeNameService.name.next(data['title']);
     });
+  }
+
+  ngOnDestroy() {
+      this._gameSubscription.unsubscribe();
+      this._tileSubscription.unsubscribe();
+      this._routeSubscription.unsubscribe();
+      this._authSubscription.unsubscribe();
   }
 
   get revealed(): number { return this._tiles.filter(t => t.state === 'REVEALED').length; }
@@ -116,13 +139,8 @@ export class GameComponent implements OnInit {
 
   tileDetonate(event) {
     this._tiles.forEach(tile => {
-      if (tile.mine) {
         this.ngFire.database.list(this.tilesRef)
-          .update(this.getTileKey(tile.x, tile.y).toString(), { state: 'DETONATED' });
-      } else {
-        this.ngFire.database.list(this.tilesRef)
-          .update(this.getTileKey(tile.x, tile.y).toString(), { state: 'REVEALED' });
-      }
+          .update(this.getTileKey(tile.x, tile.y), { state: tile.mine ? 'DETONATED' : 'REVEALED' });
     });
     // Set the game as loss
     this.game.update({ state: 'LOSS' });
@@ -136,8 +154,8 @@ export class GameComponent implements OnInit {
     return this._tiles.filter((tile, index) => tile.x === x && tile.y === y)[0];
   }
 
-  private getTileKey(x: number, y: number): number {
-    return this._tiles.findIndex(tile => tile.x === x && tile.y === y);
+  private getTileKey(x: number, y: number): string {
+    return this.getTile(x, y)['$key'];
   }
 
   private getNeighbours(i: number, j: number): Tile[] {
@@ -160,14 +178,14 @@ export class GameComponent implements OnInit {
 
     // Update the firebase
     this.ngFire.database.list(this.tilesRef)
-      .update(tileIndex.toString(), { mine: true, count: 0 });
+      .update(tileIndex, { mine: true, count: 0 });
 
     // Increase the count of each neighbour by 1
     this.getNeighbours(x, y)
       .forEach(n => {
         if (!n.mine) {
           this.ngFire.database.list(this.tilesRef)
-            .update(this.getTileKey(n.x, n.y).toString(), { count: n.count + 1 });
+            .update(this.getTileKey(n.x, n.y), { count: n.count + 1 });
         }
       });
   }
@@ -189,14 +207,14 @@ export class GameComponent implements OnInit {
     // Reveal the end Tiles
     endTiles.forEach(t => {
       this.ngFire.database.list(this.tilesRef)
-        .update(this.getTileKey(t.x, t.y).toString(), { state: 'REVEALED' });
+        .update(this.getTileKey(t.x, t.y), { state: 'REVEALED' });
     });
 
     // Spread to the other tiles
     spreadTiles.forEach(t => {
       // First reveal the actual neighbour
       this.ngFire.database.list(this.tilesRef)
-        .update(this.getTileKey(t.x, t.y).toString(), { state: 'REVEALED' });
+        .update(this.getTileKey(t.x, t.y), { state: 'REVEALED' });
       // Then tell its neighbours to spread
       this.revealAround(t);
     });
