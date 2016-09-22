@@ -1,7 +1,6 @@
 // ENUMS
-export { GAME_STATE } from './game';
-export { ACTION_TYPE } from './action';
+export { GAME_DIFFICULTY, GAME_STATE } from './game';
+export { TILE_STATE } from './tile';
 // MODELS
 export { Game } from './game';
-export { Bomb } from './bomb';
-export { Action } from './action';
+export { Tile } from './tile';

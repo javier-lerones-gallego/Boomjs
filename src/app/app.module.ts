@@ -19,6 +19,7 @@ import { MeComponent } from './components/me/me.component';
 import { GameComponent } from './components/game/game.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { TileComponent } from './components/tile/tile.component';
+import { NewGameFabComponent } from './components/new-game-fab/new-game-fab.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { TitleCasePipe } from './pipes/title-case.pipe';
 
@@ -45,6 +46,7 @@ export const firebaseAuthConfig = {
     PageNotFoundComponent,
     TileComponent,
     TitleCasePipe,
+    NewGameFabComponent,
     ToolbarComponent,
     SlimLoadingBarComponent
   ],

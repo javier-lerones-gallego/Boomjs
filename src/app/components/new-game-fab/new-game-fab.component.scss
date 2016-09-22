@@ -1,0 +1,50 @@
+
+.fab-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 100;
+    display: flex;
+    flex-flow: column;
+
+    .fab {
+        position: relative;
+        bottom: 0px;
+
+        .fab-icon {
+            transform: rotateZ(0deg);
+            transition: transform 0.25s ease;
+        }
+    }
+
+    .fab-mini {
+        position: relative;
+        left: 8px;
+        margin-bottom: 10px;
+        opacity: 0;
+        transition: opacity 0.1s ease 0s;
+        z-index: -1;
+
+        &.medium {
+            transition: opacity 0.15s ease 0.025s;
+        }
+        &.expert {
+            transition: opacity 0.15s ease 0.05s;
+        }
+    }
+
+    &:hover {
+        .fab {
+            .fab-icon {
+                transform: rotateZ(180deg);
+                transition: transform 0.25s ease;
+            }
+        }
+
+        .fab-mini {
+            opacity: 1;
+            z-index: 101;
+            transition: opacity 0.2s ease 0s;
+        }
+    }
+}
