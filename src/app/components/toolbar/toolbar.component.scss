@@ -32,7 +32,7 @@
             }
             &.active {
                 color: $menu-active;
-                border-bottom: solid 1px $avatarExpert;
+                border-bottom: solid 1px $expert;
                 transition: border-bottom 0.25s ease, color 0.25s ease;
                 a {
                     color: $menu-active;

@@ -72,23 +72,30 @@
                 }
 
                 &.easy {
-                    border-bottom: solid 2px $avatarEasy;
+                    border-bottom: solid 2px $easy;
                     &.started {
                         background-color: #0e2f03;
                     }
                 }
 
                 &.medium {
-                    border-bottom: solid 2px $avatarMedium;
+                    border-bottom: solid 2px $medium;
                     &.started {
                         background-color: #062342;
                     }
                 }
 
                 &.expert {
-                    border-bottom: solid 2px $avatarExpert;
+                    border-bottom: solid 2px $expert;
                     &.started {
                         background-color: #3a0a0a;
+                    }
+                }
+
+                &.custom {
+                    border-bottom: solid 1px $custom;
+                    &.started {
+                        background-color: #2d1d05;
                     }
                 }
 
@@ -99,11 +106,19 @@
 
                 .difficulty {
                     font-weight: 500;
+                    padding-bottom: 5px;
                 }
 
-                .info {
+                .created,
+                .info,
+                .started {
                     color: $menu-inactive;
                     font-size: 0.9em;
+                    line-height: 20px;
+                }
+
+                .started {
+                  color: $menu-active;
                 }
             }
         }
@@ -118,10 +133,11 @@
 
     width: 200px;
     max-width: 200px;
+    margin-left: 10px;
 
     .new-game-button {
         padding: 20px;
-        border-radius: 3px;
+        border-radius: 5px;
         cursor: pointer;
 
         color: $new-game-button-color;
@@ -150,15 +166,19 @@
         }
 
         &.easy {
-            border-bottom: solid 1px $avatarEasy;
+            border: solid 1px $easy;
         }
 
         &.medium {
-            border-bottom: solid 1px $avatarMedium;
+            border: solid 1px $medium;
         }
 
         &.expert {
-            border-bottom: solid 1px $avatarExpert;
+            border: solid 1px $expert;
+        }
+
+        &.custom {
+            border: solid 1px $custom;
         }
     }
 }
