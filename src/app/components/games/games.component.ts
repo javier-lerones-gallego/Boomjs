@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFire, FirebaseListObservable, FirebaseAuthState } from 'angularfire2';
-import { Game, Tile } from '../../models';
+import { Game } from '../../models';
 import { Router, ActivatedRoute }   from '@angular/router';
-import { RouteNameService, GamesFilterService } from '../../services';
+import { RouteNameService, GamesFilterService, BoardService } from '../../services';
 import { Subscription } from 'rxjs';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import * as moment from 'moment';
@@ -23,6 +23,7 @@ export class GamesComponent implements OnInit, OnDestroy {
   constructor(private ngFire: AngularFire,
     private routeNameService: RouteNameService,
     private gamesFilterService: GamesFilterService,
+    private boardService: BoardService,
     private router: Router,
     private route: ActivatedRoute,
     private slimLoadingBarService: SlimLoadingBarService) { }
@@ -79,12 +80,11 @@ export class GamesComponent implements OnInit, OnDestroy {
     }).then(game => {
         // Set inverted priority for easy descending create date ordering
         game.setPriority(0 - Date.now());
+
         // Add the tiles in a separate location to stop the massive triggering of many observables
-        let tiles = this.createTiles(9, 9);
-        tiles.forEach(tile => {
-          this.ngFire.database.list('tiles'.concat('/', this.auth.uid, '/', game.key))
-            .push(tile);
-        });
+        this.ngFire.database.object('boards'.concat('/', this.auth.uid, '/', game.key))
+          .set(this.boardService.generate(9, 9));
+
         // After creating the game, go to it
         this.router.navigate(['/game', game.key]);
     });
@@ -102,12 +102,11 @@ export class GamesComponent implements OnInit, OnDestroy {
     }).then(game => {
         // Set inverted priority for easy descending create date ordering
         game.setPriority(0 - Date.now());
+
         // Add the tiles in a separate location to stop the massive triggering of many observables
-        let tiles = this.createTiles(15, 16);
-        tiles.forEach(tile => {
-          this.ngFire.database.list('tiles'.concat('/', this.auth.uid, '/', game.key))
-            .push(tile);
-        });
+        this.ngFire.database.object('boards'.concat('/', this.auth.uid, '/', game.key))
+          .set(this.boardService.generate(16, 15));
+
         // After creating the game, go to it
         this.router.navigate(['/game', game.key]);
       });
@@ -125,25 +124,13 @@ export class GamesComponent implements OnInit, OnDestroy {
     }).then(game => {
         // Set inverted priority for easy descending create date ordering
         game.setPriority(0 - Date.now());
+
         // Add the tiles in a separate location to stop the massive triggering of many observables
-        let tiles = this.createTiles(15, 30);
-        tiles.forEach(tile => {
-          this.ngFire.database.list('tiles'.concat('/', this.auth.uid, '/', game.key))
-            .push(tile);
-        });
+        this.ngFire.database.object('boards'.concat('/', this.auth.uid, '/', game.key))
+          .set(this.boardService.generate(30, 15));
+
         // After creating the game, go to it
         this.router.navigate(['/game', game.key]);
       });
-  }
-
-
-  private createTiles(x: number, y: number): Array<Tile> {
-    let tiles = new Array<Tile>();
-    for (let i = 0; i < x; i++) {
-      for (let j = 0; j < y; j++) {
-        tiles.push({ x: i, y: j, mine: false, count: 0, state: 'ACTIVE' });
-      }
-    }
-    return tiles;
   }
 }

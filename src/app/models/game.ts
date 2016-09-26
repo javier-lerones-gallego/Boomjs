@@ -10,3 +10,4 @@ export interface Game {
     difficulty: GAME_DIFFICULTY;
     state: GAME_STATE;
 }
+
