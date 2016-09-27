@@ -1,13 +1,21 @@
-<div class="board" [ngClass]="game?.difficulty | lowercase">
-  <boom-tile *ngFor="let tile of tiles"
-    [x]="tile.x"
-    [y]="tile.y"
-    [mine]="tile.mine"
-    [count]="tile.count"
-    [state]="tile.state"
-    (pressed)="tilePressed($event)"
-    (change)="tileStateChange($event)"
-    (reveal)="tileReveal($event)"
-    (detonate)="tileDetonate($event)"
-    ></boom-tile>
+<div class="board-container"
+  *ngIf="show"
+  [class.in]="show"
+  (click)="close($event)">
+  <div class="board noselect"
+    [ngClass]="game?.difficulty | lowercase"
+    [class.in]="show">
+    <boom-tile *ngFor="let tile of tiles"
+      [x]="tile.x"
+      [y]="tile.y"
+      [mine]="tile.mine"
+      [count]="tile.count"
+      [state]="tile.state"
+      (pressed)="tilePressed($event)"
+      (change)="tileStateChange($event)"
+      (reveal)="tileReveal($event)"
+      (detonate)="tileDetonate($event)"
+      (spread)="tileSpread($event)"
+      ></boom-tile>
+  </div>
 </div>

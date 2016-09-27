@@ -1,10 +1,54 @@
 @import '../../shared/colors';
 
+$swift-ease-out-duration: 0.4s !default;
+$swift-ease-out-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
+$swift-ease-out: all $swift-ease-out-duration $swift-ease-out-timing-function !default;
+
+$swift-ease-in-duration: 0.3s !default;
+$swift-ease-in-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2) !default;
+$swift-ease-in: all $swift-ease-in-duration $swift-ease-in-timing-function !default;
+
+.board-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  overflow: auto;
+
+  transition: background 0.5s ease;
+  background-color: rgba(0,0,0,0);
+
+  &.in {
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.75);
+    transition: background 0.5s ease;
+  }
+}
+
 .board {
+    &.in {
+      opacity: 1;
+      transition: $swift-ease-out;
+      transform: translate(0,0) scale(1.0);
+    }
+    &.out {
+      opacity: 0;
+      transition: $swift-ease-out;
+      transform: translate(0,100%) scale(0.2);
+    }
+
+    opacity: 0;
+    position: relative;
+
     height: auto;
     margin: 0 auto;
     padding: 5px;
-    display: Flex;
+    display: flex;
     flex-flow: row;
     flex-wrap: wrap;
     background-color: $board-bg;
@@ -13,12 +57,15 @@
 
 .easy {
     width: 369px;
+    min-width: 369px;
 }
 
 .medium {
     width: 656px;
+    min-width: 656px;
 }
 
 .expert {
     width: 1230px;
+    min-width: 1230px;
 }

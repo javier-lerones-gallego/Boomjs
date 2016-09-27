@@ -17,6 +17,7 @@ export class TileComponent implements OnInit {
   @Output() reveal = new EventEmitter();
   @Output() detonate = new EventEmitter();
   @Output() pressed = new EventEmitter();
+  @Output() spread = new EventEmitter();
 
   constructor() { }
 
@@ -35,9 +36,27 @@ export class TileComponent implements OnInit {
     }
   }
 
-  click(event: MouseEvent) {
+  // For revealed tiles, don't let the click event bubble up to the overlay
+  stop(event: MouseEvent): boolean {
+    event.stopPropagation();
+    // Ignoring this, also helps us catch the dblCkick event instead
+    return false;
+  }
+
+  dblClick(event: MouseEvent) {
+    // Trigger the spread reveal if possible
+    if (this.state === 'REVEALED') {
+      this.spread.emit({ coordinates: { x: this.x, y: this.y }});
+    }
+  }
+
+  click(event: MouseEvent): boolean {
+    // First stop the bubble
+    event.stopPropagation();
+
     // Do this only if left click, ignore the middle mouse
     if (event.button === 0) {
+
       // Trigger click before anything else if it is the first click
       this.pressed.emit({ coordinates: { x: this.x, y: this.y }});
 
@@ -53,6 +72,8 @@ export class TileComponent implements OnInit {
         this.detonate.emit({ coordinates: { x: this.x, y: this.y } });
       }
     }
+
+    return false;
   }
 
   rightClick(event: MouseEvent) {

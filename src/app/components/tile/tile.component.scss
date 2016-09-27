@@ -8,6 +8,7 @@ $tile6: #FFDC00;
 $tile7: #005403;
 $tile8: #763F05;
 
+
 .tile-button {
     margin: 3px;
     min-width: 35px;
@@ -24,8 +25,10 @@ $tile8: #763F05;
     border-radius: 3px;
 
     &.revealed {
-        box-shadow: none;
-        cursor: default;
+      margin: 0;
+      padding: 3px;
+      box-shadow: none;
+      cursor: default;
     }
 
     &.flagged {

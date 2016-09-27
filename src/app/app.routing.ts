@@ -2,7 +2,6 @@ import { Routes, RouterModule }   from '@angular/router';
 
 import { GamesComponent } from './components/games/games.component';
 import { MeComponent } from './components/me/me.component';
-import { GameComponent } from './components/game/game.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 import { AuthGuard } from './guards/auth.guard';
@@ -10,7 +9,6 @@ import { AuthGuard } from './guards/auth.guard';
 const appRoutes: Routes = [
   { path: '', redirectTo: 'games', pathMatch: 'full' },
   { path: 'games', component: GamesComponent, data: { title: 'My Games'}, canActivate: [AuthGuard] },
-  { path: 'game/:id', component: GameComponent, data: { title: 'Game' }  },
   { path: 'me', component: MeComponent, data: { title: 'Profile' }  },
   { path: '**', component: PageNotFoundComponent, data: { title: 'Not Found' }  }
 ];

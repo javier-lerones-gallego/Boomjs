@@ -1,10 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 import { Game, Tile, Board, Coordinates } from '../../models';
-import { RouteNameService, BoardService } from '../../services';
+import { BoardService } from '../../services';
 
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 /*
   The observables are being triggered too many times because tiles are inside game,
@@ -25,6 +24,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit, OnDestroy {
+  @Input('selectedgame') selectedgame: Observable<Game>;
+
   gameObservable: FirebaseObjectObservable<Game>;
   boardObservable: FirebaseObjectObservable<Board>;
 
@@ -32,61 +33,63 @@ export class GameComponent implements OnInit, OnDestroy {
   private _board: Board;
   private _tiles: Tile[];
 
-  private _gameSubscription: Subscription;
-  // private _boardSubscription: Subscription;
-  private _routeSubscription: Subscription;
+  private _boardSubscription: Subscription;
   private _authSubscription: Subscription;
 
+  private show: boolean;
   private uid: string;
   private gameRef: string = '';
   private boardRef: string = '';
 
   constructor(
     private ngFire: AngularFire,
-    private router: Router,
-    private route: ActivatedRoute,
-    private routeNameService: RouteNameService,
     private boardService: BoardService) { }
 
   ngOnInit() {
-    // If the params in the url change, refresh the component
-    // The router only reloads the component if both route and params change
-    this._routeSubscription = this.route.params.subscribe(params => {
-      // Subscribe to Firebase auth to get the google profile
-      this._authSubscription = this.ngFire.auth.subscribe(auth => {
-        this.uid = auth.uid;
+    // Hide the component by default
+    this.show = false;
 
-        this.gameRef = 'games'.concat('/', auth.uid, '/', params['id']);
-        this.boardRef = 'boards'.concat('/', auth.uid, '/', params['id']);
+    // Subscribe to Firebase auth to get the google profile
+    this._authSubscription = this.ngFire.auth.subscribe(auth => {
+      this.uid = auth.uid;
+
+      this.selectedgame.subscribe(game => {
+        this._game = game;
+
+        this.gameRef = 'games'.concat('/', auth.uid, '/', game['$key']);
+        this.boardRef = 'boards'.concat('/', auth.uid, '/', game['$key']);
 
         // Get the game and the tiles observables
         this.gameObservable = this.ngFire.database.object(this.gameRef);
         this.boardObservable = this.ngFire.database.object(this.boardRef);
 
-        this._gameSubscription = this.gameObservable.subscribe(game => {
-          this._game = game;
-          console.log('Game subscribe triggered.');
-        });
-
-        this.boardObservable.forEach(board => {
+        this._boardSubscription = this.boardObservable.subscribe(board => {
           this._board = board;
           this._tiles = this.boardService.from(board);
-          console.log('Board forEach triggered.');
+
+          // Unsubscribe immediately, there is no need to keep listening for updates
+          // since this is not multiplay, we only need to make sure the firebase is updated
+          // on each event triggered from the tile component, but the local copy is handled
+          // purely locally
+
+          if (this._boardSubscription) {
+            this._boardSubscription.unsubscribe();
+          }
+
+          // Only show the board when it has been loaded
+          this.show = true;
         });
       });
-    });
 
-    // Change the header title, data is observable and only has one value
-    this.route.data.forEach(data => {
-      this.routeNameService.name.next(data['title']);
     });
   }
 
   ngOnDestroy() {
-      this._gameSubscription.unsubscribe();
-      // this._boardSubscription.unsubscribe();
-      this._routeSubscription.unsubscribe();
-      this._authSubscription.unsubscribe();
+    this._authSubscription.unsubscribe();
+
+    if (this._boardSubscription) {
+      this._boardSubscription.unsubscribe();
+    }
   }
 
   get game(): Game { return this._game; }
@@ -100,6 +103,10 @@ export class GameComponent implements OnInit, OnDestroy {
   get completed() {
     return this._tiles.filter(t => t.state === 'FLAG' && t.mine).length === this._game.mines
       && this.revealed === this._tiles.length - this._game.mines;
+  }
+
+  close(event) {
+    this.show = false;
   }
 
   tilePressed(event) {
@@ -144,12 +151,38 @@ export class GameComponent implements OnInit, OnDestroy {
 
   tileDetonate(event) {
     this._tiles.forEach(tile => {
-        tile.state = tile.mine ? 'DETONATED' : 'REVEALED';
+      tile.state = tile.mine ? 'DETONATED' : 'REVEALED';
     });
     // Set the game as loss
     this.gameObservable.update({ state: 'LOSS' });
     // Update the board
     this.updateBoard();
+  }
+
+  tileSpread(event) {
+    // Find the tile, we checked for REVEALED state before getting here
+    const tile = this.getTile(event.coordinates.x, event.coordinates.y);
+
+    // If the total count of flags around this tile equals the count of mines it has, force a neighbour reveal
+    if (this.neighboursFlags(event.coordinates.x, event.coordinates.y) === tile.count) {
+      if (this.forceRevealNeighbours(event.coordinates.x, event.coordinates.y)) {
+        // Bomb was revealed, detonate the board, game over.
+        this._tiles.forEach(t => {
+          t.state = t.mine ? 'DETONATED' : 'REVEALED';
+        });
+        // Set the game as loss
+        this.gameObservable.update({ state: 'LOSS' });
+      } else {
+        // No bombs found, check for win condition
+        if (this.completed) {
+          // Set the game as won
+          this.gameObservable.update({ state: 'WON' });
+        }
+      }
+
+      // Update the board
+      this.updateBoard();
+    }
   }
 
   private hasMine(x: number, y: number): boolean {
@@ -172,6 +205,57 @@ export class GameComponent implements OnInit, OnDestroy {
     }
 
     return neighbours;
+  }
+
+  private neighboursFlags(x: number, y: number): number {
+    return this.getNeighbours(x, y).filter(n => n.state === 'FLAG').length;
+  }
+
+  private forceRevealNeighbours(x: number, y: number): boolean {
+    const neighbours = this.getNeighbours(x, y);
+
+    let boom = false;
+    neighbours.forEach(n => {
+      if (n.state !== 'FLAG') {
+        if (n.mine) {
+          n.state = 'DETONATED';
+          boom = true;
+        } else {
+          n.state = 'REVEALED';
+
+          if (n.count === 0) {
+            this.revealNeighbours(n);
+          }
+        }
+      }
+    });
+
+    return boom;
+  }
+
+  private revealNeighbours(tile) {
+    // The tile pressed is count !== 0
+    if (tile.count !== 0) {
+      throw new Error('Tried to reveal a tile with mine count > 0.');
+    }
+
+    const neighbours = this.getNeighbours(tile.x, tile.y);
+
+    const spreadTiles = neighbours.filter(n => n.count === 0 && n.state === 'ACTIVE');
+    const endTiles = neighbours.filter(n => n.count !== 0 && n.state === 'ACTIVE');
+
+    // Reveal the end Tiles
+    endTiles.forEach(t => {
+      t.state = 'REVEALED';
+    });
+
+    // Spread to the other tiles
+    spreadTiles.forEach(t => {
+      // First reveal the actual neighbour
+      t.state = 'REVEALED';
+      // Then tell its neighbours to spread
+      this.revealNeighbours(t);
+    });
   }
 
   private addMine(x: number, y: number): void {
@@ -244,6 +328,6 @@ export class GameComponent implements OnInit, OnDestroy {
 
   private updateBoard(): void {
     this.ngFire.database.object(this.boardRef)
-      .update(this.boardService.to(this.tiles, this.game.columns));
+      .update(this.boardService.to(this.tiles, this._game.columns));
   }
 }

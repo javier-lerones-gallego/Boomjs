@@ -1,5 +1,5 @@
 <div *ngIf="state !== 'REVEALED'"
-  class="tile-button"
+  class="tile-button noselect"
   [ngClass]="color"
   (click)="click($event)"
   (contextmenu)="rightClick($event)">
@@ -10,7 +10,9 @@
     </div>
 
 <div *ngIf="state === 'REVEALED'"
-  class="tile-button revealed">
+  class="tile-button revealed noselect"
+  (click)="stop($event)"
+  (dblclick)="dblClick($event)">
   <span *ngIf="count > 0"
       class="tile-count"
       [ngClass]="'_' + count">{{ count }}</span>

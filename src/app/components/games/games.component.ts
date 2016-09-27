@@ -3,7 +3,7 @@ import { AngularFire, FirebaseListObservable, FirebaseAuthState } from 'angularf
 import { Game } from '../../models';
 import { Router, ActivatedRoute }   from '@angular/router';
 import { RouteNameService, GamesFilterService, BoardService } from '../../services';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import * as moment from 'moment';
 
@@ -15,8 +15,9 @@ import * as moment from 'moment';
 })
 export class GamesComponent implements OnInit, OnDestroy {
   games: FirebaseListObservable<Game[]>;
-  private auth: FirebaseAuthState;
+  selectedGame: Subject<Game>;
 
+  private auth: FirebaseAuthState;
   private _authSubscription: Subscription;
   private _gamesSubscription: Subscription;
 
@@ -34,6 +35,9 @@ export class GamesComponent implements OnInit, OnDestroy {
     this.slimLoadingBarService.color = '#4cc727';
     this.slimLoadingBarService.height = '4px';
     this.slimLoadingBarService.start();
+
+    // Initialize the selected game observable
+    this.selectedGame = new Subject<Game>();
 
     // Subscribe to Firebase auth to get the google profile
     this._authSubscription = this.ngFire.auth.subscribe(auth => {
@@ -64,7 +68,8 @@ export class GamesComponent implements OnInit, OnDestroy {
   }
 
   go(game: Game): void {
-    this.router.navigate(['/game', game['$key']]);
+    // Instead of a routed state, game is now an overlay
+    this.selectedGame.next(game);
   }
 
 
@@ -85,8 +90,8 @@ export class GamesComponent implements OnInit, OnDestroy {
         this.ngFire.database.object('boards'.concat('/', this.auth.uid, '/', game.key))
           .set(this.boardService.generate(9, 9));
 
-        // After creating the game, go to it
-        this.router.navigate(['/game', game.key]);
+        // After creating the game, open it
+        this.selectedGame.next(game);
     });
   }
 
@@ -107,8 +112,8 @@ export class GamesComponent implements OnInit, OnDestroy {
         this.ngFire.database.object('boards'.concat('/', this.auth.uid, '/', game.key))
           .set(this.boardService.generate(16, 15));
 
-        // After creating the game, go to it
-        this.router.navigate(['/game', game.key]);
+        // After creating the game, open it
+        this.selectedGame.next(game);
       });
   }
 
@@ -129,8 +134,8 @@ export class GamesComponent implements OnInit, OnDestroy {
         this.ngFire.database.object('boards'.concat('/', this.auth.uid, '/', game.key))
           .set(this.boardService.generate(30, 15));
 
-        // After creating the game, go to it
-        this.router.navigate(['/game', game.key]);
+        // After creating the game, open it
+        this.selectedGame.next(game);
       });
   }
 }
