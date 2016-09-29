@@ -13,5 +13,5 @@ const appRoutes: Routes = [
   { path: '**', component: PageNotFoundComponent, data: { title: 'Not Found' }  }
 ];
 
-const routing = RouterModule.forRoot(appRoutes);
-export default routing;
+const Routing = RouterModule.forRoot(appRoutes);
+export default Routing;

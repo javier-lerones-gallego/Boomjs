@@ -1,27 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import routing from './app.routing';
-import services from './services';
-import guards from './guards';
+// Import shortcuts
+import Components, { AppComponent } from './components';
+import Routing from './routing';
+import Services from './services';
+import Guards from './guards';
+import Pipes from './pipes';
 
 /* tslint:disable */
 import * as firebase from 'firebase';
 /* tslint:enable */
 
+// Slim Loading Bar
 import { SlimLoadingBarService, SlimLoadingBarComponent } from 'ng2-slim-loading-bar';
 
+// AngularFire/Firebase
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
-
-import { AppComponent } from './components/app/app.component';
-import { GamesComponent } from './components/games/games.component';
-import { MeComponent } from './components/me/me.component';
-import { GameComponent } from './components/game/game.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { TileComponent } from './components/tile/tile.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { TitleCasePipe } from './pipes/title-case.pipe';
-
 
 // Must export the config
 export const firebaseConfig = {
@@ -38,22 +33,16 @@ export const firebaseAuthConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    GamesComponent,
-    MeComponent,
-    GameComponent,
-    PageNotFoundComponent,
-    TileComponent,
-    TitleCasePipe,
-    ToolbarComponent,
+    Components,
+    Pipes,
     SlimLoadingBarComponent
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
-    routing
+    Routing
   ],
-  providers: [services, SlimLoadingBarService, guards],
-  bootstrap: [AppComponent]
+  providers: [ Services, SlimLoadingBarService, Guards ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
