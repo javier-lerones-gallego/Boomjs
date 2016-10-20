@@ -1,7 +1,7 @@
 ## Angular Minesweeper
 
-Different versions of the Minesweeper game I love and hate all entirely made in Angular.
+A version of the popular minesweeper windows game done for the web in Angular2 with TypeScript and Sass.
 
-Latest attempt done in Angular2 with TypeScript and Sass.
+Go to the github pages repo to see it in action
 
 
