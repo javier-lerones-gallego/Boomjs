@@ -1,0 +1,164 @@
+@import '../../shared/colors';
+
+.games {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-content: flex-start;
+    height: 100%;
+}
+
+.filters {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    width: 40px;
+
+    li {
+        color: $menu-inactive;
+        padding: 10px 0;
+
+        &.active {
+            color: $menu-active;
+        }
+    }
+}
+
+.games-list-container {
+    flex: 1;
+    overflow-y: auto;
+
+    .games-header {
+        padding: 10px 20px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        border-radius: 3px;
+        border-bottom: solid 1px $menu-active;
+        font-weight: 500;
+    }
+
+    .games-list {
+        column-count: 3;
+        column-gap: 0;
+
+        .game-container {
+            break-inside: avoid;
+
+            padding-right: 10px;
+            padding-bottom: 10px;
+
+            .game {
+                padding: 20px;
+                cursor: pointer;
+
+                color: $new-game-button-color;
+                background-color: $new-game-button-bg;
+                transition: color 0.15s ease, background-color 0.15s ease;
+
+                border-radius: 3px;
+
+                min-height: 95px;
+
+                &:hover {
+                    color: $new-game-button-color-hover;
+                    background-color: $new-game-button-bg-hover;
+                    transition: color 0.15s ease, background-color 0.15s ease;
+                }
+
+                &.easy {
+                    border-bottom: solid 2px $avatarEasy;
+                    &.started {
+                        background-color: #0e2f03;
+                    }
+                }
+
+                &.medium {
+                    border-bottom: solid 2px $avatarMedium;
+                    &.started {
+                        background-color: #062342;
+                    }
+                }
+
+                &.expert {
+                    border-bottom: solid 2px $avatarExpert;
+                    &.started {
+                        background-color: #3a0a0a;
+                    }
+                }
+
+                .field {
+                    display: block;
+                    line-height: 24px;
+                }
+
+                .difficulty {
+                    font-weight: 500;
+                }
+
+                .info {
+                    color: $menu-inactive;
+                    font-size: 0.9em;
+                }
+            }
+        }
+    }
+}
+
+.new-game {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    width: 200px;
+    max-width: 200px;
+
+    .new-game-button {
+        padding: 20px;
+        border-radius: 3px;
+        cursor: pointer;
+
+        color: $new-game-button-color;
+        background-color: $new-game-button-bg;
+
+        transition: color 0.15s ease, background-color 0.15s ease;
+
+        &:not(:last-child) {
+            margin-bottom: 10px;
+        }
+
+        &:hover {
+            color: $new-game-button-color-hover;
+            background-color: $new-game-button-bg-hover;
+            transition: color 0.15s ease, background-color 0.15s ease;
+        }
+
+        span {
+            display: inline-block;
+            line-height: 25px;
+
+            &.desc {
+                color: $menu-inactive;
+                font-size: 0.9em;
+            }
+        }
+
+        &.easy {
+            border-bottom: solid 1px $avatarEasy;
+        }
+
+        &.medium {
+            border-bottom: solid 1px $avatarMedium;
+        }
+
+        &.expert {
+            border-bottom: solid 1px $avatarExpert;
+        }
+    }
+}

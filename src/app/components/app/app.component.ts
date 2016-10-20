@@ -1,20 +1,37 @@
-declare function require(module: string): any;
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { GamesFilterService } from '../../services';
 
-import { IGameService } from '../../services/igame.service';
-import { ICustomStateService } from '../../icustomstateservice';
+@Component({
+  selector: 'boom-app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent implements OnInit, AfterViewInit {
 
-export class AppController {
-    constructor(
-        private GameService: IGameService,
-        private $state: ICustomStateService
-    ) { }
+  constructor(
+    private gamesFilterService: GamesFilterService,
+    private router: Router) { }
 
-    get game() { return this.GameService.query(this.$state.params.id); }
+  ngOnInit() {
+
+  }
+
+  ngAfterViewInit() {
+    // Remove 'loading' class from app-root after init
+    document.querySelector('boom-app-root').classList.remove('loading');
+  }
+
+  active() {
+    this.gamesFilterService.filter.next();
+  }
+
+  won() {
+    this.gamesFilterService.filter.next('WON');
+  }
+
+  loss() {
+    this.gamesFilterService.filter.next('LOSS');
+  }
+
 }
-AppController.$inject = ['GameService', '$state'];
-
-export const AppComponent = {
-    name: 'boomjsApp',
-    controller: AppController,
-    template: require('./app.html')
-};

@@ -1,0 +1,51 @@
+<boom-game
+  [selectedgame]="selectedGame"></boom-game>
+
+<div class="games">
+  <ul class="filters">
+    <li class="active"><a><i class="material-icons">games</i></a></li>
+    <li><a><i class="material-icons">filter_list</i></a></li>
+  </ul>
+
+  <div class="games-list-container">
+    <div class="games-header">All Games</div>
+    <div class="games-list">
+      <div class="game-container" *ngFor="let game of games | async"
+        (click)="go(game)">
+        <div class="game"
+          [ngClass]="game.difficulty + ' ' + game.state | lowercase">
+          <span class="field difficulty">{{ game.difficulty }}</span>
+          <span class="field info">{{ game.rows }}x{{ game.columns }} - {{ game.mines }} Bombs</span>
+          <span class="field state">{{ game.state | titleCase }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="new-game">
+    <div class="new-game-button easy" (click)="easy()">
+      <span>
+        New Easy Game
+      </span>
+      <span class="desc">
+        9x9 - 10 Bombs
+      </span>
+    </div>
+    <div class="new-game-button medium" (click)="medium()">
+      <span>
+        New Medium Game
+      </span>
+      <span class="desc">
+        16x15 - 40 Bombs
+      </span>
+    </div>
+    <div class="new-game-button expert" (click)="expert()">
+      <span>
+        New Expert Game
+      </span>
+      <span class="desc">
+        30x15 - 99 Bombs
+      </span>
+    </div>
+  </div>
+</div>

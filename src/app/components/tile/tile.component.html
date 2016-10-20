@@ -1,0 +1,20 @@
+<div *ngIf="state !== 'REVEALED'"
+  class="tile-button noselect"
+  [ngClass]="color"
+  (click)="click($event)"
+  (contextmenu)="rightClick($event)">
+      <span *ngIf="state === 'ACTIVE'">&nbsp;</span>
+      <i class="material-icons" *ngIf="state === 'FLAG'">flag</i>
+      <i class="material-icons" *ngIf="state === 'UNKNOWN'">help_outline</i>
+      <i class="material-icons" *ngIf="state === 'DETONATED'">star</i>
+    </div>
+
+<div *ngIf="state === 'REVEALED'"
+  class="tile-button revealed noselect"
+  (click)="stop($event)"
+  (dblclick)="dblClick($event)">
+  <span *ngIf="count > 0"
+      class="tile-count"
+      [ngClass]="'_' + count">{{ count }}</span>
+  <span *ngIf="count === 0">&nbsp;</span>
+</div>

@@ -1,20 +1,24 @@
-declare function require(module: string): any;
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute }   from '@angular/router';
+import { RouteNameService } from '../../services';
 
-import { IGameService } from '../../services/igame.service';
-import { ICustomStateService } from '../../icustomstateservice';
+@Component({
+  selector: 'boom-me',
+  templateUrl: './me.component.html',
+  styleUrls: ['./me.component.scss']
+})
+export class MeComponent implements OnInit {
 
-class MeController {
-    constructor(
-        private GameService: IGameService,
-        private $state: ICustomStateService
-    ) { }
+  constructor(
+    private routeNameService: RouteNameService,
+    private route: ActivatedRoute,
+  ) { }
 
-    get games() { return this.GameService.games; }
+  ngOnInit() {
+    // Change the header title
+    this.route.data.forEach(data => {
+      this.routeNameService.name.next(data['title']);
+    });
+  }
+
 }
-MeController.$inject = ['GameService', '$state'];
-
-export const MeComponent = {
-    name: 'boomjsMe',
-    controller: MeController,
-    template: require('./me.html'),
-};

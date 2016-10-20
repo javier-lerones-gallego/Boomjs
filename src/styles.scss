@@ -1,0 +1,49 @@
+/* You can add global styles to this file, and also import other style files */
+@import './app/shared/colors';
+
+html, body {
+    margin: 0;
+    padding: 0;
+
+    height: 100%;
+
+    background-color: $app-root-background;
+}
+
+boom-app-root {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    background-color: $app-root-background;
+    color: $white;
+    font-family: Lato, "Helvetica Neue", sans-serif;
+    font-weight: 300;
+
+    .content {
+        margin: 0 auto;
+        width: calc(100% - 100px);
+        height: 100%;
+        overflow: hidden;
+    }
+
+    &.loading {
+        justify-content: center;
+        align-items: center;
+    }
+
+  .noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Non-prefixed version, currently
+                                    not supported by any browser */
+  }
+}
+
+boom-games {
+    height: calc(100% - 100px);
+    overflow: hidden;
+    display: block;
+}

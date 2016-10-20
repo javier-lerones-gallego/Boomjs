@@ -1,113 +1,100 @@
-declare function require(module: string): any;
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { TILE_STATE } from '../../models';
 
-class TileController {
-    private tile: any;
-    private board: any;
-    private game: any;
+@Component({
+  selector: 'boom-tile',
+  templateUrl: './tile.component.html',
+  styleUrls: ['./tile.component.scss']
+})
+export class TileComponent implements OnInit {
+  @Input('x') x: number;
+  @Input('y') y: number;
+  @Input('mine') mine: boolean;
+  @Input('count') count: number;
+  @Input('state') state: TILE_STATE;
 
-    constructor(private $element: any) { }
+  @Output() change = new EventEmitter();
+  @Output() reveal = new EventEmitter();
+  @Output() detonate = new EventEmitter();
+  @Output() pressed = new EventEmitter();
+  @Output() spread = new EventEmitter();
 
-    get css() {
-        if (this.tile.active) {
-            return 'md-raised md-primary';
-        } else if (this.tile.flagged) {
-            return 'md-raised md-warn';
-        } else if (this.tile.question) {
-            return 'md-raised md-primary';
-        } else if (this.tile.revealed) {
-            return 'md-default';
-        } else if (this.tile.detonated) {
-            return 'md-raised md-warn';
-        }
+  constructor() { }
 
-        return 'md-primary';
+  ngOnInit() {
+  }
+
+  get color(): string {
+    switch (this.state) {
+      case 'FLAG':
+      case 'DETONATED':
+        return 'flagged';
+      case 'UNKNOWN':
+        return 'unknown';
+      default:
+        return 'active';
+    }
+  }
+
+  // For revealed tiles, don't let the click event bubble up to the overlay
+  stop(event: MouseEvent): boolean {
+    event.stopPropagation();
+    // Ignoring this, also helps us catch the dblCkick event instead
+    return false;
+  }
+
+  dblClick(event: MouseEvent) {
+    // Trigger the spread reveal if possible
+    if (this.state === 'REVEALED') {
+      this.spread.emit({ coordinates: { x: this.x, y: this.y }});
+    }
+  }
+
+  click(event: MouseEvent): boolean {
+    // First stop the bubble
+    event.stopPropagation();
+
+    // Do this only if left click, ignore the middle mouse
+    if (event.button === 0) {
+
+      // Trigger click before anything else if it is the first click
+      this.pressed.emit({ coordinates: { x: this.x, y: this.y }});
+
+      // If active and not a mine
+      //  reveal the tile
+      if (this.state === 'ACTIVE' && !this.mine) {
+        this.reveal.emit({ coordinates: { x: this.x, y: this.y } });
+      }
+
+      // If active and a mine
+      //  detonate the tile
+      if (this.state === 'ACTIVE' && this.mine) {
+        this.detonate.emit({ coordinates: { x: this.x, y: this.y } });
+      }
     }
 
-    onMouseDown(event) {
-        if (event.button === 1) {
-            // Cancel the scrolling for the middle button
-            return false;
-        }
-        return true;
+    return false;
+  }
+
+  rightClick(event: MouseEvent) {
+      if (this.state !== 'REVEALED') {
+        this.toggleState();
+      }
+  }
+
+
+  private toggleState(): void {
+    switch (this.state) {
+      case 'ACTIVE':
+        this.change.emit({ coordinates: { x: this.x, y: this.y }, value: 'FLAG' });
+        break;
+      case 'FLAG':
+        this.change.emit({ coordinates: { x: this.x, y: this.y }, value: 'UNKNOWN' });
+        break;
+      case 'UNKNOWN':
+        this.change.emit({ coordinates: { x: this.x, y: this.y }, value: 'ACTIVE' });
+        break;
     }
+  }
 
-    onMouseUp(event) {
-        if (event.button === 0) {
-            this.onLeftMouse();
-        } else if (event.button === 2) {
-            this.onRightMouse();
-        }
-    }
-
-    onLeftMouse() {
-        // If it is the first tile revealed, randomize the mines first
-        if (this.board.first) {
-            // Safe first click
-            this.board.generate(this.tile);
-            // Start the timer
-            this.game.start();
-        }
-
-        // Proceed after checking if it is the first click
-        if (this.tile.active && !this.tile.isMine) {
-            // if not a bomb, reveal it
-            this.tile.reveal();
-            // notify the board a tile has been revealed
-            this.board.reveal(this.tile);
-            // if the board is completed, end the game
-            if (this.board.completed) {
-                this.game.finish();
-            }
-        }
-
-        if (this.tile.active && this.tile.isMine) {
-            // Game Over, notify the game
-            this.tile.detonate();
-            // Tell the board to show all tiles
-            this.board.gameOver();
-            // Notify the game it has ended
-            this.game.gameOver();
-        }
-    }
-
-    onRightMouse() {
-        if (!this.tile.revealed) {
-            // Switch the state of the tile, active, flagged, question mark
-            this.tile.toggle();
-
-            // if the board has all flags in the right place, end the game
-            if (this.tile.flagged && this.board.completed) {
-                this.game.finish();
-            }
-        }
-    }
-
-    onDblClick() {
-        if (this.tile.revealed) {
-            if (this.board.neighbouringFlagCount(this.tile) === this.tile.count) {
-                if (this.board.forceRevealNeighbours(this.tile)) {
-                    // If there was a bomb revealed, game over
-                    this.board.gameOver();
-                    this.game.gameOver();
-                } else {
-                    // If no boom, check for game finish
-                    if (this.board.completed) {
-                        this.game.finish();
-                    }
-                }
-            }
-        }
-    }
 }
-TileController.$inject = ['$element'];
-
-export const TileComponent = {
-    name: 'tile',
-    bindings: {
-        board: '<',
-        tile: '<',
-        game: '<',
-    },
-    controller: TileController,
-    template: require('./tile.html'),
-};

@@ -1,0 +1,50 @@
+@import '../../shared/colors';
+
+.profile {
+    display: flex;
+    .avatar {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+    }
+    .name {
+        padding-left: 10px;
+    }
+}
+
+.menu {
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        li {
+            margin-right: 30px;
+            color: $menu-inactive;
+            border-bottom: solid 1px transparent;
+            font-weight: 500;
+            transition: border-bottom 0.25s ease, color 0.25s ease;
+            a {
+                text-decoration: none;
+                color: $menu-inactive;
+            }
+            &.active {
+                color: $menu-active;
+                border-bottom: solid 1px $avatarExpert;
+                transition: border-bottom 0.25s ease, color 0.25s ease;
+                a {
+                    color: $menu-active;
+                }
+            }
+            &.disabled {
+                pointer-events: none;
+            }
+        }
+    }
+}
+
+.info {
+    color: $menu-inactive;
+}
